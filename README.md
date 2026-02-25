@@ -1,5 +1,5 @@
 
-Project Name:-Accessible digital library for dyslexic learners
+Project Name:- Dyslexify Library
 
 Problem Statement Id:-PS02EDU
 
