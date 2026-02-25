@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login — Zsquad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 400px;
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 1.7rem;
+        }
+
+        label {
+            font-size: 0.82rem;
+            color: #bbb;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px 14px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 18px;
+            outline: none;
+            transition: border 0.25s;
+        }
+
+        input:focus {
+            border-color: #7c6af7;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #7c6af7, #5a51d4);
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        button:hover {
+            opacity: 0.88;
+        }
+
+        #message {
+            margin-top: 16px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            display: none;
+        }
+
+        .success {
+            background: rgba(72, 199, 142, 0.15);
+            border: 1px solid #48c78e;
+            color: #48c78e;
+        }
+
+        .error {
+            background: rgba(241, 70, 104, 0.15);
+            border: 1px solid #f14668;
+            color: #f14668;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 18px;
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+
+        .footer a {
+            color: #7c6af7;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>🔐 Login</h2>
+        <form id="loginForm">
+            <label for="email">Email</label>
+            <input type="email" id="email" placeholder="you@example.com" required />
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Your password" required />
+
+            <button type="submit" id="submitBtn">Login</button>
+        </form>
+        <div id="message"></div>
+        <div class="footer">No account yet? <a href="register.html">Register here</a></div>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:8000/api/auth";
+
+        document.getElementById("loginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById("submitBtn");
+            const msg = document.getElementById("message");
+            btn.textContent = "Logging in...";
+            btn.disabled = true;
+            msg.style.display = "none";
+
+            const payload = {
+                email: document.getElementById("email").value.trim(),
+                password: document.getElementById("password").value,
+            };
+
+            try {
+                const res = await fetch(`${API_BASE}/login/`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(payload),
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    // Persist tokens in localStorage for subsequent protected requests
+                    localStorage.setItem("access_token", data.tokens.access);
+                    localStorage.setItem("refresh_token", data.tokens.refresh);
+                    localStorage.setItem("user_name", data.user.full_name);
+
+                    msg.className = "success";
+                    msg.textContent = `✅ Welcome back, ${data.user.full_name}!`;
+                    msg.style.display = "block";
+
+                    setTimeout(() => window.location.href = "index.html", 10);
+                } else {
+                    const errors = Object.values(data).flat().join(" ");
+                    msg.className = "error";
+                    msg.textContent = `❌ ${errors}`;
+                    msg.style.display = "block";
+                }
+            } catch (err) {
+                msg.className = "error";
+                msg.textContent = "❌ Network error. Is the Django server running?";
+                msg.style.display = "block";
+            } finally {
+                btn.textContent = "Login";
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
+
+</html>

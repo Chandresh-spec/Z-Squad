@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile — Zsquad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 40px 36px;
+            width: 100%;
+            max-width: 440px;
+            color: #fff;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 28px;
+            font-size: 1.7rem;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #7c6af7, #5a51d4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 20px;
+        }
+
+        .field {
+            margin-bottom: 16px;
+        }
+
+        .field label {
+            font-size: 0.78rem;
+            color: #aaa;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .field span {
+            display: block;
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 24px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        #refreshBtn {
+            background: linear-gradient(90deg, #48c78e, #2aaf74);
+            color: #fff;
+        }
+
+        #logoutBtn {
+            background: linear-gradient(90deg, #f14668, #c0304e);
+            color: #fff;
+        }
+
+        button:hover {
+            opacity: 0.85;
+        }
+
+        #status {
+            margin-top: 14px;
+            padding: 10px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            display: none;
+        }
+
+        .success {
+            background: rgba(72, 199, 142, 0.15);
+            border: 1px solid #48c78e;
+            color: #48c78e;
+        }
+
+        .error {
+            background: rgba(241, 70, 104, 0.15);
+            border: 1px solid #f14668;
+            color: #f14668;
+        }
+
+        #loading {
+            text-align: center;
+            color: #aaa;
+            font-size: 1rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>👤 My Profile</h2>
+        <div id="loading">Loading profile...</div>
+        <div id="profileContent" style="display:none">
+            <div class="avatar" id="avatarLetter">U</div>
+            <div class="field"><label>Full Name</label><span id="uName">—</span></div>
+            <div class="field"><label>Email</label><span id="uEmail">—</span></div>
+            <div class="field"><label>User ID</label><span id="uId">—</span></div>
+            <div class="field"><label>Joined</label><span id="uJoined">—</span></div>
+            <div class="btn-row">
+                <button id="refreshBtn" onclick="refreshToken()">🔄 Refresh Token</button>
+                <button id="logoutBtn" onclick="logout()">🚪 Logout</button>
+            </div>
+        </div>
+        <div id="status"></div>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:8000/api/auth";
+
+        function showStatus(msg, type) {
+            const el = document.getElementById("status");
+            el.className = type;
+            el.textContent = msg;
+            el.style.display = "block";
+        }
+
+        async function loadProfile() {
+            const token = localStorage.getItem("access_token");
+            if (!token) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            try {
+                const res = await fetch(`${API_BASE}/profile/`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`,   // ← JWT access token sent in header
+                    },
+                });
+
+                if (res.status === 401) {
+                    // Token expired — redirect to login
+                    localStorage.clear();
+                    window.location.href = "login.html";
+                    return;
+                }
+
+                const data = await res.json();
+                const user = data.user;
+
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("profileContent").style.display = "block";
+                document.getElementById("uName").textContent = user.full_name;
+                document.getElementById("uEmail").textContent = user.email;
+                document.getElementById("uId").textContent = user.id;
+                document.getElementById("uJoined").textContent = new Date(user.date_joined).toLocaleString();
+                document.getElementById("avatarLetter").textContent = user.full_name[0].toUpperCase();
+
+            } catch (err) {
+                document.getElementById("loading").textContent = "❌ Could not load profile.";
+            }
+        }
+
+        async function refreshToken() {
+            const refresh = localStorage.getItem("refresh_token");
+            if (!refresh) { showStatus("No refresh token found.", "error"); return; }
+
+            const res = await fetch(`${API_BASE}/token/refresh/`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ refresh }),
+            });
+            const data = await res.json();
+            if (res.ok) {
+                localStorage.setItem("access_token", data.access);
+                if (data.refresh) localStorage.setItem("refresh_token", data.refresh);
+                showStatus("✅ Token refreshed successfully!", "success");
+            } else {
+                showStatus("❌ Refresh failed. Please login again.", "error");
+            }
+        }
+
+        async function logout() {
+            const access = localStorage.getItem("access_token");
+            const refresh = localStorage.getItem("refresh_token");
+
+            try {
+                await fetch(`${API_BASE}/logout/`, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${access}`,
+                    },
+                    body: JSON.stringify({ refresh }),
+                });
+            } catch (_) { }
+
+            localStorage.clear();
+            window.location.href = "login.html";
+        }
+
+        // Kick off profile load on page ready
+        loadProfile();
+    </script>
+</body>
+
+</html>

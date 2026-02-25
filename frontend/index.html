@@ -1,0 +1,3525 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroRead – Inclusive Digital Library</title>
+    <meta name="description" content="NeuroRead: Upload & read your own files with dyslexia-friendly tools">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* =====================================================
+   THEME VARIABLES
+   ===================================================== */
+        :root {
+            --bg-primary: #faf8f3;
+            --bg-secondary: #f2efe7;
+            --bg-card: #ffffff;
+            --bg-panel: #f7f5ef;
+            --text-primary: #2c2a26;
+            --text-secondary: #6b6760;
+            --text-muted: #a09d97;
+            --accent: #4a7c59;
+            --accent-light: #e8f4ed;
+            --accent-hover: #3d6b4a;
+            --border: #e4e0d8;
+            --shadow: rgba(44, 42, 38, .08);
+            --shadow-md: rgba(44, 42, 38, .16);
+            --focus-ring: #4a7c59;
+            --ruler-color: rgba(74, 124, 89, .15);
+            --focus-highlight: rgba(74, 124, 89, .14);
+            --hl-yellow: rgba(255, 234, 100, .6);
+            --hl-blue: rgba(80, 160, 255, .38);
+            --hl-pink: rgba(255, 130, 190, .42);
+            --hl-green: rgba(80, 210, 140, .4);
+            --font-body: 'Lexend', sans-serif;
+            --font-reading: 'Lexend', sans-serif;
+            --font-size-base: 18px;
+            --reading-font-size: 20px;
+            --reading-line-height: 1.9;
+            --reading-letter-spacing: 0.04em;
+            --reading-word-spacing: 0.1em;
+            --panel-width: 310px;
+            --radius-sm: 8px;
+            --radius-md: 14px;
+            --radius-lg: 20px;
+            --radius-xl: 28px;
+            --transition: .22s cubic-bezier(.4, 0, .2, 1);
+            --transition-slow: .4s cubic-bezier(.4, 0, .2, 1);
+        }
+
+        [data-theme="blue"] {
+            --bg-primary: #f0f5fb;
+            --bg-secondary: #e6eef8;
+            --bg-card: #fff;
+            --bg-panel: #eaf2fc;
+            --text-primary: #1e2d42;
+            --text-secondary: #4a6080;
+            --accent: #2563a8;
+            --accent-light: #deeaf8;
+            --accent-hover: #1a4f8f;
+            --border: #d1dff0;
+            --focus-highlight: rgba(37, 99, 168, .1);
+        }
+
+        [data-theme="rose"] {
+            --bg-primary: #fdf5f5;
+            --bg-secondary: #f9eded;
+            --bg-card: #fff;
+            --bg-panel: #fdf0f0;
+            --text-primary: #3a1e1e;
+            --text-secondary: #7a4a4a;
+            --accent: #b85450;
+            --accent-light: #fde8e8;
+            --accent-hover: #9e3e3a;
+            --border: #f0d8d8;
+            --focus-highlight: rgba(184, 84, 80, .1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1917;
+            --bg-secondary: #22211f;
+            --bg-card: #2a2926;
+            --bg-panel: #242320;
+            --text-primary: #e8e4dc;
+            --text-secondary: #a09d97;
+            --text-muted: #6b6760;
+            --accent: #7bbf8a;
+            --accent-light: #1e3024;
+            --accent-hover: #6aab79;
+            --border: #363430;
+            --shadow: rgba(0, 0, 0, .3);
+            --shadow-md: rgba(0, 0, 0, .5);
+            --focus-highlight: rgba(123, 191, 138, .12);
+        }
+
+        [data-theme="contrast"] {
+            --bg-primary: #000;
+            --bg-secondary: #111;
+            --bg-card: #000;
+            --bg-panel: #111;
+            --text-primary: #fff;
+            --text-secondary: #ddd;
+            --text-muted: #aaa;
+            --accent: #ff0;
+            --accent-light: #333300;
+            --accent-hover: #e6e600;
+            --border: #444;
+            --focus-highlight: rgba(255, 255, 0, .2);
+        }
+
+        [data-theme="sage"] {
+            --bg-primary: #f2f5f0;
+            --bg-secondary: #e8ede4;
+            --bg-card: #fafcf8;
+            --bg-panel: #edf1ea;
+            --text-primary: #243020;
+            --text-secondary: #4a5f45;
+            --accent: #5a8a3a;
+            --accent-light: #e2f0d8;
+            --accent-hover: #487030;
+            --border: #d0dcc8;
+            --focus-highlight: rgba(90, 138, 58, .12);
+        }
+
+        [data-theme="slate"] {
+            --bg-primary: #f0f2f5;
+            --bg-secondary: #e4e8ee;
+            --bg-card: #fff;
+            --bg-panel: #eaecf2;
+            --text-primary: #1e2535;
+            --text-secondary: #4a5470;
+            --accent: #4a60a8;
+            --accent-light: #dde4f8;
+            --accent-hover: #3a508e;
+            --border: #d0d8ec;
+            --focus-highlight: rgba(74, 96, 168, .1);
+        }
+
+        [data-font="dyslexie"] {
+            --font-reading: 'Atkinson Hyperlegible', sans-serif;
+        }
+
+        [data-font="serif"] {
+            --font-reading: 'Source Serif 4', serif;
+        }
+
+        [data-font="lexend"] {
+            --font-reading: 'Lexend', sans-serif;
+        }
+
+        @media(prefers-reduced-motion:reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: .01ms !important;
+                transition-duration: .01ms !important
+            }
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        html {
+            font-size: var(--font-size-base);
+            scroll-behavior: smooth
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background var(--transition-slow), color var(--transition-slow);
+            min-height: 100vh
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--focus-ring);
+            outline-offset: 3px;
+            border-radius: var(--radius-sm)
+        }
+
+        ::-webkit-scrollbar {
+            width: 7px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-secondary)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted)
+        }
+
+        /* ── READING RULER ── */
+        #reading-ruler {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 46px;
+            background: var(--ruler-color);
+            border-top: 2px solid var(--accent);
+            border-bottom: 2px solid var(--accent);
+            pointer-events: none;
+            z-index: 9000;
+            transition: opacity var(--transition);
+            opacity: 0;
+            transform: translateY(-50%)
+        }
+
+        #reading-ruler.active {
+            opacity: 1
+        }
+
+        /* ── SKIP LINK ── */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 16px;
+            background: var(--accent);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            z-index: 9999;
+            text-decoration: none;
+            transition: top .2s
+        }
+
+        .skip-link:focus {
+            top: 16px
+        }
+
+        /* ── HEADER ── */
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            transition: background var(--transition-slow), border-color var(--transition-slow)
+        }
+
+        .nav-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            gap: 18px
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text-primary);
+            flex-shrink: 0
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--accent);
+            border-radius: var(--radius-md);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 700
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -.5px
+        }
+
+        .brand-tagline {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-weight: 400;
+            display: block;
+            line-height: 1;
+            margin-top: 2px
+        }
+
+        .nav-search {
+            flex: 1;
+            max-width: 360px;
+            position: relative
+        }
+
+        .nav-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 15px;
+            transition: border-color var(--transition), box-shadow var(--transition)
+        }
+
+        .nav-search input:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-light);
+            outline: none
+        }
+
+        .nav-search input::placeholder {
+            color: var(--text-muted)
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 13px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+            font-size: 15px
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: auto
+        }
+
+        .icon-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid transparent;
+            border-radius: var(--radius-md);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            transition: all var(--transition);
+            position: relative;
+            flex-shrink: 0
+        }
+
+        .icon-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+            border-color: var(--border)
+        }
+
+        .icon-btn.active {
+            background: var(--accent-light);
+            color: var(--accent);
+            border-color: var(--accent)
+        }
+
+        .icon-btn[data-tooltip]:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: -34px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            font-size: 11px;
+            padding: 4px 9px;
+            border-radius: var(--radius-sm);
+            white-space: nowrap;
+            pointer-events: none;
+            z-index: 1000
+        }
+
+        /* ── UPLOAD BUTTON IN NAV ── */
+        .upload-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            padding: 8px 16px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-lg);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition);
+            flex-shrink: 0
+        }
+
+        .upload-nav-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.03)
+        }
+
+        /* ── LAYOUT ── */
+        .app-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 28px 24px
+        }
+
+        /* ── WELCOME BAND ── */
+        .welcome-band {
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg-secondary) 100%);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 26px 32px;
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            animation: fadeUp .5s ease both
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(14px)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .welcome-icon {
+            font-size: 50px;
+            flex-shrink: 0;
+            line-height: 1
+        }
+
+        .welcome-text h2 {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px
+        }
+
+        .welcome-text p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.55
+        }
+
+        /* ── STATS BAR ── */
+        .stats-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            animation: fadeUp .5s .08s ease both
+        }
+
+        .stat-chip {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 9px 16px;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            font-weight: 500
+        }
+
+        .stat-chip strong {
+            color: var(--accent);
+            font-size: 15px;
+            font-weight: 700
+        }
+
+        /* ── TABS (Library / My Files) ── */
+        .library-tabs {
+            display: flex;
+            gap: 0;
+            margin-bottom: 22px;
+            border-bottom: 2px solid var(--border)
+        }
+
+        .lib-tab {
+            padding: 10px 22px;
+            border: none;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -2px;
+            transition: all var(--transition)
+        }
+
+        .lib-tab:hover {
+            color: var(--text-secondary)
+        }
+
+        .lib-tab.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent)
+        }
+
+        .lib-tab-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 50%;
+            margin-left: 6px
+        }
+
+        /* ── SECTION HEADER ── */
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px
+        }
+
+        .section-title {
+            font-size: 21px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -.3px
+        }
+
+        /* ── CATEGORIES ── */
+        .categories {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 24px
+        }
+
+        .cat-btn {
+            padding: 7px 16px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition)
+        }
+
+        .cat-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-light)
+        }
+
+        .cat-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff
+        }
+
+        /* ── BOOKS GRID ── */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(205px, 1fr));
+            gap: 20px
+        }
+
+        .book-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+            transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+            animation: cardIn .38s ease both
+        }
+
+        @keyframes cardIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px) scale(.97)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 14px 40px var(--shadow-md);
+            border-color: var(--accent)
+        }
+
+        .book-cover {
+            width: 100%;
+            height: 165px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .book-cover::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, .12))
+        }
+
+        .book-badge {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            background: var(--accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 20px;
+            letter-spacing: .04em
+        }
+
+        .book-progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 0 2px 0 0;
+            transition: width .3s
+        }
+
+        .book-info {
+            padding: 13px
+        }
+
+        .book-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 3px;
+            line-height: 1.3
+        }
+
+        .book-author {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-bottom: 8px
+        }
+
+        .book-tags {
+            display: flex;
+            gap: 5px;
+            flex-wrap: wrap;
+            margin-bottom: 9px
+        }
+
+        .book-tag {
+            font-size: 10px;
+            font-weight: 500;
+            padding: 2px 8px;
+            border-radius: 20px;
+            background: var(--accent-light);
+            color: var(--accent)
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 7px
+        }
+
+        .read-btn {
+            flex: 1;
+            padding: 9px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--transition), transform var(--transition)
+        }
+
+        .read-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.02)
+        }
+
+        .bookmark-btn {
+            width: 34px;
+            height: 34px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: all var(--transition);
+            flex-shrink: 0
+        }
+
+        .bookmark-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: var(--accent-light)
+        }
+
+        .bookmark-btn.saved {
+            background: var(--accent-light);
+            color: var(--accent);
+            border-color: var(--accent)
+        }
+
+        /* Delete button on user books */
+        .delete-book-btn {
+            width: 34px;
+            height: 34px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: all var(--transition);
+            flex-shrink: 0
+        }
+
+        .delete-book-btn:hover {
+            border-color: #e05050;
+            color: #e05050;
+            background: #fde8e8
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 56px 20px;
+            color: var(--text-muted);
+            grid-column: 1/-1
+        }
+
+        .empty-state .icon {
+            font-size: 44px;
+            margin-bottom: 14px
+        }
+
+        .empty-state h3 {
+            font-size: 19px;
+            color: var(--text-secondary);
+            margin-bottom: 7px
+        }
+
+        .empty-state p {
+            font-size: 14px;
+            line-height: 1.5
+        }
+
+        /* =====================================================
+   FILE UPLOAD DROP ZONE
+   ===================================================== */
+        .upload-zone {
+            border: 2.5px dashed var(--border);
+            border-radius: var(--radius-xl);
+            padding: 48px 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all var(--transition);
+            position: relative;
+            background: var(--bg-card);
+            margin-bottom: 28px;
+            animation: fadeUp .5s .1s ease both;
+        }
+
+        .upload-zone:hover,
+        .upload-zone.drag-over {
+            border-color: var(--accent);
+            background: var(--accent-light);
+        }
+
+        .upload-zone.drag-over {
+            transform: scale(1.01)
+        }
+
+        .upload-zone input[type="file"] {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%
+        }
+
+        .upload-icon {
+            font-size: 52px;
+            margin-bottom: 14px;
+            display: block;
+            line-height: 1
+        }
+
+        .upload-title {
+            font-size: 19px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 7px
+        }
+
+        .upload-sub {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 16px
+        }
+
+        .upload-formats {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap
+        }
+
+        .format-badge {
+            padding: 5px 13px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary)
+        }
+
+        /* Upload progress */
+        .upload-progress-wrap {
+            display: none;
+            margin-top: 16px
+        }
+
+        .upload-progress-wrap.show {
+            display: block
+        }
+
+        .upload-progress-bar-outer {
+            height: 6px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 8px
+        }
+
+        .upload-progress-bar-inner {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            width: 0%;
+            transition: width .15s
+        }
+
+        .upload-progress-label {
+            font-size: 13px;
+            color: var(--text-secondary);
+            text-align: center
+        }
+
+        /* =====================================================
+   PROCESSING OVERLAY
+   ===================================================== */
+        .processing-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .55);
+            z-index: 5000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .processing-overlay.show {
+            display: flex
+        }
+
+        .processing-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 40px 52px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            animation: popIn .3s ease both;
+        }
+
+        @keyframes popIn {
+            from {
+                opacity: 0;
+                transform: scale(.92)
+            }
+
+            to {
+                opacity: 1;
+                transform: none
+            }
+        }
+
+        .processing-spinner {
+            font-size: 42px;
+            margin-bottom: 18px;
+            display: block;
+            animation: spin 1.5s linear infinite
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg)
+            }
+        }
+
+        .processing-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 6px
+        }
+
+        .processing-sub {
+            font-size: 13px;
+            color: var(--text-secondary)
+        }
+
+        /* =====================================================
+   USER FILE CARD (slightly different style)
+   ===================================================== */
+        .user-file-cover {
+            background: linear-gradient(135deg, var(--accent-light), var(--bg-secondary));
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        .file-type-badge {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 20px;
+        }
+
+        /* =====================================================
+   READER VIEW
+   ===================================================== */
+        #library-view {
+            display: block
+        }
+
+        #reader-view {
+            display: none;
+            min-height: calc(100vh - 64px)
+        }
+
+        #reader-view.active {
+            display: flex;
+            align-items: flex-start
+        }
+
+        .reading-content {
+            flex: 1;
+            min-width: 0;
+            padding: 44px 60px;
+            max-width: 800px;
+            margin: 0 auto
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-family: var(--font-body);
+            padding: 8px 0;
+            margin-bottom: 26px;
+            transition: color var(--transition)
+        }
+
+        .back-btn:hover {
+            color: var(--accent)
+        }
+
+        .book-header {
+            margin-bottom: 32px;
+            padding-bottom: 24px;
+            border-bottom: 2px solid var(--border)
+        }
+
+        .book-header .cover-emoji {
+            font-size: 42px;
+            margin-bottom: 12px;
+            display: block
+        }
+
+        .book-header h1 {
+            font-family: var(--font-reading);
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            line-height: 1.2
+        }
+
+        .book-header .author {
+            color: var(--text-secondary);
+            font-size: 15px
+        }
+
+        .reading-meta {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border)
+        }
+
+        .reading-meta span {
+            font-size: 12px;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px
+        }
+
+        .reading-meta strong {
+            color: var(--accent)
+        }
+
+        /* PDF page navigation */
+        .pdf-nav {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 32px;
+            padding: 16px;
+            background: var(--bg-secondary);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--border);
+        }
+
+        .pdf-nav.show {
+            display: flex
+        }
+
+        .pdf-nav-btn {
+            padding: 9px 18px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--transition)
+        }
+
+        .pdf-nav-btn:hover {
+            background: var(--accent-hover)
+        }
+
+        .pdf-nav-btn:disabled {
+            background: var(--border);
+            color: var(--text-muted);
+            cursor: not-allowed
+        }
+
+        .pdf-page-info {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            min-width: 100px;
+            text-align: center
+        }
+
+        .pdf-page-input {
+            width: 55px;
+            padding: 6px 8px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            text-align: center
+        }
+
+        .pdf-page-input:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        /* Reading text */
+        #reading-text {
+            font-family: var(--font-reading);
+            font-size: var(--reading-font-size);
+            line-height: var(--reading-line-height);
+            letter-spacing: var(--reading-letter-spacing);
+            word-spacing: var(--reading-word-spacing);
+            color: var(--text-primary);
+            transition: font-size var(--transition-slow), line-height var(--transition-slow), letter-spacing var(--transition-slow), word-spacing var(--transition-slow), font-family var(--transition-slow);
+            user-select: text
+        }
+
+        #reading-text p {
+            margin-bottom: 1.5em
+        }
+
+        #reading-text .reading-line {
+            display: block;
+            padding: 5px 14px;
+            border-radius: var(--radius-sm);
+            margin: 0 -14px 3px;
+            transition: all var(--transition);
+            cursor: pointer
+        }
+
+        #reading-text .reading-line.focused {
+            background: var(--focus-highlight);
+            color: var(--text-primary)
+        }
+
+        #reading-text .reading-line.dimmed {
+            opacity: .3
+        }
+
+        /* Text highlights */
+        .text-highlight {
+            border-radius: 3px;
+            cursor: pointer
+        }
+
+        .hl-yellow {
+            background: var(--hl-yellow)
+        }
+
+        .hl-blue {
+            background: var(--hl-blue)
+        }
+
+        .hl-pink {
+            background: var(--hl-pink)
+        }
+
+        .hl-green {
+            background: var(--hl-green)
+        }
+
+        /* TTS word */
+        .tts-word {
+            display: inline;
+            border-radius: 3px;
+            transition: background .08s
+        }
+
+        .tts-word.tts-active {
+            background: var(--accent-light);
+            color: var(--accent);
+            padding: 1px 2px
+        }
+
+        /* =====================================================
+   CUSTOMIZATION PANEL
+   ===================================================== */
+        .customization-panel {
+            width: var(--panel-width);
+            min-width: var(--panel-width);
+            background: var(--bg-panel);
+            border-left: 1px solid var(--border);
+            min-height: calc(100vh - 64px);
+            padding: 18px 16px;
+            overflow-y: auto;
+            position: sticky;
+            top: 64px;
+            max-height: calc(100vh - 64px);
+            transition: background var(--transition-slow), border-color var(--transition-slow)
+        }
+
+        .panel-title {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: .08em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 14px;
+            padding-bottom: 9px;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .panel-tabs {
+            display: flex;
+            gap: 3px;
+            margin-bottom: 16px;
+            background: var(--bg-secondary);
+            padding: 4px;
+            border-radius: var(--radius-md)
+        }
+
+        .panel-tab {
+            flex: 1;
+            padding: 6px 3px;
+            border: none;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition);
+            text-align: center
+        }
+
+        .panel-tab.active {
+            background: var(--bg-card);
+            color: var(--accent);
+            box-shadow: 0 2px 8px var(--shadow)
+        }
+
+        .panel-content {
+            display: none
+        }
+
+        .panel-content.active {
+            display: block
+        }
+
+        .panel-section {
+            margin-bottom: 22px
+        }
+
+        .panel-section-label {
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: .06em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 9px
+        }
+
+        /* Sliders */
+        .slider-control {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 11px
+        }
+
+        .slider-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center
+        }
+
+        .slider-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500
+        }
+
+        .slider-value {
+            font-size: 11px;
+            color: var(--accent);
+            font-weight: 600;
+            background: var(--accent-light);
+            padding: 2px 7px;
+            border-radius: var(--radius-sm)
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            outline: none;
+            cursor: pointer
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: var(--accent);
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+            transition: transform var(--transition)
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.2)
+        }
+
+        input[type="range"]:focus::-webkit-slider-thumb {
+            box-shadow: 0 0 0 3px var(--accent-light)
+        }
+
+        .font-select {
+            width: 100%;
+            padding: 8px 11px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 13px;
+            cursor: pointer;
+            transition: border-color var(--transition);
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236b6760' fill='none' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            padding-right: 28px
+        }
+
+        .font-select:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .theme-colors {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px
+        }
+
+        .theme-btn {
+            padding: 8px 10px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            font-size: 11px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px
+        }
+
+        .theme-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent)
+        }
+
+        .theme-btn.active {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            color: var(--accent);
+            font-weight: 600
+        }
+
+        .theme-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0
+        }
+
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border)
+        }
+
+        .toggle-row:last-child {
+            border-bottom: none
+        }
+
+        .toggle-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 40px;
+            height: 22px;
+            cursor: pointer;
+            flex-shrink: 0
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+            position: absolute
+        }
+
+        .toggle-track {
+            position: absolute;
+            inset: 0;
+            background: var(--border);
+            border-radius: 11px;
+            transition: background var(--transition)
+        }
+
+        .toggle-thumb {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+            transition: transform var(--transition)
+        }
+
+        .toggle-switch input:checked+.toggle-track {
+            background: var(--accent)
+        }
+
+        .toggle-switch input:checked~.toggle-thumb {
+            transform: translateX(18px)
+        }
+
+        .toggle-switch input:focus+.toggle-track {
+            box-shadow: 0 0 0 3px var(--accent-light)
+        }
+
+        /* ── Notes & Bookmarks ── */
+        .notes-area,
+        .bookmarks-area {
+            display: flex;
+            flex-direction: column;
+            gap: 9px
+        }
+
+        .note-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 11px;
+            font-size: 12px;
+            position: relative;
+            transition: box-shadow var(--transition)
+        }
+
+        .note-card:hover {
+            box-shadow: 0 4px 12px var(--shadow)
+        }
+
+        .note-quote {
+            font-style: italic;
+            color: var(--text-secondary);
+            font-size: 11px;
+            margin-bottom: 5px;
+            border-left: 3px solid var(--accent);
+            padding-left: 7px
+        }
+
+        .note-text {
+            color: var(--text-primary);
+            line-height: 1.5
+        }
+
+        .note-delete {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 3px 7px;
+            cursor: pointer;
+            font-family: var(--font-body);
+            margin-top: 7px;
+            display: block;
+            transition: all var(--transition)
+        }
+
+        .note-delete:hover {
+            background: #fde8e8;
+            color: #e05050;
+            border-color: #f0b5b5
+        }
+
+        .note-input-area {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-bottom: 12px
+        }
+
+        .note-input-area textarea {
+            width: 100%;
+            padding: 9px 11px;
+            border: 2px solid var(--border);
+            border-radius: var(--radius-md);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: var(--font-body);
+            font-size: 12px;
+            resize: vertical;
+            min-height: 65px;
+            transition: border-color var(--transition)
+        }
+
+        .note-input-area textarea:focus {
+            border-color: var(--accent);
+            outline: none
+        }
+
+        .note-save-btn {
+            padding: 7px 14px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: var(--radius-md);
+            font-family: var(--font-body);
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background var(--transition);
+            align-self: flex-end
+        }
+
+        .note-save-btn:hover {
+            background: var(--accent-hover)
+        }
+
+        .bookmark-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 9px 11px;
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            cursor: pointer;
+            transition: all var(--transition)
+        }
+
+        .bookmark-item:hover {
+            border-color: var(--accent);
+            background: var(--accent-light)
+        }
+
+        .bm-emoji {
+            font-size: 18px;
+            flex-shrink: 0
+        }
+
+        .bm-info {
+            flex: 1;
+            min-width: 0
+        }
+
+        .bm-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+
+        .bm-progress {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 1px
+        }
+
+        .bm-remove {
+            font-size: 12px;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 3px;
+            border-radius: var(--radius-sm);
+            transition: all var(--transition)
+        }
+
+        .bm-remove:hover {
+            color: #e05050;
+            background: #fde8e8
+        }
+
+        .no-items {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+            padding: 20px 0
+        }
+
+        /* ── HIGHLIGHT TOOLBAR ── */
+        #highlight-toolbar {
+            position: fixed;
+            z-index: 8000;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 7px 11px;
+            box-shadow: 0 6px 28px var(--shadow-md);
+            display: none;
+            gap: 7px;
+            align-items: center;
+            pointer-events: all
+        }
+
+        #highlight-toolbar.show {
+            display: flex
+        }
+
+        .hl-btn {
+            width: 21px;
+            height: 21px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: transform var(--transition), box-shadow var(--transition);
+            flex-shrink: 0
+        }
+
+        .hl-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0 2px 8px var(--shadow)
+        }
+
+        .hl-btn.hl-yellow {
+            background: var(--hl-yellow);
+            border-color: rgba(180, 150, 0, .3)
+        }
+
+        .hl-btn.hl-blue {
+            background: var(--hl-blue);
+            border-color: rgba(0, 100, 200, .25)
+        }
+
+        .hl-btn.hl-pink {
+            background: var(--hl-pink);
+            border-color: rgba(200, 0, 120, .25)
+        }
+
+        .hl-btn.hl-green {
+            background: var(--hl-green);
+            border-color: rgba(0, 150, 70, .25)
+        }
+
+        .hl-sep {
+            width: 1px;
+            height: 16px;
+            background: var(--border)
+        }
+
+        .hl-note-btn {
+            font-size: 12px;
+            color: var(--text-secondary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 3px 7px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+            font-weight: 500
+        }
+
+        .hl-note-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent)
+        }
+
+        .hl-remove-btn {
+            font-size: 13px;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 2px 5px;
+            border-radius: var(--radius-sm)
+        }
+
+        .hl-remove-btn:hover {
+            color: #e05050;
+            background: #fde8e8
+        }
+
+        /* ── TTS BAR ── */
+        .tts-bar {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(130px);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 11px 18px;
+            box-shadow: 0 8px 40px var(--shadow-md);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            z-index: 500;
+            transition: transform var(--transition-slow), opacity var(--transition-slow);
+            opacity: 0;
+            min-width: 370px
+        }
+
+        .tts-bar.visible {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1
+        }
+
+        .tts-controls {
+            display: flex;
+            gap: 5px;
+            align-items: center
+        }
+
+        .tts-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            border: 2px solid var(--border);
+            background: var(--bg-card);
+            color: var(--text-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            transition: all var(--transition)
+        }
+
+        .tts-btn:hover {
+            background: var(--accent-light);
+            color: var(--accent);
+            border-color: var(--accent)
+        }
+
+        .tts-btn.play {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            font-size: 16px
+        }
+
+        .tts-btn.play:hover {
+            background: var(--accent-hover)
+        }
+
+        .tts-speed {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            color: var(--text-secondary)
+        }
+
+        .tts-speed input[type="range"] {
+            width: 66px
+        }
+
+        .tts-progress {
+            flex: 1;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            overflow: hidden
+        }
+
+        .tts-progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 2px;
+            width: 0%;
+            transition: width .1s linear
+        }
+
+        .tts-status {
+            font-size: 11px;
+            color: var(--text-muted);
+            white-space: nowrap
+        }
+
+        /* ── TOAST & PROGRESS ── */
+        .toast {
+            position: fixed;
+            top: 78px;
+            right: 22px;
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 11px 16px;
+            border-radius: var(--radius-md);
+            font-size: 13px;
+            font-weight: 500;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateY(-10px);
+            transition: all var(--transition);
+            pointer-events: none;
+            max-width: 270px
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        .reading-progress-bar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: var(--accent);
+            z-index: 99;
+            transition: width .1s linear
+        }
+
+        /* ── LARGE BTN MODE ── */
+        [data-large-buttons="true"] button,
+        [data-large-buttons="true"] .cat-btn,
+        [data-large-buttons="true"] .tts-btn,
+        [data-large-buttons="true"] .icon-btn {
+            min-height: 46px;
+            min-width: 46px;
+            font-size: 15px !important
+        }
+
+        [data-large-buttons="true"] .read-btn {
+            padding: 13px;
+            font-size: 14px
+        }
+
+        /* ── PANEL BACKDROP ── */
+        .panel-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, .42);
+            z-index: 199
+        }
+
+        .panel-backdrop.active {
+            display: block
+        }
+
+        /* ── COVERS ── */
+        .cover-1 {
+            background: linear-gradient(135deg, #e8f4ed, #b5dfc3)
+        }
+
+        .cover-2 {
+            background: linear-gradient(135deg, #e8f0fb, #b5c9f0)
+        }
+
+        .cover-3 {
+            background: linear-gradient(135deg, #fef0e6, #f5c9a0)
+        }
+
+        .cover-4 {
+            background: linear-gradient(135deg, #fde8f4, #f0b5d8)
+        }
+
+        .cover-5 {
+            background: linear-gradient(135deg, #f0f0e8, #d4d4b0)
+        }
+
+        .cover-6 {
+            background: linear-gradient(135deg, #e8f8f8, #a8dede)
+        }
+
+        .cover-7 {
+            background: linear-gradient(135deg, #f8e8e8, #e0b0b0)
+        }
+
+        .cover-8 {
+            background: linear-gradient(135deg, #f0e8f8, #c8a8e8)
+        }
+
+        .cover-9 {
+            background: linear-gradient(135deg, #eef8e8, #b8e8a0)
+        }
+
+        .cover-10 {
+            background: linear-gradient(135deg, #f8f0e0, #e8d090)
+        }
+
+        .cover-11 {
+            background: linear-gradient(135deg, #e8f0f8, #a0c0e8)
+        }
+
+        .cover-12 {
+            background: linear-gradient(135deg, #f8e8f0, #e8a0c0)
+        }
+
+        /* ── RESPONSIVE ── */
+        @media(max-width:1024px) {
+            .customization-panel {
+                position: fixed;
+                right: -100%;
+                top: 64px;
+                height: calc(100vh - 64px);
+                z-index: 200;
+                box-shadow: -8px 0 40px var(--shadow-md);
+                transition: right var(--transition-slow), background var(--transition-slow);
+                min-width: min(var(--panel-width), 100vw)
+            }
+
+            .customization-panel.open {
+                right: 0
+            }
+
+            .reading-content {
+                padding: 24px 20px
+            }
+
+            #reader-view.active {
+                flex-direction: column
+            }
+        }
+
+        @media(max-width:600px) {
+            .nav-inner {
+                padding: 0 12px;
+                gap: 8px
+            }
+
+            .brand-tagline,
+            .upload-nav-btn span {
+                display: none
+            }
+
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 13px
+            }
+
+            .app-container {
+                padding: 16px 12px
+            }
+
+            .tts-bar {
+                min-width: calc(100vw - 24px);
+                bottom: 12px
+            }
+
+            .reading-content {
+                padding: 16px 12px
+            }
+
+            .welcome-band {
+                padding: 16px;
+                gap: 12px
+            }
+        }
+    </style>
+</head>
+
+<body data-theme="cream" data-font="lexend">
+
+    <a href="#main" class="skip-link">Skip to main content</a>
+    <div id="reading-ruler" role="presentation" aria-hidden="true"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <div class="reading-progress-bar" id="reading-progress" aria-hidden="true"></div>
+    <div class="panel-backdrop" id="panel-backdrop" aria-hidden="true"></div>
+
+    <!-- Processing Overlay -->
+    <div class="processing-overlay" id="processing-overlay" aria-live="polite" aria-label="Processing file">
+        <div class="processing-box">
+            <span class="processing-spinner" aria-hidden="true">⚙️</span>
+            <div class="processing-title" id="processing-title">Processing your file...</div>
+            <div class="processing-sub" id="processing-sub">Extracting text, please wait</div>
+        </div>
+    </div>
+
+    <!-- Highlight Toolbar -->
+    <div id="highlight-toolbar" role="toolbar" aria-label="Highlight options">
+        <button class="hl-btn hl-yellow" title="Yellow" aria-label="Yellow highlight" data-hl="hl-yellow"></button>
+        <button class="hl-btn hl-blue" title="Blue" aria-label="Blue highlight" data-hl="hl-blue"></button>
+        <button class="hl-btn hl-pink" title="Pink" aria-label="Pink highlight" data-hl="hl-pink"></button>
+        <button class="hl-btn hl-green" title="Green" aria-label="Green highlight" data-hl="hl-green"></button>
+        <div class="hl-sep" aria-hidden="true"></div>
+        <button class="hl-note-btn" id="hl-add-note">📝 Note</button>
+        <button class="hl-remove-btn" id="hl-remove">✕</button>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header" role="banner">
+        <div class="nav-inner">
+            <a href="#" class="brand" aria-label="NeuroRead home" id="brand-link">
+                <div class="brand-icon" aria-hidden="true">NR</div>
+                <div>
+                    <span class="brand-name">NeuroRead</span>
+                    <span class="brand-tagline">Inclusive Digital Library</span>
+                </div>
+            </a>
+            <div class="nav-search" role="search">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="search" id="search-input" placeholder="Search books..." aria-label="Search the library"
+                    autocomplete="off">
+            </div>
+            <nav class="nav-actions" aria-label="Quick actions">
+                <!-- Upload button in nav -->
+                <button class="upload-nav-btn" id="btn-nav-upload" aria-label="Upload your own file">
+                    <span aria-hidden="true">📂</span>
+                    <span>Add File</span>
+                </button>
+                <button class="icon-btn" id="btn-tts-toggle" data-tooltip="Text to Speech" aria-label="Toggle TTS"
+                    aria-pressed="false">🔊</button>
+                <button class="icon-btn" id="btn-ruler" data-tooltip="Reading Ruler" aria-label="Toggle ruler"
+                    aria-pressed="false">📏</button>
+                <button class="icon-btn" id="btn-focus" data-tooltip="Focus Mode" aria-label="Toggle focus mode"
+                    aria-pressed="false">🎯</button>
+                <button class="icon-btn" id="btn-settings" data-tooltip="Customize" aria-label="Open settings panel"
+                    aria-pressed="false">⚙️</button>
+                <!-- User info + logout -->
+                <a id="nav-user" href="profile.html" title="View Profile"
+                    style="font-size:13px;font-weight:600;color:var(--accent);padding:4px 10px;white-space:nowrap;overflow:hidden;max-width:150px;text-overflow:ellipsis;text-decoration:none;border-radius:20px;border:1.5px solid var(--accent-light);transition:background .2s,border-color .2s"
+                    onmouseover="this.style.background='var(--accent-light)';this.style.borderColor='var(--accent)'"
+                    onmouseout="this.style.background='transparent';this.style.borderColor='var(--accent-light)'"></a>
+                <button class="upload-nav-btn" id="btn-logout" aria-label="Logout"
+                    style="background:var(--bg-secondary);color:var(--text-secondary);border:1px solid var(--border);"
+                    title="Logout">🚪 Logout</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hidden file input triggered by nav button -->
+    <input type="file" id="file-input-hidden" accept=".pdf,.txt,.md,.html,.rtf" style="display:none" aria-hidden="true">
+
+    <main id="main" role="main">
+
+        <!-- ===== LIBRARY VIEW ===== -->
+        <div id="library-view" class="app-container" aria-label="Book library">
+
+            <div class="welcome-band" role="banner">
+                <span class="welcome-icon" aria-hidden="true">📖</span>
+                <div class="welcome-text">
+                    <h2>Welcome to NeuroRead</h2>
+                    <p>A dyslexia-friendly reading space with full customization. Browse the built-in library or
+                        <strong>upload your own PDF, TXT, or HTML files</strong> — all reading tools apply to your
+                        uploads too.
+                    </p>
+                </div>
+            </div>
+
+            <div class="stats-bar" id="stats-bar" role="status" aria-label="Reading statistics">
+                <div class="stat-chip">📚 <strong id="stat-total">12</strong> Library</div>
+                <div class="stat-chip">📂 <strong id="stat-uploads">0</strong> My Files</div>
+                <div class="stat-chip">✅ <strong id="stat-read">0</strong> Read</div>
+                <div class="stat-chip">🔖 <strong id="stat-bookmarks">0</strong> Saved</div>
+                <div class="stat-chip">🖍 <strong id="stat-highlights">0</strong> Highlights</div>
+            </div>
+
+            <!-- Library / My Files tabs -->
+            <div class="library-tabs" role="tablist" aria-label="Switch between library and your files">
+                <button class="lib-tab active" data-lib-tab="library" role="tab" aria-selected="true">
+                    Library <span class="lib-tab-count" id="lib-count">12</span>
+                </button>
+                <button class="lib-tab" data-lib-tab="myfiles" role="tab" aria-selected="false">
+                    My Files <span class="lib-tab-count" id="myfiles-count">0</span>
+                </button>
+            </div>
+
+            <!-- LIBRARY TAB CONTENT -->
+            <div id="tab-library-content">
+                <div class="section-header">
+                    <h2 class="section-title" id="books-heading">Browse Books</h2>
+                </div>
+                <div class="categories" role="group" aria-label="Filter by category">
+                    <button class="cat-btn active" data-category="all" aria-pressed="true">All</button>
+                    <button class="cat-btn" data-category="fiction" aria-pressed="false">Fiction</button>
+                    <button class="cat-btn" data-category="science" aria-pressed="false">Science</button>
+                    <button class="cat-btn" data-category="history" aria-pressed="false">History</button>
+                    <button class="cat-btn" data-category="self-help" aria-pressed="false">Self-Help</button>
+                    <button class="cat-btn" data-category="poetry" aria-pressed="false">Poetry</button>
+                    <button class="cat-btn" data-category="philosophy" aria-pressed="false">Philosophy</button>
+                    <button class="cat-btn" data-category="nature" aria-pressed="false">Nature</button>
+                    <button class="cat-btn" data-category="biography" aria-pressed="false">Biography</button>
+                </div>
+                <div class="books-grid" id="books-grid" aria-labelledby="books-heading" role="list"></div>
+            </div>
+
+            <!-- MY FILES TAB CONTENT -->
+            <div id="tab-myfiles-content" style="display:none">
+                <!-- Upload Drop Zone -->
+                <div class="upload-zone" id="upload-zone" role="button" tabindex="0"
+                    aria-label="Upload your file. Supports PDF, TXT, HTML, Markdown">
+                    <input type="file" id="file-input-zone" accept=".pdf,.txt,.md,.html,.rtf"
+                        aria-label="Choose file to upload" multiple>
+                    <span class="upload-icon" aria-hidden="true">📁</span>
+                    <div class="upload-title">Upload Your Files</div>
+                    <div class="upload-sub">Drag & drop here, or click to browse</div>
+                    <div class="upload-formats">
+                        <span class="format-badge">PDF</span>
+                        <span class="format-badge">TXT</span>
+                        <span class="format-badge">Markdown</span>
+                        <span class="format-badge">HTML</span>
+                    </div>
+                    <div class="upload-progress-wrap" id="upload-progress-wrap">
+                        <div class="upload-progress-bar-outer">
+                            <div class="upload-progress-bar-inner" id="upload-progress-bar"></div>
+                        </div>
+                        <div class="upload-progress-label" id="upload-progress-label">Reading file...</div>
+                    </div>
+                </div>
+
+                <div class="section-header">
+                    <h2 class="section-title">My Files <span id="mf-count-title"
+                            style="font-weight:400;color:var(--text-muted);font-size:16px">(0)</span></h2>
+                </div>
+                <div class="books-grid" id="myfiles-grid" role="list" aria-label="Your uploaded files"></div>
+            </div>
+
+        </div><!-- /library-view -->
+
+        <!-- ===== READER VIEW ===== -->
+        <div id="reader-view" aria-label="Book reader">
+            <article class="reading-content" aria-label="Book content">
+                <button class="back-btn" id="back-btn" aria-label="Return to library">← Back to Library</button>
+                <div class="book-header">
+                    <span class="cover-emoji" id="reader-emoji" aria-hidden="true">📚</span>
+                    <h1 id="reader-title">Title</h1>
+                    <p class="author" id="reader-author"></p>
+                    <div class="reading-meta">
+                        <span>⏱ <strong id="meta-time">–</strong> min read</span>
+                        <span>📊 <strong id="meta-progress">0</strong>% complete</span>
+                        <span>🖍 <strong id="meta-highlights">0</strong> highlights</span>
+                        <span id="meta-pages-wrap" style="display:none">📄 Page <strong id="meta-page-cur">1</strong> /
+                            <strong id="meta-page-tot">1</strong></span>
+                    </div>
+                </div>
+
+                <div id="reading-text" tabindex="0" role="region"
+                    aria-label="Reading area. Use arrow keys in focus mode." aria-live="polite"></div>
+
+                <!-- PDF page navigation -->
+                <div class="pdf-nav" id="pdf-nav" aria-label="PDF page navigation">
+                    <button class="pdf-nav-btn" id="pdf-prev" aria-label="Previous page">← Prev</button>
+                    <div class="pdf-page-info">
+                        Page <input type="number" class="pdf-page-input" id="pdf-page-input" min="1" value="1"
+                            aria-label="Go to page"> of <span id="pdf-total-pages">1</span>
+                    </div>
+                    <button class="pdf-nav-btn" id="pdf-next" aria-label="Next page">Next →</button>
+                </div>
+            </article>
+
+            <!-- SETTINGS PANEL -->
+            <aside class="customization-panel" id="settings-panel" aria-label="Reading customization"
+                role="complementary">
+                <h2 class="panel-title">Reading Settings</h2>
+                <div class="panel-tabs" role="tablist">
+                    <button class="panel-tab active" data-tab="reading" role="tab" aria-selected="true">Reading</button>
+                    <button class="panel-tab" data-tab="tools" role="tab" aria-selected="false">Tools</button>
+                    <button class="panel-tab" data-tab="notes" role="tab" aria-selected="false">Notes</button>
+                    <button class="panel-tab" data-tab="saved" role="tab" aria-selected="false">Saved</button>
+                </div>
+
+                <!-- Reading Tab -->
+                <div class="panel-content active" id="tab-reading" role="tabpanel">
+                    <div class="panel-section" role="group">
+                        <div class="panel-section-label">Typography</div>
+                        <div class="slider-control">
+                            <div class="slider-header"><label class="slider-label" for="font-size-slider">Font
+                                    Size</label><span class="slider-value" id="font-size-val">20px</span></div>
+                            <input type="range" id="font-size-slider" min="14" max="36" value="20" step="1"
+                                aria-label="Font size">
+                        </div>
+                        <div class="slider-control">
+                            <div class="slider-header"><label class="slider-label" for="letter-spacing-slider">Letter
+                                    Spacing</label><span class="slider-value" id="letter-spacing-val">0.04em</span>
+                            </div>
+                            <input type="range" id="letter-spacing-slider" min="0" max="0.25" value="0.04" step="0.01"
+                                aria-label="Letter spacing">
+                        </div>
+                        <div class="slider-control">
+                            <div class="slider-header"><label class="slider-label" for="line-height-slider">Line
+                                    Height</label><span class="slider-value" id="line-height-val">1.9</span></div>
+                            <input type="range" id="line-height-slider" min="1.2" max="3.2" value="1.9" step="0.1"
+                                aria-label="Line height">
+                        </div>
+                        <div class="slider-control">
+                            <div class="slider-header"><label class="slider-label" for="word-spacing-slider">Word
+                                    Spacing</label><span class="slider-value" id="word-spacing-val">0.1em</span></div>
+                            <input type="range" id="word-spacing-slider" min="0" max="0.5" value="0.1" step="0.02"
+                                aria-label="Word spacing">
+                        </div>
+                        <div class="slider-control">
+                            <div class="slider-header"><label class="slider-label" for="para-spacing-slider">Paragraph
+                                    Gap</label><span class="slider-value" id="para-spacing-val">1.5em</span></div>
+                            <input type="range" id="para-spacing-slider" min="0.5" max="3.0" value="1.5" step="0.1"
+                                aria-label="Paragraph spacing">
+                        </div>
+                        <label class="slider-label" for="font-select" style="display:block;margin:8px 0 6px">Reading
+                            Font</label>
+                        <select id="font-select" class="font-select" aria-label="Choose reading font">
+                            <option value="lexend">Lexend (Recommended)</option>
+                            <option value="dyslexie">Atkinson Hyperlegible</option>
+                            <option value="serif">Source Serif 4</option>
+                        </select>
+                    </div>
+
+                    <div class="panel-section" role="group">
+                        <div class="panel-section-label">Color Theme</div>
+                        <div class="theme-colors">
+                            <button class="theme-btn active" data-theme="cream" aria-pressed="true"> <span
+                                    class="theme-dot"
+                                    style="background:#faf8f3;border:1px solid #ccc"></span>Cream</button>
+                            <button class="theme-btn" data-theme="blue" aria-pressed="false"> <span class="theme-dot"
+                                    style="background:#e6eef8"></span>Sky Blue</button>
+                            <button class="theme-btn" data-theme="rose" aria-pressed="false"> <span class="theme-dot"
+                                    style="background:#f9eded"></span>Rose</button>
+                            <button class="theme-btn" data-theme="sage" aria-pressed="false"> <span class="theme-dot"
+                                    style="background:#e2f0d8"></span>Sage</button>
+                            <button class="theme-btn" data-theme="slate" aria-pressed="false"> <span class="theme-dot"
+                                    style="background:#dde4f8"></span>Slate</button>
+                            <button class="theme-btn" data-theme="dark" aria-pressed="false"> <span class="theme-dot"
+                                    style="background:#22211f"></span>Dark</button>
+                            <button class="theme-btn" data-theme="contrast" aria-pressed="false"> <span
+                                    class="theme-dot"
+                                    style="background:#000;border:1px solid #999"></span>Contrast</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools Tab -->
+                <div class="panel-content" id="tab-tools" role="tabpanel">
+                    <div class="panel-section" role="group">
+                        <div class="panel-section-label">Reading Tools</div>
+                        <div class="toggle-row"><span class="toggle-label">Focus Mode</span>
+                            <label class="toggle-switch"><input type="checkbox" id="toggle-focus" role="switch">
+                                <div class="toggle-track"></div>
+                                <div class="toggle-thumb"></div>
+                            </label>
+                        </div>
+                        <div class="toggle-row"><span class="toggle-label">Reading Ruler</span>
+                            <label class="toggle-switch"><input type="checkbox" id="toggle-ruler" role="switch">
+                                <div class="toggle-track"></div>
+                                <div class="toggle-thumb"></div>
+                            </label>
+                        </div>
+                        <div class="toggle-row"><span class="toggle-label">Word Highlight (TTS)</span>
+                            <label class="toggle-switch"><input type="checkbox" id="toggle-tts-highlight" role="switch"
+                                    checked>
+                                <div class="toggle-track"></div>
+                                <div class="toggle-thumb"></div>
+                            </label>
+                        </div>
+                        <div class="toggle-row"><span class="toggle-label">Show Highlights</span>
+                            <label class="toggle-switch"><input type="checkbox" id="toggle-highlights" role="switch"
+                                    checked>
+                                <div class="toggle-track"></div>
+                                <div class="toggle-thumb"></div>
+                            </label>
+                        </div>
+                        <div class="toggle-row"><span class="toggle-label">Large Buttons</span>
+                            <label class="toggle-switch"><input type="checkbox" id="toggle-large-btns" role="switch">
+                                <div class="toggle-track"></div>
+                                <div class="toggle-thumb"></div>
+                            </label>
+                        </div>
+                        <div class="toggle-row"><span class="toggle-label">Reduce Motion</span>
+                            <label class="toggle-switch"><input type="checkbox" id="toggle-reduce-motion" role="switch">
+                                <div class="toggle-track"></div>
+                                <div class="toggle-thumb"></div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="panel-section" role="group">
+                        <div class="panel-section-label">Ruler Opacity</div>
+                        <div class="slider-control">
+                            <div class="slider-header"><label class="slider-label"
+                                    for="ruler-opacity-slider">Opacity</label><span class="slider-value"
+                                    id="ruler-opacity-val">50%</span></div>
+                            <input type="range" id="ruler-opacity-slider" min="10" max="100" value="50" step="5"
+                                aria-label="Ruler opacity">
+                        </div>
+                    </div>
+                    <div class="panel-section">
+                        <div class="panel-section-label">Highlight Colors</div>
+                        <div style="display:flex;gap:9px;align-items:center;padding:4px 0">
+                            <div class="hl-btn hl-yellow" style="cursor:default"></div>
+                            <div class="hl-btn hl-blue" style="cursor:default"></div>
+                            <div class="hl-btn hl-pink" style="cursor:default"></div>
+                            <div class="hl-btn hl-green" style="cursor:default"></div>
+                            <span style="font-size:11px;color:var(--text-muted)">Select text to use</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notes Tab -->
+                <div class="panel-content" id="tab-notes" role="tabpanel">
+                    <div class="panel-section">
+                        <div class="panel-section-label">Add a Note</div>
+                        <div class="note-input-area">
+                            <textarea id="quick-note" placeholder="Write a note..."
+                                aria-label="Write a note"></textarea>
+                            <button class="note-save-btn" id="save-quick-note">Save Note</button>
+                        </div>
+                    </div>
+                    <div class="panel-section">
+                        <div class="panel-section-label">Your Notes</div>
+                        <div class="notes-area" id="notes-area">
+                            <p class="no-items">No notes yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Saved Tab -->
+                <div class="panel-content" id="tab-saved" role="tabpanel">
+                    <div class="panel-section">
+                        <div class="panel-section-label">Bookmarks</div>
+                        <div class="bookmarks-area" id="bookmarks-area">
+                            <p class="no-items">No bookmarks yet.</p>
+                        </div>
+                    </div>
+                    <div class="panel-section" style="margin-top:14px">
+                        <div class="panel-section-label">Recent History</div>
+                        <div class="bookmarks-area" id="history-area">
+                            <p class="no-items">No history yet.</p>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div><!-- /reader-view -->
+    </main>
+
+    <!-- TTS BAR -->
+    <div class="tts-bar" id="tts-bar" role="toolbar" aria-label="Text-to-speech">
+        <div class="tts-controls">
+            <button class="tts-btn" id="tts-stop" aria-label="Stop">⏹</button>
+            <button class="tts-btn play" id="tts-play" aria-label="Play/Pause">▶</button>
+            <button class="tts-btn" id="tts-skip" aria-label="Skip sentence">⏭</button>
+        </div>
+        <div class="tts-progress" role="progressbar" aria-label="TTS progress" aria-valuenow="0" aria-valuemin="0"
+            aria-valuemax="100">
+            <div class="tts-progress-fill" id="tts-progress-fill"></div>
+        </div>
+        <div class="tts-speed">
+            <span aria-hidden="true">🐢</span>
+            <input type="range" id="tts-rate" min="0.5" max="2.0" value="1.0" step="0.1" aria-label="Speech rate"
+                style="width:64px">
+            <span aria-hidden="true">🐇</span>
+        </div>
+        <span class="tts-status" id="tts-status" aria-live="polite">Ready</span>
+    </div>
+
+    <!-- PDF.js from CDN (for PDF text extraction) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <script>
+        /* ============================================================
+           NEUROREAD v4 — FULL STACK
+           PDFs stored server-side, per-user isolation
+           Auth guard: redirects to login.html if no JWT token
+           ============================================================ */
+
+        // ── AUTH GUARD ──────────────────────────────────────────────
+        const _token = localStorage.getItem('access_token');
+        if (!_token) { window.location.replace('login.html'); }
+
+        // ── API HELPER ──────────────────────────────────────────────
+        const API_BASE = 'http://127.0.0.1:8000';
+
+        async function apiFetch(path, options = {}) {
+            let token = localStorage.getItem('access_token');
+            const headers = { ...options.headers };
+            if (!(options.body instanceof FormData)) {
+                headers['Content-Type'] = 'application/json';
+            }
+            if (token) headers['Authorization'] = 'Bearer ' + token;
+
+            let resp = await fetch(API_BASE + path, { ...options, headers });
+
+            // Auto-refresh on 401
+            if (resp.status === 401) {
+                const refreshToken = localStorage.getItem('refresh_token');
+                if (refreshToken) {
+                    const rfResp = await fetch(API_BASE + '/api/auth/token/refresh/', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ refresh: refreshToken })
+                    });
+                    if (rfResp.ok) {
+                        const rfData = await rfResp.json();
+                        localStorage.setItem('access_token', rfData.access);
+                        headers['Authorization'] = 'Bearer ' + rfData.access;
+                        resp = await fetch(API_BASE + path, { ...options, headers });
+                    } else {
+                        // Refresh failed — force re-login
+                        localStorage.clear();
+                        window.location.replace('login.html');
+                        return null;
+                    }
+                } else {
+                    localStorage.clear();
+                    window.location.replace('login.html');
+                    return null;
+                }
+            }
+            return resp;
+        }
+
+        // Configure PDF.js worker
+        if (typeof pdfjsLib !== 'undefined') {
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+
+        /* ── BOOK DATA (built-in) ──────────────────────────────────── */
+        const BOOKS = [
+            {
+                id: 1, title: "The Curious Mind", author: "Dr. Elena Marsh", emoji: "🧠", coverClass: "cover-1", category: "science", tags: ["neuroscience"],
+                content: `How does our brain make sense of the world? This is the central question that has occupied scientists, philosophers, and curious minds for centuries.\n\nThe human brain contains approximately 86 billion neurons, each forming thousands of connections with other cells. This vast network allows us to process information, form memories, feel emotions, and create art.\n\nNeuroscience has made extraordinary leaps in recent decades. With technologies like functional MRI, we can now watch a thought form in real time, observe memories being encoded, and begin to understand what makes each of us uniquely ourselves.\n\nThe plasticity of the brain — its ability to rewire and adapt — offers profound hope. We are not fixed. We are becoming. And in that becoming, every one of us has more capacity than we might imagine.\n\nReading physically changes the brain. It builds new pathways, strengthens empathy circuits, and expands our capacity for complex thought. For those who find reading difficult, this is not a deficit of intelligence. It is a different architecture of cognition — one with its own unique strengths and gifts.`
+            },
+            {
+                id: 2, title: "A Garden of Hours", author: "Sylvia Chen", emoji: "🌸", coverClass: "cover-4", category: "poetry", tags: ["poetry", "nature"],
+                content: `Time moves differently in a garden.\n\nThere is the slow time of roots pushing through clay, finding water, finding their way. There is the sudden time of petals opening — a whole season compressed into one morning.\n\nIn the garden, I have learned that patience is not waiting. It is a form of attention. Of staying present to the unfolding.\n\nThe bees know this. They move from flower to flower not in haste but in purpose. Each visit complete. Each moment whole.\n\nA seed does not know urgency. It knows only readiness — and when the conditions are right, it gives itself fully to becoming.\n\nIn the long light of afternoon, the shadows lean eastward. The garden does not worry about tomorrow's rain. It drinks today's sun.`
+            },
+            {
+                id: 3, title: "The Silk Roads", author: "Marcus Rivera", emoji: "🗺️", coverClass: "cover-5", category: "history", tags: ["history", "travel"],
+                content: `Long before the internet connected the world, there were roads.\n\nNot roads in the modern sense — straight, paved, engineered. These were routes: living, shifting arteries of movement that followed water, passed through mountain gaps, and connected civilizations across thousands of miles.\n\nThe Silk Roads were not a single path but a web. A living network stretching from China in the East to Rome in the West, passing through Persia, Central Asia, India, and the Arab world. Along these routes moved not just silk, but spices, glassware, horses, paper — and ideas.\n\nBuddhism spread west from India. Christianity moved east. Mathematics, astronomy, and medicine crossed these routes in the minds of traveling scholars.\n\nWe are, all of us, points on a road that has no end.`
+            },
+            {
+                id: 4, title: "Thinking Differently", author: "Dr. Aisha Okonkwo", emoji: "💡", coverClass: "cover-2", category: "self-help", tags: ["learning", "dyslexia"],
+                content: `For much of my childhood, I was told I was not a good student.\n\nI mixed letters. I read slowly. Tests were an ordeal, not a measure of what I knew. My teachers were not unkind — they simply did not understand how my brain worked.\n\nIt was only later that I learned the word: dyslexia. And with that word came something unexpected — not limitation, but liberation.\n\nDyslexia is not a reading problem. It is a different architecture of thinking. Dyslexic minds tend to think in pictures rather than words, to grasp the whole before the parts, to see patterns where others see confusion.\n\nThe challenge is not in the person. The challenge is in how we have built our schools and workplaces — tools designed for one kind of mind.\n\nEvery mind — however it is wired — has something extraordinary to offer. The work is to build environments where every mind can give that gift.`
+            },
+            {
+                id: 5, title: "The Last Lighthouse", author: "Sam Okafor", emoji: "🏛️", coverClass: "cover-7", category: "fiction", tags: ["fiction", "adventure"],
+                content: `The lighthouse had not been lit in forty years.\n\nMaren found it on the third day of her walk, appearing through the fog like something remembered rather than discovered. The stone tower rose from a rocky spit of land, its light room dark, its door sealed shut.\n\nShe had been walking for three days with no particular destination — just the sea to her left and the path ahead. After her mother's death, she had needed to move. Movement felt like the only honest response to loss.\n\nThere is something about a lighthouse — even a dark one — that holds purpose. It was built to warn, to guide, to say: there is danger here, but also, there is a keeper watching for you.\n\nA light in the dark is not just light — it is the presence of another mind, saying I see this darkness too, and I am with you in it.\n\nThe door opened. The staircase spiraled upward. She climbed.`
+            },
+            {
+                id: 6, title: "The Ethics of Now", author: "Prof. Cara Ahmed", emoji: "⚖️", coverClass: "cover-3", category: "philosophy", tags: ["ethics"],
+                content: `How should we live?\n\nThis question is as old as the first human who paused, looked around, and wondered. It is not answered once and for all — it is answered, imperfectly, every day, in the choices we make.\n\nConsequentialism tells us to maximize good outcomes. Deontology tells us to follow universal rules. Virtue ethics tells us to become the kind of person who naturally does what is right.\n\nWhat the great ethical traditions agree on is this: how we treat others matters. We are, in some fundamental way, responsible to each other.\n\nThis responsibility does not require certainty. You do not need to solve the trolley problem before you can be kind. You do not need a complete theory of justice before you can treat the person in front of you with dignity.\n\nEthics, practiced well, is less like solving an equation and more like tending a garden.`
+            },
+            {
+                id: 7, title: "Waves of Code", author: "Leila Nakamura", emoji: "💻", coverClass: "cover-6", category: "science", tags: ["technology"],
+                content: `Every device you use began as an idea in someone's mind.\n\nThen it became a diagram on paper. Then lines of code — instructions written in a language both human and machine could understand. Then circuits. Then light and electricity, moving at speeds that defy imagination, executing billions of operations per second.\n\nComputing is perhaps the most collaborative act in human history. Every program you run relies on code written by thousands of people over decades.\n\nBehind every algorithm is a choice. Behind every design is a set of assumptions about who will use it and how. This is why diversity in technology matters — not just as a matter of fairness, but as a matter of quality.\n\nThe next wave of computing is being shaped right now, in the minds of people who may not yet know they are builders. You may be one of them.`
+            },
+            {
+                id: 8, title: "Still Waters", author: "James Obi", emoji: "🌊", coverClass: "cover-8", category: "fiction", tags: ["fiction"],
+                content: `The lake did not ask to be beautiful.\n\nIt simply was — morning light on its surface, the reflected mountains trembling as a breeze passed through. Thomas watched from the dock, coffee cooling in his hands, and felt the particular peace of a morning that asked nothing of him.\n\nHe had come here after the hospital. His daughter's discharge had been unexpected — the doctors called it remarkable.\n\nThe treatment had worked. She would not be without difficulty — the road ahead was long and uncertain. But she was here. She was home. She was herself.\n\nThe lake received the light. The mountains received their reflections. The morning received Thomas — his grief, his gratitude, his still uncertain hope.\n\nThen he went inside to wake his daughter.`
+            },
+            {
+                id: 9, title: "The Forest Mind", author: "Dr. Priya Nair", emoji: "🌲", coverClass: "cover-9", category: "nature", tags: ["ecology"],
+                content: `Every forest is a library.\n\nNot a library of paper and ink, but of chemistry and light. Trees communicate through underground fungal networks — what some call the wood wide web — exchanging nutrients, sending distress signals, even feeding their offspring.\n\nA mature forest is not a collection of individuals competing for resources. It is a community. A web of reciprocal relationships refined over millions of years.\n\nWhen we cut an old-growth forest, we do not simply remove trees. We erase an archive. We silence a conversation that has been ongoing for centuries.\n\nPerhaps this is a useful metaphor for communities of all kinds. The health of any community depends not just on the strength of its individuals, but on the quality of the connections between them.`
+            },
+            {
+                id: 10, title: "Letters to My Future Self", author: "Rania Hassan", emoji: "✉️", coverClass: "cover-10", category: "self-help", tags: ["growth"],
+                content: `I started writing letters to myself at twenty-three, in the worst year of my life.\n\nThe letters began as complaints. Then, slowly, questions. What do I actually want? What am I afraid of? What would I do if I were not afraid?\n\nOver time they became something stranger — a conversation with a future version of myself I could not see but was writing into existence with every page.\n\nThis is what I have come to believe: the self is not discovered. It is constructed. Slowly, through choices and conversations and commitments, through what we pay attention to and what we let go.\n\nWriting to my future self was a way of making that construction deliberate. When I read the letters now — years later — I meet someone I recognize, and someone I hardly know, and the distance between them is the measure of all the living I have done.`
+            },
+            {
+                id: 11, title: "The Sound of Silence", author: "Kenji Watanabe", emoji: "🎵", coverClass: "cover-11", category: "philosophy", tags: ["music", "mindfulness"],
+                content: `John Cage once wrote a piece called 4'33" — four minutes and thirty-three seconds of a performer sitting at a piano, playing nothing.\n\nThe audience was baffled, then irritated, then — some of them — transformed.\n\nBecause the hall was not silent. It was full of sound. Coughs, shifting chairs, the hum of air conditioning, rain on a window, a distant car. Sounds that had always been there, filtered out by attention, suddenly promoted to music by the frame of a performance.\n\nCage's radical idea was simple: there is no such thing as silence. There is only sound we are not listening to.\n\nMindfulness practices are, in a way, a kind of 4'33" for daily life. A frame that says: this, too, is worth hearing. This ordinary moment is already the thing you are looking for.`
+            },
+            {
+                id: 12, title: "A Life in Pieces", author: "Amara Diallo", emoji: "🧩", coverClass: "cover-12", category: "biography", tags: ["memoir", "resilience"],
+                content: `I do not remember a time before the displacement. I was three years old.\n\nWhat I have are fragments: the smell of my grandmother's kitchen. The weight of a particular kind of silence that falls on a family when they do not know where they will be tomorrow. The sound of my mother's voice in a language that was slowly leaching out of me as another poured in.\n\nWe arrived in a country that did not know our names.\n\nWhat no one tells you about becoming someone new is how much of the old you must carry at the same time. You do not leave yourself behind. You wear both, all the time, like two coats in a heat.\n\nBut here is what I also know: from displacement comes a particular kind of sight. You learn: I am not where I came from. I am not where I landed. I am something that happened between the two.`
+            }
+        ];
+
+        /* ── PREFERENCE STORE ──────────────────────────────────────── */
+        const Prefs = {
+            D: { theme: 'cream', font: 'lexend', fontSize: 20, letterSpacing: .04, lineHeight: 1.9, wordSpacing: .1, paraSpacing: 1.5, rulerActive: false, rulerOpacity: 50, focusMode: false, largeBtns: false, reduceMotion: false, ttsRate: 1.0, ttsHL: true, showHL: true },
+            save(k, v) { try { const s = this.all(); s[k] = v; localStorage.setItem('nr3_prefs', JSON.stringify(s)); } catch (e) { } },
+            all() { try { const r = localStorage.getItem('nr3_prefs'); return r ? { ...this.D, ...JSON.parse(r) } : { ...this.D }; } catch (e) { return { ...this.D }; } },
+            get(k) { return this.all()[k] }
+        };
+
+        /* ── DATA STORE ────────────────────────────────────────────── */
+        const DS = {
+            bookmarks() { try { return JSON.parse(localStorage.getItem('nr3_bm') || '[]'); } catch (e) { return []; } },
+            saveBM(a) { try { localStorage.setItem('nr3_bm', JSON.stringify(a)); } catch (e) { } },
+            highlights() { try { return JSON.parse(localStorage.getItem('nr3_hl') || '{}'); } catch (e) { return {}; } },
+            saveHL(o) { try { localStorage.setItem('nr3_hl', JSON.stringify(o)); } catch (e) { } },
+            notes() { try { return JSON.parse(localStorage.getItem('nr3_notes') || '{}'); } catch (e) { return {}; } },
+            saveNotes(o) { try { localStorage.setItem('nr3_notes', JSON.stringify(o)); } catch (e) { } },
+            progress() { try { return JSON.parse(localStorage.getItem('nr3_prog') || '{}'); } catch (e) { return {}; } },
+            saveProg(o) { try { localStorage.setItem('nr3_prog', JSON.stringify(o)); } catch (e) { } },
+            history() { try { return JSON.parse(localStorage.getItem('nr3_hist') || '[]'); } catch (e) { return []; } },
+            saveHist(a) { try { localStorage.setItem('nr3_hist', JSON.stringify(a)); } catch (e) { } },
+            // User uploaded files — backed by Django API (in-memory cache)
+            _userFilesCache: [],
+            userFiles() { return this._userFilesCache; },
+            setUserFiles(arr) { this._userFilesCache = arr || []; }
+        };
+
+
+
+
+        /* ── TOAST ─────────────────────────────────────────────────── */
+        function toast(msg, dur = 2300) {
+            const t = document.getElementById('toast');
+            t.textContent = msg; t.classList.add('show');
+            clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), dur);
+        }
+
+        /* ── CURRENT VIEW STATE ────────────────────────────────────── */
+        let currentLibTab = 'library';
+
+        /* ── LIB TABS ──────────────────────────────────────────────── */
+        function initLibTabs() {
+            document.querySelectorAll('.lib-tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    document.querySelectorAll('.lib-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                    tab.classList.add('active'); tab.setAttribute('aria-selected', 'true');
+                    currentLibTab = tab.dataset.libTab;
+                    document.getElementById('tab-library-content').style.display = currentLibTab === 'library' ? 'block' : 'none';
+                    document.getElementById('tab-myfiles-content').style.display = currentLibTab === 'myfiles' ? 'block' : 'none';
+                    if (currentLibTab === 'myfiles') FileUpload.renderGrid();
+                });
+            });
+        }
+
+        /* ── LIBRARY ───────────────────────────────────────────────── */
+        const Library = {
+            cat: 'all', q: '',
+            init() { this.render(); this.setupSearch(); this.setupCats(); document.getElementById('brand-link').addEventListener('click', e => { e.preventDefault(); Reader.close(); }); },
+            render() {
+                const grid = document.getElementById('books-grid');
+                const filtered = this.filtered();
+                const bm = DS.bookmarks(); const prog = DS.progress();
+                if (!filtered.length) { grid.innerHTML = '<div class="empty-state"><div class="icon">📭</div><h3>No books found</h3><p>Try a different search or category.</p></div>'; return; }
+                grid.innerHTML = filtered.map((b, i) => {
+                    const saved = bm.includes(b.id); const pct = prog[b.id] || 0;
+                    return `<div class="book-card" role="listitem" style="animation-delay:${Math.min(i * .05, .4)}s">
+        <div class="book-cover ${b.coverClass}" aria-hidden="true">
+          <span style="z-index:1;position:relative">${b.emoji}</span>
+          ${pct > 0 ? `<div class="book-progress-bar" style="width:${pct}%"></div>` : ''}
+          ${pct >= 95 ? '<div class="book-badge">✓ Read</div>' : ''}
+        </div>
+        <div class="book-info">
+          <h3 class="book-title">${b.title}</h3>
+          <p class="book-author">${b.author}</p>
+          <div class="book-tags">${b.tags.map(t => `<span class="book-tag">${t}</span>`).join('')}</div>
+          <div class="book-actions">
+            <button class="read-btn" data-book-id="${b.id}" aria-label="Read ${b.title}">${pct > 0 && pct < 95 ? 'Continue →' : 'Start Reading'}</button>
+            <button class="bookmark-btn ${saved ? 'saved' : ''}" data-bm-id="${b.id}" aria-label="${saved ? 'Remove' : 'Add'} bookmark" aria-pressed="${saved}">🔖</button>
+          </div>
+        </div>
+      </div>`;
+                }).join('');
+                grid.querySelectorAll('.read-btn').forEach(btn => btn.addEventListener('click', () => Reader.open(parseInt(btn.dataset.bookId))));
+                grid.querySelectorAll('.bookmark-btn').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); Bookmarks.toggle(parseInt(btn.dataset.bmId)); Library.render(); }));
+                this.updateStats();
+            },
+            filtered() { return BOOKS.filter(b => { const mc = this.cat === 'all' || b.category === this.cat; const q = this.q.toLowerCase(); const ms = !q || b.title.toLowerCase().includes(q) || b.author.toLowerCase().includes(q) || b.tags.some(t => t.includes(q)); return mc && ms; }); },
+            setupSearch() { const i = document.getElementById('search-input'); let t; i.addEventListener('input', () => { clearTimeout(t); t = setTimeout(() => { this.q = i.value; this.render(); if (currentLibTab === 'myfiles') FileUpload.renderGrid(i.value); }, 200); }); },
+            setupCats() { document.querySelectorAll('.cat-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.cat-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); }); btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true'); this.cat = btn.dataset.category; this.render(); }); }); },
+            updateStats() {
+                const prog = DS.progress();
+                const readC = Object.values(prog).filter(p => p >= 95).length;
+                const hlAll = DS.highlights();
+                const hlC = Object.values(hlAll).reduce((a, arr) => a + (arr || []).length, 0);
+                const uf = DS.userFiles();
+                document.getElementById('stat-read').textContent = readC;
+                document.getElementById('stat-bookmarks').textContent = DS.bookmarks().length;
+                document.getElementById('stat-highlights').textContent = hlC;
+                document.getElementById('stat-uploads').textContent = uf.length;
+                document.getElementById('myfiles-count').textContent = uf.length;
+                document.getElementById('lib-count').textContent = BOOKS.length;
+            },
+
+            async loadUserFiles() {
+                try {
+                    const resp = await apiFetch('/api/library/files/');
+                    if (!resp) return;
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        DS.setUserFiles(data);
+                        this.updateStats();
+                        if (currentLibTab === 'myfiles') FileUpload.renderGrid();
+                    }
+                } catch (e) { console.error('loadUserFiles:', e); }
+            }
+        };
+
+        /* ── FILE UPLOAD ───────────────────────────────────────────── */
+        const FileUpload = {
+            init() {
+                const zone = document.getElementById('upload-zone');
+                const zoneInput = document.getElementById('file-input-zone');
+                const hiddenInput = document.getElementById('file-input-hidden');
+
+                // Zone input
+                zoneInput.addEventListener('change', e => this.handleFiles(e.target.files));
+
+                // Hidden input (from nav button)
+                hiddenInput.addEventListener('change', e => this.handleFiles(e.target.files));
+
+                // Nav button → trigger hidden input
+                document.getElementById('btn-nav-upload').addEventListener('click', () => {
+                    hiddenInput.click();
+                    // Switch to My Files tab
+                    document.querySelectorAll('.lib-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+                    const mft = document.querySelector('[data-lib-tab="myfiles"]');
+                    mft.classList.add('active'); mft.setAttribute('aria-selected', 'true');
+                    currentLibTab = 'myfiles';
+                    document.getElementById('tab-library-content').style.display = 'none';
+                    document.getElementById('tab-myfiles-content').style.display = 'block';
+                });
+
+                // Drag & drop
+                zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('drag-over'); });
+                zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+                zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('drag-over'); this.handleFiles(e.dataTransfer.files); });
+
+                // Keyboard on zone
+                zone.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') zoneInput.click(); });
+
+                this.renderGrid();
+            },
+
+            async handleFiles(files) {
+                for (const file of files) {
+                    await this.processFile(file);
+                }
+            },
+
+            async processFile(file) {
+                const ext = file.name.split('.').pop().toLowerCase();
+                const allowed = ['pdf', 'txt', 'md', 'html', 'rtf'];
+                if (!allowed.includes(ext)) { toast(`❌ Unsupported format: .${ext}`); return; }
+
+                this.showOverlay(`Uploading ${file.name}...`, 'Sending to server, please wait');
+                this.showProgress(10, 'Uploading...');
+
+                try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    // Title auto-derived on server if not provided
+
+                    this.showProgress(40, 'Uploading to server...');
+                    const resp = await apiFetch('/api/library/files/', {
+                        method: 'POST',
+                        body: formData
+                    });
+
+                    if (!resp) return; // redirected to login
+
+                    this.showProgress(80, 'Processing...');
+
+                    if (!resp.ok) {
+                        const err = await resp.json();
+                        const msg = Object.values(err).flat().join(' ');
+                        throw new Error(msg || 'Upload failed');
+                    }
+
+                    const fileObj = await resp.json();
+                    // Add to local cache
+                    const current = DS.userFiles();
+                    current.unshift(fileObj);
+                    DS.setUserFiles(current);
+
+                    this.showProgress(100, 'Done!');
+                    await this.delay(400);
+                    this.hideOverlay();
+                    this.hideProgress();
+
+                    this.renderGrid();
+                    Library.updateStats();
+                    toast(`✅ "${fileObj.title}" uploaded to My Files!`);
+
+                } catch (err) {
+                    this.hideOverlay();
+                    this.hideProgress();
+                    console.error(err);
+                    toast('❌ Upload error: ' + err.message);
+                }
+            },
+
+            async extractPDF(file) {
+                if (typeof pdfjsLib === 'undefined') {
+                    // Fallback: read as text (won't work for binary PDF but shows graceful error)
+                    return '[PDF.js not loaded — try reloading the page. Alternatively, convert your PDF to TXT and upload that.]';
+                }
+                const arrayBuffer = await file.arrayBuffer();
+                const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const totalPages = pdf.numPages;
+                let allText = '';
+
+                for (let p = 1; p <= totalPages; p++) {
+                    this.showProgress(Math.round((p / totalPages) * 80), `Reading page ${p} of ${totalPages}...`);
+                    const page = await pdf.getPage(p);
+                    const textContent = await page.getTextContent();
+                    const pageText = textContent.items.map(item => item.str).join(' ');
+                    allText += `\n\n[Page ${p}]\n${pageText}`;
+                }
+                return allText.trim();
+            },
+
+            async readTextFile(file) {
+                return new Promise((res, rej) => {
+                    const reader = new FileReader();
+                    reader.onload = e => res(e.target.result);
+                    reader.onerror = () => rej(new Error('Could not read file'));
+                    reader.readAsText(file, 'utf-8');
+                });
+            },
+
+            stripHTML(html) {
+                const div = document.createElement('div');
+                div.innerHTML = html;
+                // Remove scripts/styles
+                div.querySelectorAll('script,style,noscript').forEach(el => el.remove());
+                return div.innerText || div.textContent || '';
+            },
+
+            parseMarkdown(md) {
+                // Basic markdown to plain text (preserve structure)
+                return md
+                    .replace(/^#{1,6}\s+(.+)$/gm, '$1')
+                    .replace(/\*\*(.+?)\*\*/g, '$1')
+                    .replace(/\*(.+?)\*/g, '$1')
+                    .replace(/`(.+?)`/g, '$1')
+                    .replace(/\[(.+?)\]\(.+?\)/g, '$1')
+                    .replace(/^[-*+]\s+/gm, '• ')
+                    .replace(/^\d+\.\s+/gm, '')
+                    .replace(/^>\s+/gm, '');
+            },
+
+            emojiForType(ext) {
+                const map = { pdf: '📄', txt: '📃', md: '📝', html: '🌐', rtf: '📋' };
+                return map[ext] || '📁';
+            },
+
+            renderGrid(searchQ = '') {
+                const grid = document.getElementById('myfiles-grid');
+                let files = DS.userFiles();
+                if (searchQ) files = files.filter(f =>
+                    f.title.toLowerCase().includes(searchQ.toLowerCase()) ||
+                    (f.file_type || '').toLowerCase().includes(searchQ.toLowerCase()));
+
+                document.getElementById('mf-count-title').textContent = `(${files.length})`;
+                document.getElementById('myfiles-count').textContent = files.length;
+
+                if (!files.length) {
+                    grid.innerHTML = '<div class="empty-state"><div class="icon">📂</div><h3>No files yet</h3><p>Upload a PDF, TXT, Markdown, or HTML file above to start reading it with all NeuroRead tools.</p></div>';
+                    return;
+                }
+
+                const prog = DS.progress();
+                grid.innerHTML = files.map((f, i) => {
+                    const pct = (f.reading_data && f.reading_data.progress) || prog[f.id] || 0;
+                    const emoji = this.emojiForType((f.file_type || 'pdf').toLowerCase());
+                    return `<div class="book-card" role="listitem" style="animation-delay:${Math.min(i * .05, .4)}s">
+        <div class="book-cover user-file-cover" aria-hidden="true">
+          <span style="font-size:38px;z-index:1;position:relative">${emoji}</span>
+          <span class="file-type-badge">${f.file_type || 'FILE'}</span>
+          ${pct > 0 ? `<div class="book-progress-bar" style="width:${pct}%"></div>` : ''}
+        </div>
+        <div class="book-info">
+          <h3 class="book-title" title="${f.title}">${f.title}</h3>
+          <p class="book-author">${this.formatSize(f.size)}</p>
+          <div class="book-tags"><span class="book-tag">${f.file_type || 'FILE'}</span><span class="book-tag">My Files</span></div>
+          <div class="book-actions">
+            <button class="read-btn" data-file-id="${f.id}" data-file-url="${f.file_url || ''}" data-file-type="${f.file_type || ''}" aria-label="Read ${f.title}">${pct > 0 && pct < 95 ? 'Continue →' : 'Read File'}</button>
+            <button class="delete-book-btn" data-del-id="${f.id}" aria-label="Delete ${f.title}" title="Delete">🗑️</button>
+          </div>
+        </div>
+      </div>`;
+                }).join('');
+
+                grid.querySelectorAll('.read-btn').forEach(btn => btn.addEventListener('click', () => Reader.openUserFile(btn.dataset.fileId, btn.dataset.fileUrl, btn.dataset.fileType)));
+                grid.querySelectorAll('.delete-book-btn').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); this.deleteFile(btn.dataset.delId); }));
+            },
+
+            async deleteFile(id) {
+                if (!confirm('Delete this file from your library?')) return;
+                try {
+                    const resp = await apiFetch(`/api/library/files/${id}/`, { method: 'DELETE' });
+                    if (!resp) return;
+                    if (resp.ok || resp.status === 204) {
+                        DS.setUserFiles(DS.userFiles().filter(f => f.id != id));
+                        this.renderGrid();
+                        Library.updateStats();
+                        toast('File deleted');
+                    } else {
+                        toast('❌ Could not delete file');
+                    }
+                } catch (e) {
+                    toast('❌ Delete error: ' + e.message);
+                }
+            },
+
+            formatSize(bytes) { if (!bytes) return ''; const kb = bytes / 1024; return kb > 1024 ? `${(kb / 1024).toFixed(1)} MB` : `${Math.round(kb)} KB`; },
+            showOverlay(title, sub) {
+                document.getElementById('processing-title').textContent = title;
+                document.getElementById('processing-sub').textContent = sub;
+                document.getElementById('processing-overlay').classList.add('show');
+            },
+            hideOverlay() { document.getElementById('processing-overlay').classList.remove('show'); },
+            showProgress(pct, label) {
+                const w = document.getElementById('upload-progress-wrap');
+                w.classList.add('show');
+                document.getElementById('upload-progress-bar').style.width = pct + '%';
+                document.getElementById('upload-progress-label').textContent = label;
+            },
+            hideProgress() {
+                document.getElementById('upload-progress-wrap').classList.remove('show');
+                document.getElementById('upload-progress-bar').style.width = '0%';
+            },
+            delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+        };
+
+        /* ── BOOKMARKS ─────────────────────────────────────────────── */
+        const Bookmarks = {
+            toggle(id) {
+                let bm = DS.bookmarks();
+                if (bm.includes(id)) { bm = bm.filter(x => x !== id); toast('Bookmark removed'); }
+                else { bm.push(id); toast('📌 Bookmarked!'); }
+                DS.saveBM(bm);
+                this.renderPanel(); Library.updateStats();
+            },
+            renderPanel() {
+                const area = document.getElementById('bookmarks-area');
+                const bm = DS.bookmarks(); const prog = DS.progress();
+                if (!bm.length) { area.innerHTML = '<p class="no-items">No bookmarks yet.</p>'; return; }
+                const allBooks = [...BOOKS, ...DS.userFiles()];
+                area.innerHTML = bm.map(id => {
+                    const b = allBooks.find(x => x.id === id || x.id === id);
+                    if (!b) return '';
+                    const pct = prog[b.id] || 0;
+                    return `<div class="bookmark-item" data-book-id="${b.id}" role="button" tabindex="0">
+        <span class="bm-emoji">${b.emoji || '📄'}</span>
+        <div class="bm-info"><div class="bm-title">${b.title}</div><div class="bm-progress">${pct > 0 ? Math.round(pct) + '% read' : 'Not started'}</div></div>
+        <button class="bm-remove" data-bm-rm="${b.id}" aria-label="Remove">✕</button>
+      </div>`;
+                }).join('');
+                area.querySelectorAll('.bookmark-item').forEach(el => {
+                    const open = () => { const id = el.dataset.bookId; const uf = DS.userFiles().find(f => f.id === id); if (uf) Reader.openUserFile(id); else Reader.open(parseInt(id)); };
+                    el.addEventListener('click', open); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
+                });
+                area.querySelectorAll('[data-bm-rm]').forEach(btn => btn.addEventListener('click', e => { e.stopPropagation(); this.toggle(btn.dataset.bmRm); Library.render(); }));
+            }
+        };
+
+        /* ── HISTORY ───────────────────────────────────────────────── */
+        const History = {
+            add(id) { let h = DS.history().filter(x => x !== id); h.unshift(id); DS.saveHist(h.slice(0, 10)); this.renderPanel(); },
+            renderPanel() {
+                const area = document.getElementById('history-area');
+                const h = DS.history(); const prog = DS.progress();
+                if (!h.length) { area.innerHTML = '<p class="no-items">No history yet.</p>'; return; }
+                const allBooks = [...BOOKS, ...DS.userFiles()];
+                area.innerHTML = h.map(id => {
+                    const b = allBooks.find(x => x.id === id || String(x.id) === String(id));
+                    if (!b) return '';
+                    const pct = prog[b.id] || 0;
+                    return `<div class="bookmark-item" data-book-id="${b.id}" role="button" tabindex="0">
+        <span class="bm-emoji">${b.emoji || '📄'}</span>
+        <div class="bm-info"><div class="bm-title">${b.title}</div><div class="bm-progress">${pct > 0 ? Math.round(pct) + '% read' : 'Opened'}</div></div>
+      </div>`;
+                }).join('');
+                area.querySelectorAll('.bookmark-item').forEach(el => {
+                    const open = () => { const id = el.dataset.bookId; const uf = DS.userFiles().find(f => f.id === id); if (uf) Reader.openUserFile(id); else Reader.open(parseInt(id)); };
+                    el.addEventListener('click', open); el.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
+                });
+            }
+        };
+
+        /* ── READER ────────────────────────────────────────────────── */
+        const Reader = {
+            current: null, // {id, title, author, emoji, content, isUserFile}
+            pdfPages: null, // Array of page texts for PDF
+            currentPDFPage: 1,
+
+            open(bookId) {
+                const b = BOOKS.find(x => x.id === bookId);
+                if (!b) return;
+                this._open({ id: b.id, title: b.title, author: b.author, emoji: b.emoji, content: b.content, isUserFile: false });
+            },
+
+            async openUserFile(fileId, fileUrl, fileType) {
+                const f = DS.userFiles().find(x => String(x.id) === String(fileId));
+                if (!f) return;
+
+                const ext = (fileType || f.file_type || '').toUpperCase();
+                const servePath = fileUrl || f.file_url || `/api/library/files/${fileId}/serve/`;
+
+                document.getElementById('processing-overlay').classList.add('show');
+                document.getElementById('processing-title').textContent = `Loading "${f.title}"...`;
+                document.getElementById('processing-sub').textContent = 'Fetching from server';
+
+                try {
+                    const resp = await apiFetch(servePath.replace(location.origin, '').replace('http://127.0.0.1:8000', ''));
+                    if (!resp || !resp.ok) { throw new Error('Could not fetch file'); }
+
+                    if (ext === 'PDF') {
+                        const arrayBuf = await resp.arrayBuffer();
+                        document.getElementById('processing-sub').textContent = 'Extracting text from PDF...';
+                        let allText = '';
+                        let totalPages = 0;
+                        if (typeof pdfjsLib !== 'undefined') {
+                            const pdf = await pdfjsLib.getDocument({ data: arrayBuf }).promise;
+                            totalPages = pdf.numPages;
+                            for (let p = 1; p <= totalPages; p++) {
+                                const page = await pdf.getPage(p);
+                                const tc = await page.getTextContent();
+                                allText += `\n\n[Page ${p}]\n` + tc.items.map(i => i.str).join(' ');
+                            }
+                        } else {
+                            allText = '[PDF.js not loaded — try reloading]';
+                        }
+                        const pages = allText.split(/\[Page \d+\]/).filter(p => p.trim());
+                        this.pdfPages = pages.length > 1 ? pages : null;
+                        this.currentPDFPage = 1;
+                        document.getElementById('processing-overlay').classList.remove('show');
+                        this._open({
+                            id: f.id, title: f.title, author: f.title, emoji: '📄',
+                            content: pages.length > 1 ? pages[0] : allText,
+                            isUserFile: true, isPDF: pages.length > 1, totalPages
+                        });
+                    } else {
+                        const text = await resp.text();
+                        this.pdfPages = null;
+                        document.getElementById('processing-overlay').classList.remove('show');
+                        this._open({
+                            id: f.id, title: f.title, author: f.title, emoji: '📄',
+                            content: ext === 'HTML' ? this._stripHTML(text) : text,
+                            isUserFile: true, isPDF: false
+                        });
+                    }
+
+                    // Sync reading data from server
+                    apiFetch(`/api/library/files/${fileId}/data/`).then(async r => {
+                        if (r && r.ok) {
+                            const rd = await r.json();
+                            if (rd.pdf_page && this.pdfPages && rd.pdf_page <= this.pdfPages.length) {
+                                this.currentPDFPage = rd.pdf_page;
+                                this.goToPDFPage(rd.pdf_page);
+                            }
+                        }
+                    });
+
+                } catch (err) {
+                    document.getElementById('processing-overlay').classList.remove('show');
+                    toast('❌ Error opening file: ' + err.message);
+                }
+            },
+
+            _stripHTML(html) {
+                const d = document.createElement('div');
+                d.innerHTML = html;
+                d.querySelectorAll('script,style').forEach(el => el.remove());
+                return d.innerText || d.textContent || '';
+            },
+
+            _open(book) {
+                this.current = book;
+                document.getElementById('reader-emoji').textContent = book.emoji || '📄';
+                document.getElementById('reader-title').textContent = book.title;
+                document.getElementById('reader-author').textContent = book.author || '';
+
+                const wc = (book.content || '').split(/\s+/).length;
+                document.getElementById('meta-time').textContent = Math.max(1, Math.round(wc / 200));
+
+                // PDF page navigation
+                const pdfNav = document.getElementById('pdf-nav');
+                const pagesWrap = document.getElementById('meta-pages-wrap');
+                if (book.isPDF && this.pdfPages) {
+                    pdfNav.classList.add('show');
+                    pagesWrap.style.display = 'flex';
+                    document.getElementById('pdf-total-pages').textContent = book.totalPages;
+                    document.getElementById('meta-page-tot').textContent = book.totalPages;
+                    this.updatePDFPageUI();
+                } else {
+                    pdfNav.classList.remove('show');
+                    pagesWrap.style.display = 'none';
+                }
+
+                this.renderText(book.content || '');
+
+                document.getElementById('library-view').style.display = 'none';
+                const rv = document.getElementById('reader-view');
+                rv.style.display = 'flex'; rv.classList.add('active');
+
+                if (FocusMode.active) FocusMode.initLines();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                document.getElementById('reader-title').focus();
+                TTS.stop();
+                History.add(book.id);
+                this.updateMeta();
+
+                // PDF nav buttons
+                document.getElementById('pdf-prev').addEventListener('click', () => this.pdfPrev());
+                document.getElementById('pdf-next').addEventListener('click', () => this.pdfNext());
+                document.getElementById('pdf-page-input').addEventListener('change', e => {
+                    const p = parseInt(e.target.value);
+                    if (p >= 1 && p <= this.pdfPages.length) this.goToPDFPage(p);
+                });
+            },
+
+            renderText(content) {
+                const textEl = document.getElementById('reading-text');
+                const paragraphs = content.split(/\n\n+/).filter(p => p.trim());
+                textEl.innerHTML = paragraphs.map(p => {
+                    const words = p.trim().split(' ');
+                    return `<p>${words.map(w => `<span class="tts-word">${this.escapeHTML(w)}</span>`).join(' ')}</p>`;
+                }).join('');
+            },
+
+            escapeHTML(str) { return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); },
+
+            pdfPrev() {
+                if (!this.pdfPages || this.currentPDFPage <= 1) return;
+                this.goToPDFPage(this.currentPDFPage - 1);
+            },
+            pdfNext() {
+                if (!this.pdfPages || this.currentPDFPage >= this.pdfPages.length) return;
+                this.goToPDFPage(this.currentPDFPage + 1);
+            },
+            goToPDFPage(p) {
+                if (!this.pdfPages) return;
+                this.currentPDFPage = p;
+                this.renderText(this.pdfPages[p - 1]);
+                if (FocusMode.active) { FocusMode.clear(); FocusMode.initLines(); }
+                TTS.stop();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.updatePDFPageUI();
+                // Save page progress
+                if (this.current) {
+                    const prog = DS.progress();
+                    prog[this.current.id + '_page'] = p;
+                    prog[this.current.id] = Math.round((p / this.pdfPages.length) * 100);
+                    DS.saveProg(prog);
+                }
+            },
+            updatePDFPageUI() {
+                document.getElementById('pdf-page-input').value = this.currentPDFPage;
+                document.getElementById('meta-page-cur').textContent = this.currentPDFPage;
+                document.getElementById('pdf-prev').disabled = this.currentPDFPage <= 1;
+                document.getElementById('pdf-next').disabled = !this.pdfPages || this.currentPDFPage >= this.pdfPages.length;
+            },
+
+            close() {
+                if (this.current) this.saveProgress();
+                document.getElementById('library-view').style.display = 'block';
+                const rv = document.getElementById('reader-view');
+                rv.style.display = 'none'; rv.classList.remove('active');
+                TTS.stop(); FocusMode.clear(); HLToolbar.hide();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                Library.render();
+                if (currentLibTab === 'myfiles') FileUpload.renderGrid();
+                this.current = null; this.pdfPages = null;
+            },
+
+            saveProgress() {
+                if (!this.current) return;
+                const textEl = document.getElementById('reading-text');
+                const total = textEl.scrollHeight;
+                const scrolled = window.scrollY - (textEl.getBoundingClientRect().top + window.scrollY) + window.innerHeight;
+                const pct = Math.min(100, Math.max(0, (scrolled / total) * 100));
+                const prog = DS.progress();
+                prog[this.current.id] = pct;
+                DS.saveProg(prog);
+            },
+
+            updateMeta() {
+                if (!this.current) return;
+                const prog = DS.progress();
+                const pct = prog[this.current.id] || 0;
+                document.getElementById('meta-progress').textContent = Math.round(pct);
+                const hl = DS.highlights();
+                const c = (hl[this.current.id] || []).length;
+                document.getElementById('meta-highlights').textContent = c;
+            }
+        };
+
+        /* ── FOCUS MODE ────────────────────────────────────────────── */
+        const FocusMode = {
+            active: false, cur: 0, lines: [],
+            toggle() {
+                this.active = !this.active;
+                document.getElementById('toggle-focus').checked = this.active;
+                document.getElementById('btn-focus').classList.toggle('active', this.active);
+                document.getElementById('btn-focus').setAttribute('aria-pressed', this.active);
+                Prefs.save('focusMode', this.active);
+                if (this.active) { this.initLines(); toast('Focus Mode on — use ↑↓ arrow keys'); }
+                else { this.clear(); toast('Focus Mode off'); }
+            },
+            initLines() {
+                const el = document.getElementById('reading-text'); if (!el) return;
+                this.lines = []; let i = 0;
+                el.querySelectorAll('p').forEach(p => { p.classList.add('reading-line'); p.dataset.li = i; this.lines.push(p); i++; });
+                this.cur = 0; this.hl();
+            },
+            hl() {
+                this.lines.forEach((l, i) => { l.classList.remove('focused', 'dimmed'); if (i === this.cur) l.classList.add('focused'); else l.classList.add('dimmed'); });
+                const f = this.lines[this.cur]; if (f) f.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            },
+            up() { if (!this.active || !this.lines.length) return; this.cur = Math.max(0, this.cur - 1); this.hl(); },
+            dn() { if (!this.active || !this.lines.length) return; this.cur = Math.min(this.lines.length - 1, this.cur + 1); this.hl(); },
+            clear() {
+                const el = document.getElementById('reading-text'); if (!el) return;
+                el.querySelectorAll('.reading-line').forEach(e => { e.classList.remove('reading-line', 'focused', 'dimmed'); delete e.dataset.li; });
+                this.lines = [];
+            }
+        };
+
+        /* ── RULER ─────────────────────────────────────────────────── */
+        const Ruler = {
+            active: false,
+            toggle() {
+                this.active = !this.active;
+                document.getElementById('reading-ruler').classList.toggle('active', this.active);
+                document.getElementById('toggle-ruler').checked = this.active;
+                document.getElementById('btn-ruler').classList.toggle('active', this.active);
+                document.getElementById('btn-ruler').setAttribute('aria-pressed', this.active);
+                Prefs.save('rulerActive', this.active);
+                toast(this.active ? 'Reading ruler on' : 'Reading ruler off');
+            },
+            move(y) { if (this.active) document.getElementById('reading-ruler').style.top = y + 'px'; },
+            setOpacity(v) { document.documentElement.style.setProperty('--ruler-color', `rgba(74,124,89,${(v / 100) * .3})`) }
+        };
+
+        /* ── HIGHLIGHT TOOLBAR ─────────────────────────────────────── */
+        const HLToolbar = {
+            el: null, range: null, sel: null,
+            init() {
+                this.el = document.getElementById('highlight-toolbar');
+                document.getElementById('reading-text').addEventListener('mouseup', () => setTimeout(() => this.check(), 10));
+                document.getElementById('reading-text').addEventListener('touchend', () => setTimeout(() => this.check(), 10));
+                document.querySelectorAll('[data-hl]').forEach(btn => btn.addEventListener('click', () => this.apply(btn.dataset.hl)));
+                document.getElementById('hl-remove').addEventListener('click', () => this.remove());
+                document.getElementById('hl-add-note').addEventListener('click', () => this.toNote());
+            },
+            check() {
+                const s = window.getSelection();
+                if (!s || s.isCollapsed || !s.toString().trim()) { this.hide(); return; }
+                const r = s.getRangeAt(0);
+                if (!document.getElementById('reading-text').contains(r.commonAncestorContainer)) { this.hide(); return; }
+                this.range = r.cloneRange(); this.sel = s.toString().trim();
+                const rect = r.getBoundingClientRect();
+                this.el.classList.add('show');
+                const top = rect.top + window.scrollY - this.el.offsetHeight - 10;
+                const left = Math.max(8, rect.left + rect.width / 2 - this.el.offsetWidth / 2);
+                this.el.style.top = top + 'px'; this.el.style.left = left + 'px';
+            },
+            apply(cls) {
+                if (!this.range) return;
+                try {
+                    const mark = document.createElement('mark');
+                    mark.className = `text-highlight ${cls}`;
+                    mark.dataset.hlId = Date.now();
+                    this.range.surroundContents(mark);
+                    this.store(mark.dataset.hlId, cls, mark.textContent);
+                } catch (e) { toast('Highlight applied (partial selection)'); }
+                window.getSelection().removeAllRanges();
+                this.hide();
+                Reader.updateMeta();
+                Library.updateStats();
+                toast('✨ Highlighted!');
+            },
+            remove() {
+                if (!this.range) { this.hide(); return; }
+                const node = this.range.commonAncestorContainer;
+                const mark = (node.nodeType === 3 ? node.parentElement : node)?.closest?.('mark');
+                if (mark) { const p = mark.parentNode; while (mark.firstChild) p.insertBefore(mark.firstChild, mark); p.removeChild(mark); }
+                window.getSelection().removeAllRanges();
+                this.hide();
+            },
+            store(id, cls, text) {
+                if (!Reader.current) return;
+                const hl = DS.highlights(); const bid = Reader.current.id;
+                if (!hl[bid]) hl[bid] = [];
+                hl[bid].push({ id, cls, text: text.substring(0, 80), ts: Date.now() });
+                DS.saveHL(hl);
+            },
+            toNote() {
+                if (!this.sel) return;
+                SettingsPanel.tab('notes');
+                const ta = document.getElementById('quick-note');
+                ta.dataset.quote = this.sel.substring(0, 80);
+                ta.placeholder = `Note on: "${this.sel.substring(0, 38)}..."`;
+                ta.focus(); this.hide();
+            },
+            hide() { this.el.classList.remove('show'); }
+        };
+
+        /* ── NOTES ─────────────────────────────────────────────────── */
+        const Notes = {
+            render() {
+                const area = document.getElementById('notes-area');
+                if (!Reader.current) { area.innerHTML = '<p class="no-items">Open a book to see notes.</p>'; return; }
+                const all = DS.notes(); const bn = all[Reader.current.id] || [];
+                if (!bn.length) { area.innerHTML = '<p class="no-items">No notes yet. Highlight text and click 📝 Note.</p>'; return; }
+                area.innerHTML = bn.map((n, i) => `<div class="note-card">${n.quote ? `<div class="note-quote">"${n.quote}"</div>` : ''}
+      <div class="note-text">${n.text}</div>
+      <button class="note-delete" data-ni="${i}">Delete</button></div>`).join('');
+                area.querySelectorAll('.note-delete').forEach(btn => btn.addEventListener('click', () => this.del(parseInt(btn.dataset.ni))));
+            },
+            save(text, quote = '') {
+                if (!text.trim() || !Reader.current) return;
+                const all = DS.notes(); const id = Reader.current.id;
+                if (!all[id]) all[id] = [];
+                all[id].unshift({ text: text.trim(), quote: quote.substring(0, 80), ts: Date.now() });
+                DS.saveNotes(all); this.render(); toast('📝 Note saved!');
+            },
+            del(idx) {
+                if (!Reader.current) return;
+                const all = DS.notes(); const id = Reader.current.id;
+                all[id].splice(idx, 1); DS.saveNotes(all); this.render(); toast('Note deleted');
+            }
+        };
+
+        /* ── TTS ───────────────────────────────────────────────────── */
+        const TTS = {
+            synth: window.speechSynthesis, utterance: null, playing: false, paused: false,
+            sentences: [], sentIdx: 0, words: [], rate: 1.0, wordHL: true,
+            init() {
+                document.getElementById('tts-play').addEventListener('click', () => this.toggle());
+                document.getElementById('tts-stop').addEventListener('click', () => this.stop());
+                document.getElementById('tts-skip').addEventListener('click', () => this.skip());
+                document.getElementById('tts-rate').addEventListener('input', e => {
+                    this.rate = parseFloat(e.target.value); Prefs.save('ttsRate', this.rate);
+                    if (this.playing) { const i = this.sentIdx; this.stop(); this.sentIdx = i; this.speakFrom(i); }
+                });
+                this.rate = Prefs.get('ttsRate') || 1.0;
+                document.getElementById('tts-rate').value = this.rate;
+                this.wordHL = Prefs.get('ttsHL') !== false;
+            },
+            toggle() { if (this.playing) this.pause(); else this.play(); },
+            play() {
+                if (!('speechSynthesis' in window)) { toast('TTS not supported in this browser'); return; }
+                const el = document.getElementById('reading-text');
+                const txt = el.innerText || el.textContent;
+                if (!txt.trim()) { toast('Open a book first'); return; }
+                this.sentences = txt.match(/[^.!?]+[.!?]+/g) || [txt];
+                this.words = el.querySelectorAll('.tts-word');
+                if (!this.paused) this.sentIdx = 0;
+                this.paused = false; this.speakFrom(this.sentIdx);
+            },
+            speakFrom(idx) {
+                if (idx >= this.sentences.length) { this.stop(); return; }
+                this.synth.cancel();
+                const utt = new SpeechSynthesisUtterance(this.sentences[idx]);
+                utt.rate = this.rate; utt.pitch = 1.0; utt.lang = 'en-US';
+                let swi = 0;
+                let spanOff = 0; for (let s = 0; s < idx; s++)spanOff += this.sentences[s].trim().split(/\s+/).length;
+                utt.onboundary = e => {
+                    if (e.name === 'word' && this.wordHL) {
+                        this.clearHL();
+                        const w = this.words[spanOff + swi]; if (w) w.classList.add('tts-active'); swi++;
+                    }
+                };
+                utt.onstart = () => { this.playing = true; this.paused = false; document.getElementById('tts-play').textContent = '⏸'; document.getElementById('tts-status').textContent = 'Reading...'; this.updateProgress(); };
+                utt.onend = () => { this.clearHL(); this.sentIdx++; if (this.sentIdx < this.sentences.length) this.speakFrom(this.sentIdx); else this.stop(); };
+                utt.onerror = () => this.stop();
+                this.utterance = utt; this.synth.speak(utt);
+            },
+            pause() { if (this.synth.speaking) { this.synth.pause(); this.playing = false; this.paused = true; } document.getElementById('tts-play').textContent = '▶'; document.getElementById('tts-status').textContent = 'Paused'; this.clearHL(); },
+            stop() { this.synth.cancel(); this.playing = false; this.paused = false; this.sentIdx = 0; document.getElementById('tts-play').textContent = '▶'; document.getElementById('tts-status').textContent = 'Ready'; document.getElementById('tts-progress-fill').style.width = '0%'; this.clearHL(); },
+            skip() { if (this.sentIdx < this.sentences.length - 1) { this.sentIdx++; if (this.playing || this.synth.speaking) this.speakFrom(this.sentIdx); } },
+            clearHL() { document.querySelectorAll('.tts-active').forEach(e => e.classList.remove('tts-active')); },
+            updateProgress() {
+                if (!this.sentences.length) return;
+                const pct = (this.sentIdx / this.sentences.length) * 100;
+                document.getElementById('tts-progress-fill').style.width = pct + '%';
+                document.getElementById('tts-progress-fill').parentElement.setAttribute('aria-valuenow', Math.round(pct));
+                if (this.playing) requestAnimationFrame(() => this.updateProgress());
+            }
+        };
+
+        /* ── SETTINGS PANEL ────────────────────────────────────────── */
+        const SettingsPanel = {
+            open: false,
+            toggle() {
+                this.open = !this.open;
+                document.getElementById('settings-panel').classList.toggle('open', this.open);
+                document.getElementById('panel-backdrop').classList.toggle('active', this.open);
+                document.getElementById('btn-settings').classList.toggle('active', this.open);
+                document.getElementById('btn-settings').setAttribute('aria-pressed', this.open);
+                if (this.open) { Notes.render(); Bookmarks.renderPanel(); History.renderPanel(); document.getElementById('settings-panel').focus(); }
+            },
+            tab(name) {
+                if (!this.open) this.toggle();
+                document.querySelectorAll('.panel-tab').forEach(t => { t.classList.toggle('active', t.dataset.tab === name); t.setAttribute('aria-selected', t.dataset.tab === name); });
+                document.querySelectorAll('.panel-content').forEach(c => c.classList.toggle('active', c.id === `tab-${name}`));
+                if (name === 'notes') Notes.render();
+                if (name === 'saved') { Bookmarks.renderPanel(); History.renderPanel(); }
+            }
+        };
+
+        /* ── CUSTOMIZER ────────────────────────────────────────────── */
+        const Customizer = {
+            init() {
+                const p = Prefs.all();
+                this.applyTheme(p.theme); this.applyFont(p.font);
+                this.apply('--reading-font-size', p.fontSize + 'px');
+                this.apply('--reading-letter-spacing', p.letterSpacing + 'em');
+                this.apply('--reading-line-height', p.lineHeight);
+                this.apply('--reading-word-spacing', p.wordSpacing + 'em');
+
+                const sv = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+                const st = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
+
+                sv('font-size-slider', p.fontSize); st('font-size-val', p.fontSize + 'px');
+                sv('letter-spacing-slider', p.letterSpacing); st('letter-spacing-val', p.letterSpacing + 'em');
+                sv('line-height-slider', p.lineHeight); st('line-height-val', p.lineHeight);
+                sv('word-spacing-slider', p.wordSpacing); st('word-spacing-val', p.wordSpacing + 'em');
+                sv('para-spacing-slider', p.paraSpacing); st('para-spacing-val', p.paraSpacing + 'em');
+                sv('ruler-opacity-slider', p.rulerOpacity); st('ruler-opacity-val', p.rulerOpacity + '%');
+                sv('font-select', p.font);
+                sv('toggle-focus', p.focusMode); sv('toggle-ruler', p.rulerActive);
+                sv('toggle-large-btns', p.largeBtns); sv('toggle-reduce-motion', p.reduceMotion);
+                sv('toggle-tts-highlight', p.ttsHL !== false); sv('toggle-highlights', p.showHL !== false);
+
+                if (p.rulerActive) { Ruler.active = true; document.getElementById('reading-ruler').classList.add('active'); }
+                if (p.focusMode) FocusMode.active = true;
+                if (p.largeBtns) document.body.dataset.largeButtons = 'true';
+                if (p.reduceMotion) this.reduceMotion(true);
+                Ruler.setOpacity(p.rulerOpacity);
+
+                document.querySelectorAll('.theme-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.theme === p.theme);
+                    btn.setAttribute('aria-pressed', btn.dataset.theme === p.theme);
+                    btn.addEventListener('click', () => {
+                        this.applyTheme(btn.dataset.theme); Prefs.save('theme', btn.dataset.theme);
+                        document.querySelectorAll('.theme-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
+                        btn.classList.add('active'); btn.setAttribute('aria-pressed', 'true');
+                        toast('Theme updated');
+                    });
+                });
+
+                this.bind('font-size-slider', 'font-size-val', v => this.apply('--reading-font-size', v + 'px') && v + 'px', 'fontSize', parseInt);
+                this.bind('letter-spacing-slider', 'letter-spacing-val', v => this.apply('--reading-letter-spacing', v + 'em') && parseFloat(v).toFixed(2) + 'em', 'letterSpacing', parseFloat);
+                this.bind('line-height-slider', 'line-height-val', v => this.apply('--reading-line-height', v) && parseFloat(v).toFixed(1), 'lineHeight', parseFloat);
+                this.bind('word-spacing-slider', 'word-spacing-val', v => this.apply('--reading-word-spacing', v + 'em') && parseFloat(v).toFixed(2) + 'em', 'wordSpacing', parseFloat);
+                this.bind('para-spacing-slider', 'para-spacing-val', v => { document.querySelectorAll('#reading-text p').forEach(p => p.style.marginBottom = v + 'em'); return parseFloat(v).toFixed(1) + 'em'; }, 'paraSpacing', parseFloat);
+                this.bind('ruler-opacity-slider', 'ruler-opacity-val', v => { Ruler.setOpacity(parseInt(v)); return parseInt(v) + '%'; }, 'rulerOpacity', parseInt);
+
+                document.getElementById('font-select').addEventListener('change', e => { document.body.dataset.font = e.target.value; Prefs.save('font', e.target.value); toast('Font updated'); });
+                document.getElementById('toggle-focus').addEventListener('change', e => { if (e.target.checked !== FocusMode.active) FocusMode.toggle(); });
+                document.getElementById('toggle-ruler').addEventListener('change', e => { if (e.target.checked !== Ruler.active) Ruler.toggle(); });
+                document.getElementById('toggle-large-btns').addEventListener('change', e => { document.body.dataset.largeButtons = e.target.checked ? 'true' : 'false'; Prefs.save('largeBtns', e.target.checked); toast(e.target.checked ? 'Large buttons on' : 'Large buttons off'); });
+                document.getElementById('toggle-reduce-motion').addEventListener('change', e => { this.reduceMotion(e.target.checked); Prefs.save('reduceMotion', e.target.checked); });
+                document.getElementById('toggle-tts-highlight').addEventListener('change', e => { TTS.wordHL = e.target.checked; Prefs.save('ttsHL', e.target.checked); });
+                document.getElementById('toggle-highlights').addEventListener('change', e => {
+                    Prefs.save('showHL', e.target.checked);
+                    document.querySelectorAll('.text-highlight').forEach(el => el.style.background = e.target.checked ? '' : 'transparent');
+                });
+            },
+            bind(sid, vid, applyFn, prefKey, parseFn) {
+                const el = document.getElementById(sid); if (!el) return;
+                el.addEventListener('input', e => {
+                    const v = e.target.value;
+                    const label = applyFn(v);
+                    const lel = document.getElementById(vid); if (lel && label) lel.textContent = label;
+                    Prefs.save(prefKey, parseFn(v));
+                });
+            },
+            apply(prop, val) { document.documentElement.style.setProperty(prop, val); return true; },
+            applyTheme(t) { document.body.dataset.theme = t; },
+            applyFont(f) { document.body.dataset.font = f; },
+            reduceMotion(v) {
+                this.apply('--transition', v ? '0.01ms' : '0.22s cubic-bezier(.4,0,.2,1)');
+                this.apply('--transition-slow', v ? '0.01ms' : '0.4s cubic-bezier(.4,0,.2,1)');
+            }
+        };
+
+        /* ── READING PROGRESS ──────────────────────────────────────── */
+        function updateProgress() {
+            const rv = document.getElementById('reader-view');
+            if (!rv.classList.contains('active')) return;
+            const el = document.getElementById('reading-text');
+            const total = el.scrollHeight;
+            const scrolled = window.scrollY - (el.getBoundingClientRect().top + window.scrollY) + window.innerHeight;
+            const pct = Math.min(100, Math.max(0, (scrolled / total) * 100));
+            document.getElementById('reading-progress').style.width = pct + '%';
+            document.getElementById('meta-progress').textContent = Math.round(pct);
+            if (Reader.current) { const prog = DS.progress(); prog[Reader.current.id] = pct; DS.saveProg(prog); }
+        }
+
+        /* ── TTS BAR VISIBILITY ────────────────────────────────────── */
+        function updateTTSBar() {
+            const isR = document.getElementById('reader-view').classList.contains('active');
+            const ttsOn = document.getElementById('btn-tts-toggle').classList.contains('active');
+            document.getElementById('tts-bar').classList.toggle('visible', isR && ttsOn);
+        }
+
+        /* ── KEYBOARD ──────────────────────────────────────────────── */
+        function initKeyboard() {
+            document.addEventListener('keydown', e => {
+                if (FocusMode.active) { if (e.key === 'ArrowDown') { e.preventDefault(); FocusMode.dn(); return; } if (e.key === 'ArrowUp') { e.preventDefault(); FocusMode.up(); return; } }
+                if (e.target.tagName === 'INPUT' || e.target.tagName === 'SELECT' || e.target.tagName === 'TEXTAREA') return;
+                const isR = document.getElementById('reader-view').classList.contains('active');
+                if (e.key === ' ' && isR) { e.preventDefault(); TTS.toggle(); }
+                if (e.key === 'Escape') { if (SettingsPanel.open) SettingsPanel.toggle(); HLToolbar.hide(); }
+                if (e.key === 'f' && e.altKey) { e.preventDefault(); FocusMode.toggle(); }
+                if (e.key === 'r' && e.altKey) { e.preventDefault(); Ruler.toggle(); }
+                if (e.key === 'ArrowRight' && isR && Reader.pdfPages) { e.preventDefault(); Reader.pdfNext(); }
+                if (e.key === 'ArrowLeft' && isR && Reader.pdfPages) { e.preventDefault(); Reader.pdfPrev(); }
+            });
+        }
+
+        /* ── BOOTSTRAP ─────────────────────────────────────────────── */
+        document.addEventListener('DOMContentLoaded', async () => {
+            Library.init();
+            Customizer.init();
+            TTS.init();
+            HLToolbar.init();
+            FileUpload.init();
+            initLibTabs();
+            initKeyboard();
+
+            // Panel tabs
+            document.querySelectorAll('.panel-tab').forEach(tab => { tab.addEventListener('click', () => SettingsPanel.tab(tab.dataset.tab)); });
+
+            // Note saving
+            document.getElementById('save-quick-note').addEventListener('click', () => {
+                const ta = document.getElementById('quick-note');
+                Notes.save(ta.value, ta.dataset.quote || '');
+                ta.value = ''; ta.dataset.quote = ''; ta.placeholder = 'Write a note...';
+            });
+            document.getElementById('quick-note').addEventListener('keydown', e => { if (e.key === 'Enter' && e.ctrlKey) { e.preventDefault(); document.getElementById('save-quick-note').click(); } });
+
+            document.getElementById('back-btn').addEventListener('click', () => Reader.close());
+
+            document.getElementById('btn-tts-toggle').addEventListener('click', () => {
+                const btn = document.getElementById('btn-tts-toggle');
+                const a = btn.classList.toggle('active');
+                btn.setAttribute('aria-pressed', a); updateTTSBar();
+                if (a) toast('TTS ready — press ▶ or Spacebar'); else { TTS.stop(); toast('TTS off'); }
+            });
+
+            document.getElementById('btn-ruler').addEventListener('click', () => Ruler.toggle());
+            document.getElementById('btn-focus').addEventListener('click', () => FocusMode.toggle());
+            document.getElementById('btn-settings').addEventListener('click', () => SettingsPanel.toggle());
+            document.getElementById('panel-backdrop').addEventListener('click', () => SettingsPanel.toggle());
+
+            document.addEventListener('mousemove', e => Ruler.move(e.clientY));
+            window.addEventListener('scroll', updateProgress, { passive: true });
+            new MutationObserver(updateTTSBar).observe(document.getElementById('reader-view'), { attributes: true });
+            document.addEventListener('mousedown', e => { if (!document.getElementById('highlight-toolbar').contains(e.target)) HLToolbar.hide(); });
+
+            // Logout button
+            document.getElementById('btn-logout').addEventListener('click', async () => {
+                const refresh = localStorage.getItem('refresh_token');
+                if (refresh) {
+                    try { await apiFetch('/api/auth/logout/', { method: 'POST', body: JSON.stringify({ refresh }) }); } catch (e) { }
+                }
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                localStorage.removeItem('user_name');
+                window.location.replace('login.html');
+            });
+
+            // Show user name in nav
+            const storedName = localStorage.getItem('user_name');
+            if (storedName) document.getElementById('nav-user').textContent = '👤 ' + storedName;
+
+            // Load user files from API on page load
+            await Library.loadUserFiles();
+
+            Library.updateStats();
+            History.renderPanel();
+
+            // Announce load
+            setTimeout(() => { const t = document.getElementById('toast'); t.textContent = 'NeuroRead loaded. Welcome back!'; setTimeout(() => t.textContent = '', 2500); }, 200);
+        });
+    </script>
+</body>
+
+</html>
