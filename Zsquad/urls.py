@@ -11,6 +11,9 @@ urlpatterns = [
 
     # Library — file upload, list, serve, reading data
     path("api/library/", include("library.urls")),
+
+    # AI features — simplify, structure, explain word
+    path("api/ai/", include("ai_features.urls")),
 ]
 
 # Serve media files in development

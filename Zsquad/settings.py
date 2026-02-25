@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     # Local apps
     "accounts",
     "library",
+<<<<<<< HEAD
+=======
+    "ai_features",
+>>>>>>> d347f69 (clean initial commit)
 ]
 
 MIDDLEWARE = [
@@ -171,3 +175,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+# HuggingFace Inference API key
+HF_API_KEY = os.getenv("HF_API_KEY", "")
+

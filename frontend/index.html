@@ -2014,6 +2014,356 @@
                 gap: 12px
             }
         }
+
+        /* ── AI PANEL ─────────────────────────────────────────────── */
+        .ai-panel {
+            margin-top: 32px;
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg-card) 100%);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-xl);
+            padding: 20px 22px;
+            animation: fadeUp .4s ease both;
+        }
+
+        .ai-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ai-panel-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: -.2px;
+        }
+
+        .ai-panel-hint {
+            font-size: 11px;
+            color: var(--text-muted);
+            background: var(--bg-secondary);
+            padding: 3px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .ai-btn-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .ai-action-btn {
+            flex: 1;
+            min-width: 110px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            padding: 14px 10px;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-family: var(--font-body);
+            transition: all var(--transition);
+            text-align: center;
+        }
+
+        .ai-action-btn:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px var(--shadow);
+        }
+
+        .ai-action-btn:disabled {
+            opacity: .55;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .ai-btn-icon {
+            font-size: 22px;
+            line-height: 1;
+        }
+
+        .ai-btn-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .ai-btn-sub {
+            font-size: 10px;
+            color: var(--text-muted);
+        }
+
+        .ai-output-box {
+            margin-top: 16px;
+            background: var(--bg-secondary);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 14px 16px;
+        }
+
+        .ai-output-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #ai-output-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: .08em;
+        }
+
+        .ai-output-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .ai-copy-btn,
+        .ai-close-btn {
+            padding: 4px 10px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            font-size: 11px;
+            cursor: pointer;
+            color: var(--text-secondary);
+            font-family: var(--font-body);
+            transition: all var(--transition);
+        }
+
+        .ai-copy-btn:hover {
+            background: var(--accent-light);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .ai-close-btn:hover {
+            background: #fde8e8;
+            border-color: #e05050;
+            color: #e05050;
+        }
+
+        .ai-output-text {
+            font-size: 15px;
+            line-height: 1.75;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+        }
+
+        /* Loading dots */
+        .ai-spinner {
+            display: flex;
+            gap: 6px;
+            justify-content: center;
+            padding: 14px 0;
+        }
+
+        .ai-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: aiPulse 1s ease-in-out infinite;
+        }
+
+        .ai-dot:nth-child(2) {
+            animation-delay: .2s;
+        }
+
+        .ai-dot:nth-child(3) {
+            animation-delay: .4s;
+        }
+
+        @keyframes aiPulse {
+
+            0%,
+            100% {
+                opacity: .25;
+                transform: scale(.8);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Word Tooltip */
+        .word-tooltip {
+            position: fixed;
+            z-index: 8500;
+            background: var(--bg-card);
+            border: 1.5px solid var(--accent);
+            border-radius: var(--radius-lg);
+            padding: 0;
+            min-width: 260px;
+            max-width: 340px;
+            box-shadow: 0 12px 36px var(--shadow-md);
+            animation: fadeUp .2s ease both;
+        }
+
+        .word-tooltip-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px 6px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .word-tooltip-term {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--accent);
+            font-family: var(--font-reading);
+        }
+
+        .word-tooltip-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 13px;
+            color: var(--text-muted);
+            padding: 2px 5px;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-body);
+        }
+
+        .word-tooltip-close:hover {
+            color: #e05050;
+            background: #fde8e8;
+        }
+
+        .word-tooltip-content {
+            padding: 10px 14px 12px;
+            font-size: 13px;
+            line-height: 1.65;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+        }
+
+        .word-tooltip-spinner {
+            padding: 12px 0;
+        }
+
+        /* ── AGENTIC AI BANNER ───────────────────────────────────── */
+        .agentic-banner {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-card);
+            border: 2px solid var(--accent);
+            border-radius: var(--radius-xl);
+            padding: 14px 22px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+            z-index: 9000;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            pointer-events: none;
+        }
+
+        .agentic-banner.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .agentic-icon {
+            font-size: 28px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-8px);
+            }
+
+            60% {
+                transform: translateY(-4px);
+            }
+        }
+
+        .agentic-text-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .agentic-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .agentic-desc {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .agentic-actions {
+            display: flex;
+            gap: 10px;
+            margin-left: 10px;
+        }
+
+        .agentic-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            cursor: pointer;
+            transition: all var(--transition);
+        }
+
+        .agentic-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+            transform: scale(1.05);
+        }
+
+        .agentic-close {
+            position: absolute;
+            top: 4px;
+            right: 8px;
+            background: none;
+            border: none;
+            font-size: 14px;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .agentic-close:hover {
+            color: var(--text-primary);
+        }
     </style>
 </head>
 
@@ -2194,6 +2544,79 @@
 
                 <div id="reading-text" tabindex="0" role="region"
                     aria-label="Reading area. Use arrow keys in focus mode." aria-live="polite"></div>
+
+
+                <!-- ✨ AI TOOLS PANEL -->
+                <div id="ai-tools-panel" class="ai-panel" role="complementary" aria-label="AI reading tools">
+                    <div class="ai-panel-header">
+                        <span class="ai-panel-title">✨ AI Reading Assistant</span>
+                        <span class="ai-panel-hint">Double-click any word to explain it</span>
+                    </div>
+                    <div class="ai-btn-row">
+                        <button class="ai-action-btn" id="btn-ai-simplify"
+                            title="Simplify the current text into plain language">
+                            <span class="ai-btn-icon">🧠</span>
+                            <span class="ai-btn-label">Simplify</span>
+                            <span class="ai-btn-sub">Make easier to read</span>
+                        </button>
+                        <button class="ai-action-btn" id="btn-ai-structure" title="Break text into bullet points">
+                            <span class="ai-btn-icon">📋</span>
+                            <span class="ai-btn-label">Structure</span>
+                            <span class="ai-btn-sub">Bullets &amp; headings</span>
+                        </button>
+                        <button class="ai-action-btn" id="btn-ai-selected" title="Simplify selected/highlighted text">
+                            <span class="ai-btn-icon">✂️</span>
+                            <span class="ai-btn-label">Selected</span>
+                            <span class="ai-btn-sub">Simplify selection</span>
+                        </button>
+                    </div>
+                    <!-- AI Output Box -->
+                    <div id="ai-output-box" class="ai-output-box" style="display:none">
+                        <div class="ai-output-header">
+                            <span id="ai-output-label">Result</span>
+                            <div class="ai-output-actions">
+                                <button class="ai-copy-btn" id="ai-copy-btn" title="Copy result">📋 Copy</button>
+                                <button class="ai-close-btn" id="ai-close-btn" title="Close">✕</button>
+                            </div>
+                        </div>
+                        <div class="ai-spinner" id="ai-spinner" style="display:none">
+                            <div class="ai-dot"></div>
+                            <div class="ai-dot"></div>
+                            <div class="ai-dot"></div>
+                        </div>
+                        <div id="ai-output-text" class="ai-output-text"></div>
+                    </div>
+                </div>
+
+                <!-- Word Explanation Tooltip -->
+                <div id="word-tooltip" class="word-tooltip" role="tooltip" style="display:none">
+                    <div class="word-tooltip-header">
+                        <span id="word-tooltip-word" class="word-tooltip-term"></span>
+                        <button class="word-tooltip-close" id="word-tooltip-close">✕</button>
+                    </div>
+                    <div class="word-tooltip-spinner" id="word-tooltip-spinner">
+                        <div class="ai-dot"></div>
+                        <div class="ai-dot"></div>
+                        <div class="ai-dot"></div>
+                    </div>
+                    <div id="word-tooltip-content" class="word-tooltip-content"></div>
+                </div>
+
+                <!-- 🤖 Agentic AI Banner -->
+                <div id="agentic-banner" class="agentic-banner" role="alert" aria-live="assertive">
+                    <button class="agentic-close" id="agentic-close" aria-label="Close suggestion">✕</button>
+                    <div class="agentic-icon" aria-hidden="true">🤖</div>
+                    <div class="agentic-text-wrap">
+                        <span class="agentic-title">This page looks a bit complex.</span>
+                        <span class="agentic-desc">I found long sentences and hard words. Can I help?</span>
+                    </div>
+                    <div class="agentic-actions">
+                        <button class="agentic-btn" id="btn-agentic-simplify">🧠 Simplify</button>
+                        <button class="agentic-btn" id="btn-agentic-focus">🎯 Focus Mode</button>
+                        <button class="agentic-btn" id="btn-agentic-listen">🔊 Listen</button>
+                    </div>
+                </div>
+
 
                 <!-- PDF page navigation -->
                 <div class="pdf-nav" id="pdf-nav" aria-label="PDF page navigation">
@@ -3008,6 +3431,10 @@
 
             _open(book) {
                 this.current = book;
+
+                AITools.agenticDismissed = false; // Reset Agentic AI state for new book
+                AITools.hasShownBannerThisSession = false; // Allow showing once per new book
+
                 document.getElementById('reader-emoji').textContent = book.emoji || '📄';
                 document.getElementById('reader-title').textContent = book.title;
                 document.getElementById('reader-author').textContent = book.author || '';
@@ -3058,6 +3485,13 @@
                     const words = p.trim().split(' ');
                     return `<p>${words.map(w => `<span class="tts-word">${this.escapeHTML(w)}</span>`).join(' ')}</p>`;
                 }).join('');
+
+
+                // 🤖 Agentic AI: Reset state for this new page/text and analyze it
+                AITools.agenticDismissed = false;
+                AITools.hasShownBannerThisSession = false;
+                AITools.analyzeTextComplexity(content);
+
             },
 
             escapeHTML(str) { return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); },
@@ -3518,7 +3952,265 @@
 
             // Announce load
             setTimeout(() => { const t = document.getElementById('toast'); t.textContent = 'NeuroRead loaded. Welcome back!'; setTimeout(() => t.textContent = '', 2500); }, 200);
+
+
+            // ── AI MODULE ──────────────────────────────────────────────────
+            AITools.init();
         });
+
+        /* ══════════════════════════════════════════════════════════════
+           AI READING ASSISTANT
+           Connects to Django /api/ai/* which proxies to HuggingFace
+           Models: distilbart-cnn-12-6 (simplify/structure)
+                   flan-t5-base (word explanation)
+        ══════════════════════════════════════════════════════════════ */
+        const AITools = {
+
+            init() {
+                // Button handlers
+                document.getElementById('btn-ai-simplify').addEventListener('click', () => this.simplify());
+                document.getElementById('btn-ai-structure').addEventListener('click', () => this.structure());
+                document.getElementById('btn-ai-selected').addEventListener('click', () => this.simplifySelected());
+                document.getElementById('ai-close-btn').addEventListener('click', () => this.hideOutput());
+                document.getElementById('ai-copy-btn').addEventListener('click', () => this.copyOutput());
+
+                // Word explanation: double-click any word in reading area
+                document.getElementById('reading-text').addEventListener('dblclick', (e) => this.explainWord(e));
+
+                // Close word tooltip on outside click
+                document.addEventListener('click', (e) => {
+                    if (!document.getElementById('word-tooltip').contains(e.target)) {
+                        this.hideWordTooltip();
+                    }
+                });
+                document.getElementById('word-tooltip-close').addEventListener('click', () => this.hideWordTooltip());
+
+                // Agentic AI Banner handlers
+                document.getElementById('agentic-close').addEventListener('click', () => this.dismissAgenticBanner());
+                document.getElementById('btn-agentic-simplify').addEventListener('click', () => {
+                    this.dismissAgenticBanner();
+                    this.simplify();
+                });
+                document.getElementById('btn-agentic-focus').addEventListener('click', () => {
+                    this.dismissAgenticBanner();
+                    if (!FocusMode.active) FocusMode.toggle();
+                });
+                document.getElementById('btn-agentic-listen').addEventListener('click', () => {
+                    this.dismissAgenticBanner();
+                    if (!document.getElementById('btn-tts-toggle').classList.contains('active')) {
+                        document.getElementById('btn-tts-toggle').click(); // toggle on
+                        setTimeout(() => TTS.play(), 200);
+                    } else {
+                        TTS.play();
+                    }
+                });
+            },
+
+            // ── AGENTIC AI: Proactive Complexity Detection ──────────────────
+            hasShownBannerThisSession: false,
+            agenticDismissed: false,
+
+            analyzeTextComplexity(text) {
+                if (this.agenticDismissed) return; // Stays hidden forever if user interacted with it
+
+                if (!text || text.length < 50) return;
+
+                // Simple heuristics for dyslexia/complexity:
+                // 1. Long words (>10 chars)
+                // 2. Long sentences (>20 words)
+                const words = text.split(/\s+/).filter(w => w.length > 0);
+                const sentences = text.match(/[^.!?]+[.!?]+/g) || [text];
+
+                if (words.length < 10) return; // Too short to judge
+
+                const longWords = words.filter(w => w.replace(/[^a-zA-Z]/g, '').length > 9).length;
+                const avgSentenceLength = words.length / (sentences.length || 1);
+
+                const complexWordRatio = longWords / words.length;
+
+                // Thresholds: >4% long words OR >15 words per sentence average
+                if (complexWordRatio > 0.04 || avgSentenceLength > 15) {
+                    if (!this.hasShownBannerThisSession) {
+                        console.log('Agentic AI: Detected complex text.', { complexWordRatio, avgSentenceLength });
+                        // Add a slight delay so it feels like it's "reading"
+                        setTimeout(() => this.showAgenticBanner(), 1500);
+                        this.hasShownBannerThisSession = true; // Mark as shown so it never pops up again for this book
+                    }
+                } else {
+                    // Hide it if they move to a simple page
+                    this.hideAgenticBanner();
+                }
+            },
+
+            dismissAgenticBanner() {
+                this.agenticDismissed = true;
+                this.hideAgenticBanner();
+            },
+
+            showAgenticBanner() {
+                const banner = document.getElementById('agentic-banner');
+                if (banner) banner.classList.add('show');
+            },
+
+            hideAgenticBanner() {
+                const banner = document.getElementById('agentic-banner');
+                if (banner) banner.classList.remove('show');
+            },
+
+            // ── Get current visible reading text ──────────────────────────
+            getCurrentText() {
+                const el = document.getElementById('reading-text');
+                return el ? (el.innerText || el.textContent || '').trim() : '';
+            },
+
+            // ── Core API caller ────────────────────────────────────────────
+            async callAI(endpoint, body) {
+                const resp = await apiFetch(`/api/ai/${endpoint}/`, {
+                    method: 'POST',
+                    body: JSON.stringify(body),
+                });
+                if (!resp) throw new Error('Session expired. Please log in again.');
+                if (!resp.ok) {
+                    const err = await resp.json().catch(() => ({}));
+                    throw new Error(err.error || `API error ${resp.status}`);
+                }
+                return resp.json();
+            },
+
+            // ── Show / hide output panel ───────────────────────────────────
+            showOutput(label) {
+                const box = document.getElementById('ai-output-box');
+                document.getElementById('ai-output-label').textContent = label;
+                document.getElementById('ai-output-text').textContent = '';
+                document.getElementById('ai-spinner').style.display = 'flex';
+                box.style.display = 'block';
+                box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = true);
+            },
+
+            finishOutput(text) {
+                document.getElementById('ai-spinner').style.display = 'none';
+                document.getElementById('ai-output-text').textContent = text;
+                document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
+            },
+
+            hideOutput() {
+                document.getElementById('ai-output-box').style.display = 'none';
+                document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
+            },
+
+            copyOutput() {
+                const txt = document.getElementById('ai-output-text').textContent;
+                navigator.clipboard.writeText(txt).then(() => toast('📋 Copied!'));
+            },
+
+            // ── 1. Simplify entire current text ───────────────────────────
+            async simplify() {
+                const text = this.getCurrentText();
+                if (!text) { toast('⚠️ Open a book or file to simplify.'); return; }
+
+                this.showOutput('🧠 Simplified Text');
+                try {
+                    // Chunk: send first 1500 chars for speed
+                    const chunk = text.slice(0, 1500);
+                    const data = await this.callAI('simplify', { text: chunk });
+                    this.finishOutput(data.simplified || 'No result returned.');
+                } catch (e) {
+                    this.finishOutput('❌ ' + e.message);
+                    document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
+                }
+            },
+
+            // ── 2. Structure text into bullets ────────────────────────────
+            async structure() {
+                const text = this.getCurrentText();
+                if (!text) { toast('⚠️ Open a book or file first.'); return; }
+
+                this.showOutput('📋 Structured Points');
+                try {
+                    const chunk = text.slice(0, 1200);
+                    const data = await this.callAI('structure', { text: chunk });
+                    this.finishOutput(data.structured || 'No result returned.');
+                } catch (e) {
+                    this.finishOutput('❌ ' + e.message);
+                    document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
+                }
+            },
+
+            // ── 3. Simplify only selected text ────────────────────────────
+            async simplifySelected() {
+                const sel = window.getSelection()?.toString().trim();
+                if (!sel || sel.length < 10) {
+                    toast('✂️ Select some text in the reader first, then click Selected.');
+                    return;
+                }
+                this.showOutput('✂️ Simplified Selection');
+                try {
+                    const data = await this.callAI('simplify', { text: sel });
+                    this.finishOutput(data.simplified || 'No result returned.');
+                } catch (e) {
+                    this.finishOutput('❌ ' + e.message);
+                    document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
+                }
+            },
+
+            // ── Word tooltip helpers ──────────────────────────────────────
+            showWordTooltip(word, x, y) {
+                const tt = document.getElementById('word-tooltip');
+                document.getElementById('word-tooltip-word').textContent = word;
+                document.getElementById('word-tooltip-content').textContent = '';
+                document.getElementById('word-tooltip-spinner').style.display = 'flex';
+                tt.style.display = 'block';
+                // Position near cursor, keep within viewport
+                const vw = window.innerWidth, vh = window.innerHeight;
+                let left = x + 12, top = y + 12;
+                if (left + 340 > vw) left = vw - 350;
+                if (top + 220 > vh) top = y - 230;
+                tt.style.left = left + 'px';
+                tt.style.top = top + 'px';
+            },
+
+            hideWordTooltip() {
+                document.getElementById('word-tooltip').style.display = 'none';
+            },
+
+            // ── 4. Explain word on double-click ──────────────────────────
+            async explainWord(e) {
+                let word = '';
+                // Get the word from the selection or clicked element
+                const sel = window.getSelection();
+                if (sel && sel.toString().trim()) {
+                    word = sel.toString().trim().split(/\s+/)[0]; // first word of selection
+                }
+                if (!word && e.target.classList.contains('tts-word')) {
+                    word = e.target.textContent.trim();
+                }
+                // Strip punctuation
+                word = word.replace(/[^a-zA-Z'-]/g, '');
+                if (!word || word.length < 2) return;
+
+                // Get surrounding sentence as context
+                const fullText = this.getCurrentText();
+                const idx = fullText.indexOf(word);
+                const context = idx >= 0
+                    ? fullText.slice(Math.max(0, idx - 80), idx + 120)
+                    : '';
+
+                this.showWordTooltip(word, e.clientX, e.clientY);
+
+                try {
+                    const data = await this.callAI('explain', { word, context });
+                    document.getElementById('word-tooltip-spinner').style.display = 'none';
+                    document.getElementById('word-tooltip-content').textContent =
+                        data.explanation || 'No explanation available.';
+                } catch (err) {
+                    document.getElementById('word-tooltip-spinner').style.display = 'none';
+                    document.getElementById('word-tooltip-content').textContent = '❌ ' + err.message;
+                }
+            }
+        };
+
+
     </script>
 </body>
 
