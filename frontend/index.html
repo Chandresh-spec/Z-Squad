@@ -6,10 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NeuroRead – Inclusive Digital Library</title>
     <meta name="description" content="NeuroRead: Upload & read your own files with dyslexia-friendly tools">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
         /* =====================================================
@@ -488,7 +491,16 @@
             gap: 7px;
             font-size: 13px;
             color: var(--text-secondary);
-            font-weight: 500
+            font-weight: 500;
+            font-family: var(--font-body);
+            cursor: pointer;
+            transition: all var(--transition)
+        }
+
+        .stat-chip:hover {
+            border-color: var(--accent);
+            background: var(--accent-light);
+            color: var(--accent)
         }
 
         .stat-chip strong {
@@ -2456,11 +2468,12 @@
             </div>
 
             <div class="stats-bar" id="stats-bar" role="status" aria-label="Reading statistics">
-                <div class="stat-chip">📚 <strong id="stat-total">12</strong> Library</div>
-                <div class="stat-chip">📂 <strong id="stat-uploads">0</strong> My Files</div>
-                <div class="stat-chip">✅ <strong id="stat-read">0</strong> Read</div>
-                <div class="stat-chip">🔖 <strong id="stat-bookmarks">0</strong> Saved</div>
-                <div class="stat-chip">🖍 <strong id="stat-highlights">0</strong> Highlights</div>
+                <button class="stat-chip" id="chip-library">📚 <strong id="stat-total">12</strong> Library</button>
+                <button class="stat-chip" id="chip-myfiles">📂 <strong id="stat-uploads">0</strong> My Files</button>
+                <button class="stat-chip" id="chip-read">✅ <strong id="stat-read">0</strong> Read</button>
+                <button class="stat-chip" id="chip-saved">🔖 <strong id="stat-bookmarks">0</strong> Saved</button>
+                <button class="stat-chip" id="chip-highlights">🖍 <strong id="stat-highlights">0</strong>
+                    Highlights</button>
             </div>
 
             <!-- Library / My Files tabs -->
@@ -2570,6 +2583,28 @@
                             <span class="ai-btn-sub">Simplify selection</span>
                         </button>
                     </div>
+
+                    <!-- Translation Section -->
+                    <div class="ai-translate-section"
+                        style="margin-top: 15px; padding-top: 12px; border-top: 1px solid var(--border);">
+                        <div
+                            style="font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 8px;">
+                            🌐 Translate Text</div>
+                        <div style="display: flex; gap: 8px;">
+                            <select id="ai-translate-lang" aria-label="Select target language"
+                                style="flex: 1; padding: 8px 12px; border-radius: 6px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text); font-size: 13px;">
+                                <option value="kn">Kannada (ಕನ್ನಡ)</option>
+                                <option value="ml">Malayalam (മലയാളം)</option>
+                                <option value="te">Telugu (తెలుగు)</option>
+                                <option value="hi">Hindi (हिंदी)</option>
+                            </select>
+                            <button class="ai-action-btn" id="btn-ai-translate" title="Translate current text"
+                                style="padding: 8px 16px; min-width: unset; justify-content: center;">
+                                Translate
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- AI Output Box -->
                     <div id="ai-output-box" class="ai-output-box" style="display:none">
                         <div class="ai-output-header">
@@ -3205,6 +3240,14 @@
             emojiForType(ext) {
                 const map = { pdf: '📄', txt: '📃', md: '📝', html: '🌐', rtf: '📋' };
                 return map[ext] || '📁';
+            },
+
+            formatSize(bytes) {
+                if (!bytes || bytes === 0) return '0 B';
+                const k = 1024;
+                const sizes = ['B', 'KB', 'MB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
             },
 
             renderGrid(searchQ = '') {
@@ -3901,6 +3944,13 @@
             // Panel tabs
             document.querySelectorAll('.panel-tab').forEach(tab => { tab.addEventListener('click', () => SettingsPanel.tab(tab.dataset.tab)); });
 
+            // Stats chips mapping
+            document.getElementById('chip-library').addEventListener('click', () => document.querySelector('[data-lib-tab="library"]').click());
+            document.getElementById('chip-myfiles').addEventListener('click', () => document.querySelector('[data-lib-tab="myfiles"]').click());
+            document.getElementById('chip-read').addEventListener('click', () => document.querySelector('[data-lib-tab="library"]').click()); // Default to library since there is no 'read' filter
+            document.getElementById('chip-saved').addEventListener('click', () => SettingsPanel.tab('saved'));
+            document.getElementById('chip-highlights').addEventListener('click', () => SettingsPanel.tab('notes'));
+
             // Note saving
             document.getElementById('save-quick-note').addEventListener('click', () => {
                 const ta = document.getElementById('quick-note');
@@ -3973,6 +4023,7 @@
                 document.getElementById('btn-ai-selected').addEventListener('click', () => this.simplifySelected());
                 document.getElementById('ai-close-btn').addEventListener('click', () => this.hideOutput());
                 document.getElementById('ai-copy-btn').addEventListener('click', () => this.copyOutput());
+                document.getElementById('btn-ai-translate').addEventListener('click', () => this.translate());
 
                 // Word explanation: double-click any word in reading area
                 document.getElementById('reading-text').addEventListener('dblclick', (e) => this.explainWord(e));
@@ -4077,7 +4128,7 @@
                 return resp.json();
             },
 
-            // ── Show / hide output panel ───────────────────────────────────
+            // ── Show / hide output panel ──────────────────────────────────   
             showOutput(label) {
                 const box = document.getElementById('ai-output-box');
                 document.getElementById('ai-output-label').textContent = label;
@@ -4115,6 +4166,42 @@
                     const chunk = text.slice(0, 1500);
                     const data = await this.callAI('simplify', { text: chunk });
                     this.finishOutput(data.simplified || 'No result returned.');
+                } catch (e) {
+                    this.finishOutput('❌ ' + e.message);
+                    document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
+                }
+            },
+
+            // ── Translate text ────────────────────────────
+            async translate() {
+                // Use selected text if available, otherwise current page text
+                let text = window.getSelection().toString().trim();
+                let isSelection = !!text;
+                if (!text) {
+                    text = this.getCurrentText();
+                }
+
+                if (!text) { toast('⚠️ Open a book, or highlight text to translate.'); return; }
+
+                const langSelect = document.getElementById('ai-translate-lang');
+                const lang = langSelect.value;
+                const langName = langSelect.options[langSelect.selectedIndex].text.split(' ')[0];
+
+                this.showOutput(`🌐 ${langName} Translation ${isSelection ? '(Selected)' : ''}`);
+                try {
+                    const chunk = text.slice(0, 2000);
+
+                    const resp = await apiFetch(`/api/translator/translate/`, {
+                        method: 'POST',
+                        body: JSON.stringify({ text: chunk, target: lang })
+                    });
+
+                    if (!resp || !resp.ok) {
+                        const err = await resp.json().catch(() => ({}));
+                        throw new Error(err.error || `Translation error ${resp.status}`);
+                    }
+                    const data = await resp.json();
+                    this.finishOutput(data.translated_text || 'No result returned.');
                 } catch (e) {
                     this.finishOutput('❌ ' + e.message);
                     document.querySelectorAll('.ai-action-btn').forEach(b => b.disabled = false);
@@ -4212,6 +4299,7 @@
 
 
     </script>
+
 </body>
 
 </html>

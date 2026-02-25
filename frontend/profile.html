@@ -5,11 +5,27 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Profile — Zsquad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary: #7c6af7;
+            --primary-light: #9d8dfa;
+            --secondary: #2aaf74;
+            --danger: #f14668;
+            --bg-grad: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --card-bg: rgba(25, 25, 40, 0.45);
+            --border: rgba(255, 255, 255, 0.1);
+            --text: #ffffff;
+            --text-muted: #a0a0b0;
+            --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
         }
 
         body {
@@ -17,144 +33,496 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-grad);
+            background-size: 400% 400%;
+            animation: bgShift 15s ease infinite;
+            color: var(--text);
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        @keyframes bgShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Ambient Orbs */
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.5;
+            animation: float 10s infinite alternate;
+        }
+
+        .orb-1 {
+            width: 300px;
+            height: 300px;
+            background: rgba(124, 106, 247, 0.4);
+            top: -50px;
+            left: -50px;
+        }
+
+        .orb-2 {
+            width: 400px;
+            height: 400px;
+            background: rgba(42, 175, 116, 0.3);
+            bottom: -100px;
+            right: -100px;
+            animation-delay: -5s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0);
+            }
+
+            100% {
+                transform: translate(30px, 30px);
+            }
+        }
+
+        .card-container {
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(40px);
+            perspective: 1000px;
+        }
+
+        @keyframes slideUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 16px;
-            padding: 40px 36px;
-            width: 100%;
-            max-width: 440px;
-            color: #fff;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
-        h2 {
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        }
+
+        /* Glass highlight line */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            opacity: 0.5;
+        }
+
+        .header {
             text-align: center;
-            margin-bottom: 28px;
-            font-size: 1.7rem;
+            margin-bottom: 30px;
+        }
+
+        .header h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(to right, #fff, #b0b0d0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
         }
 
         .avatar {
-            width: 70px;
-            height: 70px;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
-            background: linear-gradient(135deg, #7c6af7, #5a51d4);
+            background: linear-gradient(135deg, var(--primary), #5a51d4);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            margin: 0 auto 20px;
+            font-size: 2.5rem;
+            font-weight: 600;
+            box-shadow: 0 10px 25px rgba(124, 106, 247, 0.5);
+            position: relative;
+            z-index: 2;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
         }
 
-        .field {
-            margin-bottom: 16px;
+        .avatar-container:hover .avatar {
+            transform: scale(1.05) rotate(5deg);
         }
 
-        .field label {
-            font-size: 0.78rem;
-            color: #aaa;
-            display: block;
+        .pulse {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            background: var(--primary);
+            z-index: 1;
+            opacity: 0;
+            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        @keyframes ping {
+
+            75%,
+            100% {
+                transform: scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        .info-grid {
+            display: grid;
+            gap: 16px;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s 0.3s forwards;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .info-item {
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .info-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        .info-item-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: var(--primary-light);
+            transition: var(--transition);
+        }
+
+        .info-item:hover .info-item-icon {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 0 15px rgba(124, 106, 247, 0.4);
+        }
+
+        .info-content {
+            flex: 1;
+        }
+
+        .info-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
             margin-bottom: 4px;
+            font-weight: 500;
         }
 
-        .field span {
-            display: block;
-            padding: 10px 14px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 8px;
-            font-size: 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .info-val {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .btn-row {
             display: flex;
-            gap: 10px;
-            margin-top: 24px;
+            gap: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.6s 0.4s forwards;
         }
 
-        button {
+        .btn {
             flex: 1;
-            padding: 12px;
+            padding: 14px 20px;
             border: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
+            border-radius: 14px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
         }
 
-        #refreshBtn {
-            background: linear-gradient(90deg, #48c78e, #2aaf74);
-            color: #fff;
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
         }
 
-        #logoutBtn {
-            background: linear-gradient(90deg, #f14668, #c0304e);
-            color: #fff;
+        .btn:hover::after {
+            left: 150%;
         }
 
-        button:hover {
-            opacity: 0.85;
+        .btn:active {
+            transform: scale(0.96);
+        }
+
+        .btn-refresh {
+            background: linear-gradient(135deg, #1fa2ff, #12d8fa, #a6ffcb);
+            background-size: 200% auto;
+            color: #0b3d2b;
+            box-shadow: 0 10px 20px rgba(42, 175, 116, 0.3);
+        }
+
+        .btn-refresh:hover {
+            background-position: right center;
+            box-shadow: 0 15px 25px rgba(42, 175, 116, 0.4);
+        }
+
+        .btn-logout {
+            background: transparent;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+            box-shadow: 0 10px 20px rgba(241, 70, 104, 0.1);
+        }
+
+        .btn-logout:hover {
+            background: var(--danger);
+            color: white;
+            box-shadow: 0 15px 25px rgba(241, 70, 104, 0.3);
+        }
+
+        /* Skeleton Loading */
+        #loading {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+            border-radius: 8px;
+        }
+
+        .skeleton-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+        }
+
+        .skeleton-field {
+            height: 74px;
+            border-radius: 16px;
+        }
+
+        @keyframes loading {
+            0% {
+                background-position: 200% 0;
+            }
+
+            100% {
+                background-position: -200% 0;
+            }
         }
 
         #status {
-            margin-top: 14px;
-            padding: 10px 14px;
-            border-radius: 8px;
-            font-size: 0.85rem;
+            margin-top: 20px;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
             display: none;
+            text-align: center;
+            font-weight: 500;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .success {
-            background: rgba(72, 199, 142, 0.15);
-            border: 1px solid #48c78e;
-            color: #48c78e;
+            background: rgba(42, 175, 116, 0.15);
+            border: 1px solid var(--secondary);
+            color: #a6ffcb;
         }
 
         .error {
             background: rgba(241, 70, 104, 0.15);
-            border: 1px solid #f14668;
-            color: #f14668;
+            border: 1px solid var(--danger);
+            color: #ffb3c1;
         }
 
-        #loading {
-            text-align: center;
-            color: #aaa;
-            font-size: 1rem;
+        /* Responsive */
+        @media (max-width: 480px) {
+            .card {
+                padding: 30px 20px;
+            }
+
+            .btn-row {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 
 <body>
-    <div class="card">
-        <h2>👤 My Profile</h2>
-        <div id="loading">Loading profile...</div>
-        <div id="profileContent" style="display:none">
-            <div class="avatar" id="avatarLetter">U</div>
-            <div class="field"><label>Full Name</label><span id="uName">—</span></div>
-            <div class="field"><label>Email</label><span id="uEmail">—</span></div>
-            <div class="field"><label>User ID</label><span id="uId">—</span></div>
-            <div class="field"><label>Joined</label><span id="uJoined">—</span></div>
-            <div class="btn-row">
-                <button id="refreshBtn" onclick="refreshToken()">🔄 Refresh Token</button>
-                <button id="logoutBtn" onclick="logout()">🚪 Logout</button>
+    <!-- Ambient Background -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+
+    <div class="card-container">
+        <div class="card">
+            <div class="header">
+                <h2>My Profile</h2>
             </div>
+
+            <div id="loading">
+                <div class="skeleton skeleton-avatar"></div>
+                <div class="skeleton skeleton-field"></div>
+                <div class="skeleton skeleton-field"></div>
+                <div class="skeleton skeleton-field"></div>
+                <div class="skeleton skeleton-field"></div>
+            </div>
+
+            <div id="profileContent" style="display:none">
+                <div class="avatar-container">
+                    <div class="pulse"></div>
+                    <div class="avatar" id="avatarLetter">U</div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fa-solid fa-user"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Full Name</div>
+                            <div class="info-val" id="uName">—</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fa-solid fa-envelope"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Email Address</div>
+                            <div class="info-val" id="uEmail">—</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fa-solid fa-hashtag"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">User ID</div>
+                            <div class="info-val" id="uId">—</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item-icon"><i class="fa-solid fa-calendar-alt"></i></div>
+                        <div class="info-content">
+                            <div class="info-label">Joined Date</div>
+                            <div class="info-val" id="uJoined">—</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="btn-row">
+                    <button class="btn btn-refresh" id="refreshBtn" onclick="refreshToken()">
+                        <i class="fa-solid fa-rotate-right"></i> Refresh Token
+                    </button>
+                    <button class="btn btn-logout" id="logoutBtn" onclick="logout()">
+                        <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    </button>
+                </div>
+            </div>
+            <div id="status"></div>
         </div>
-        <div id="status"></div>
     </div>
 
     <script>
+        // Use relative URL if frontend and backend are hosted together, or specific URL for dev
         const API_BASE = "http://127.0.0.1:8000/api/auth";
 
         function showStatus(msg, type) {
             const el = document.getElementById("status");
             el.className = type;
-            el.textContent = msg;
+            el.innerHTML = type === 'success'
+                ? `<i class="fa-solid fa-check-circle"></i> ${msg}`
+                : `<i class="fa-solid fa-circle-exclamation"></i> ${msg}`;
             el.style.display = "block";
+
+            // Auto hide after 3 seconds
+            setTimeout(() => {
+                el.style.display = "none";
+            }, 3000);
         }
 
         async function loadProfile() {
@@ -165,16 +533,18 @@
             }
 
             try {
+                // Simulate slight network delay to show off the skeleton loading animation
+                await new Promise(r => setTimeout(r, 600));
+
                 const res = await fetch(`${API_BASE}/profile/`, {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`,   // ← JWT access token sent in header
+                        "Authorization": `Bearer ${token}`,
                     },
                 });
 
                 if (res.status === 401) {
-                    // Token expired — redirect to login
                     localStorage.clear();
                     window.location.href = "login.html";
                     return;
@@ -183,41 +553,79 @@
                 const data = await res.json();
                 const user = data.user;
 
+                // Hide loader, show content
                 document.getElementById("loading").style.display = "none";
-                document.getElementById("profileContent").style.display = "block";
+                const profileContent = document.getElementById("profileContent");
+                profileContent.style.display = "block";
+
+                // Add staggered animation to child elements
+                const items = profileContent.querySelectorAll('.info-item');
+                items.forEach((item, index) => {
+                    item.style.animationDelay = `${0.3 + (index * 0.1)}s`;
+                });
+
                 document.getElementById("uName").textContent = user.full_name;
                 document.getElementById("uEmail").textContent = user.email;
                 document.getElementById("uId").textContent = user.id;
-                document.getElementById("uJoined").textContent = new Date(user.date_joined).toLocaleString();
+
+                // Format date nicely
+                const date = new Date(user.date_joined);
+                document.getElementById("uJoined").textContent = date.toLocaleDateString('en-US', {
+                    year: 'numeric', month: 'short', day: 'numeric'
+                });
+
                 document.getElementById("avatarLetter").textContent = user.full_name[0].toUpperCase();
 
             } catch (err) {
-                document.getElementById("loading").textContent = "❌ Could not load profile.";
+                document.getElementById("loading").innerHTML = `
+                    <div style="text-align:center; padding: 20px; color: var(--danger);">
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                        <div>Could not load profile data.</div>
+                    </div>`;
             }
         }
 
         async function refreshToken() {
             const refresh = localStorage.getItem("refresh_token");
+            const btn = document.getElementById("refreshBtn");
+            const originalText = btn.innerHTML;
+
             if (!refresh) { showStatus("No refresh token found.", "error"); return; }
 
-            const res = await fetch(`${API_BASE}/token/refresh/`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ refresh }),
-            });
-            const data = await res.json();
-            if (res.ok) {
-                localStorage.setItem("access_token", data.access);
-                if (data.refresh) localStorage.setItem("refresh_token", data.refresh);
-                showStatus("✅ Token refreshed successfully!", "success");
-            } else {
-                showStatus("❌ Refresh failed. Please login again.", "error");
+            // Add loading state to button
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...`;
+            btn.style.pointerEvents = "none";
+
+            try {
+                const res = await fetch(`${API_BASE}/token/refresh/`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ refresh }),
+                });
+                const data = await res.json();
+
+                if (res.ok) {
+                    localStorage.setItem("access_token", data.access);
+                    if (data.refresh) localStorage.setItem("refresh_token", data.refresh);
+                    showStatus("Token refreshed successfully!", "success");
+                } else {
+                    showStatus("Refresh failed. Please login again.", "error");
+                    setTimeout(() => { logout(); }, 1500);
+                }
+            } catch (err) {
+                showStatus("Network error", "error");
+            } finally {
+                btn.innerHTML = originalText;
+                btn.style.pointerEvents = "auto";
             }
         }
 
         async function logout() {
             const access = localStorage.getItem("access_token");
             const refresh = localStorage.getItem("refresh_token");
+            const btn = document.getElementById("logoutBtn");
+
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Logging out...`;
 
             try {
                 await fetch(`${API_BASE}/logout/`, {
@@ -231,11 +639,17 @@
             } catch (_) { }
 
             localStorage.clear();
-            window.location.href = "login.html";
+
+            // Add slide out animation before redirecting
+            document.querySelector('.card-container').style.animation = "slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards";
+
+            setTimeout(() => {
+                window.location.href = "login.html";
+            }, 500);
         }
 
         // Kick off profile load on page ready
-        loadProfile();
+        document.addEventListener('DOMContentLoaded', loadProfile);
     </script>
 </body>
 

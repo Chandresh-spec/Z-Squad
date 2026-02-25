@@ -14,6 +14,9 @@ urlpatterns = [
 
     # AI features — simplify, structure, explain word
     path("api/ai/", include("ai_features.urls")),
+
+    # Translation
+    path("api/translator/", include("translator.urls")),
 ]
 
 # Serve media files in development

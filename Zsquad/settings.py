@@ -43,10 +43,7 @@ INSTALLED_APPS = [
     # Local apps
     "accounts",
     "library",
-<<<<<<< HEAD
-=======
-    "ai_features",
->>>>>>> d347f69 (clean initial commit)
+
 ]
 
 MIDDLEWARE = [

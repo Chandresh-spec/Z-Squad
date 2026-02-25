@@ -34,6 +34,7 @@
             --accent2: #a78bfa;
         }
 
+        /* THEMES */
         body.theme-emerald {
             --cyan: #34d399;
             --violet: #06b6d4;
@@ -65,6 +66,7 @@
             filter: saturate(0.15);
         }
 
+        /* FONTS */
         body.font-lexend {
             --font-body: 'Lexend', sans-serif;
         }
@@ -79,6 +81,7 @@
             line-height: 1.85;
         }
 
+        /* font size controlled via JS on html element */
         body.focus .blobs,
         body.focus .grid-lines {
             opacity: 0.25;
@@ -108,6 +111,7 @@
             transition: filter 0.4s;
         }
 
+        /* BLOBS */
         .blobs {
             position: fixed;
             inset: 0;
@@ -181,6 +185,7 @@
             mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%);
         }
 
+        /* SCENE */
         .scene {
             position: relative;
             z-index: 2;
@@ -207,6 +212,7 @@
             }
         }
 
+        /* LEFT PANEL */
         .panel-left {
             background: var(--panel-left-bg);
             position: relative;
@@ -224,6 +230,7 @@
             background: radial-gradient(ellipse 70% 50% at 30% 40%, rgba(56, 189, 248, 0.08) 0%, transparent 60%), radial-gradient(ellipse 50% 60% at 80% 70%, rgba(167, 139, 250, 0.07) 0%, transparent 60%);
         }
 
+        /* ─── NEURAL NETWORK CANVAS ─── */
         #neural-canvas {
             position: absolute;
             inset: 0;
@@ -231,6 +238,7 @@
             pointer-events: none;
         }
 
+        /* Floating chips */
         .data-chips {
             position: absolute;
             inset: 0;
@@ -352,6 +360,7 @@
             margin-top: 2px;
         }
 
+        /* PULSE RINGS around brain center */
         .pulse-rings {
             position: absolute;
             top: 38%;
@@ -404,6 +413,7 @@
             }
         }
 
+        /* BRAIN SVG center */
         .brain-center {
             position: absolute;
             top: 38%;
@@ -459,6 +469,7 @@
             pointer-events: none;
         }
 
+        /* LOGO */
         .logo {
             font-family: 'Syne', sans-serif;
             font-weight: 900;
@@ -605,6 +616,7 @@
             letter-spacing: 0.01em;
         }
 
+        /* TABS */
         .tab-row {
             display: flex;
             gap: 0;
@@ -627,6 +639,7 @@
             border-radius: 9px;
             cursor: pointer;
             transition: var(--t);
+            position: relative;
         }
 
         .tab-btn[aria-selected="true"] {
@@ -640,6 +653,7 @@
             outline-offset: 2px;
         }
 
+        /* FORM */
         .auth-form {
             display: none;
         }
@@ -841,6 +855,7 @@
             color: var(--muted);
         }
 
+        /* SUBMIT */
         .btn-submit {
             width: 100%;
             margin-top: 8px;
@@ -932,6 +947,7 @@
             }
         }
 
+        /* META */
         .form-meta {
             display: flex;
             justify-content: flex-end;
@@ -975,6 +991,7 @@
             color: var(--accent2);
         }
 
+        /* ALERT */
         .live-alert {
             display: none;
             align-items: center;
@@ -1014,7 +1031,49 @@
             border-color: rgba(52, 211, 153, 0.25);
         }
 
-        /* SETTINGS */
+        /* DIVIDER + SSO */
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 18px 0;
+            font-size: 0.75rem;
+            color: rgba(122, 145, 180, 0.5);
+            letter-spacing: 0.08em;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(100, 180, 255, 0.1), transparent);
+        }
+
+        .btn-sso {
+            width: 100%;
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            font-family: var(--font-body);
+            font-size: 0.88rem;
+            font-weight: 500;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: var(--t);
+        }
+
+        .btn-sso:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-h);
+        }
+
+        /* ═══════════ SETTINGS BUTTON ═══════════ */
         .settings-trigger {
             position: fixed;
             top: 16px;
@@ -1060,6 +1119,7 @@
             transform: rotate(60deg);
         }
 
+        /* ═══════════ SETTINGS PANEL ═══════════ */
         .settings-overlay {
             position: fixed;
             inset: 0;
@@ -1130,6 +1190,7 @@
             border-color: rgba(248, 113, 113, 0.4);
         }
 
+        /* Settings sections */
         .settings-section {
             margin-bottom: 28px;
         }
@@ -1152,6 +1213,7 @@
             opacity: 0.6;
         }
 
+        /* Theme swatches */
         .theme-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -1210,6 +1272,7 @@
             margin-top: 1px;
         }
 
+        /* Font options */
         .font-options {
             display: flex;
             flex-direction: column;
@@ -1246,6 +1309,19 @@
             color: var(--muted);
         }
 
+        .font-option[data-font="lexend"] .font-option-name {
+            font-family: 'Lexend', sans-serif;
+        }
+
+        .font-option[data-font="mono"] .font-option-name {
+            font-family: 'Space Mono', monospace;
+        }
+
+        .font-option[data-font="dyslexia"] .font-option-name {
+            font-family: 'Atkinson Hyperlegible', sans-serif;
+        }
+
+        /* Size slider */
         .size-options {
             display: flex;
             gap: 8px;
@@ -1276,6 +1352,7 @@
             background: rgba(56, 189, 248, 0.07);
         }
 
+        /* Toggle switches */
         .toggle-row {
             display: flex;
             align-items: center;
@@ -1347,6 +1424,7 @@
             transform: translateX(20px);
         }
 
+        /* Reset button */
         .btn-reset {
             width: 100%;
             padding: 11px;
@@ -1367,6 +1445,7 @@
             border-color: rgba(248, 113, 113, 0.5);
         }
 
+        /* SR ONLY */
         .sr-only {
             position: absolute;
             left: -9999px;
@@ -1394,33 +1473,7 @@
             top: 0;
         }
 
-        /* API status dot */
-        .api-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.7rem;
-            color: var(--muted);
-            margin-bottom: 12px;
-        }
-
-        .api-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--muted);
-        }
-
-        .api-dot.online {
-            background: var(--emerald);
-            box-shadow: 0 0 6px var(--emerald);
-        }
-
-        .api-dot.offline {
-            background: var(--error);
-            box-shadow: 0 0 6px var(--error);
-        }
-
+        /* RESPONSIVE */
         @media (max-width:700px) {
             body {
                 align-items: flex-start;
@@ -1462,7 +1515,7 @@
     </div>
     <div class="grid-lines" aria-hidden="true"></div>
 
-    <!-- SETTINGS BUTTON -->
+    <!-- ── SETTINGS BUTTON ── -->
     <button class="settings-trigger" onclick="openSettings()" aria-label="Open settings" title="Settings">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"
             stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent1)">
@@ -1472,10 +1525,10 @@
         </svg>
     </button>
 
-    <!-- SETTINGS OVERLAY -->
+    <!-- ── SETTINGS OVERLAY ── -->
     <div class="settings-overlay" id="settings-overlay" onclick="closeSettings()"></div>
 
-    <!-- SETTINGS PANEL -->
+    <!-- ── SETTINGS PANEL ── -->
     <aside class="settings-panel" id="settings-panel" aria-label="Settings" role="dialog">
         <div class="settings-header">
             <span class="settings-title">⚙ Preferences</span>
@@ -1486,12 +1539,17 @@
                 </svg>
             </button>
         </div>
+
+        <!-- THEMES -->
         <div class="settings-section">
-            <div class="settings-section-title"><svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <div class="settings-section-title">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
                     <circle cx="6" cy="6" r="4" stroke="currentColor" stroke-width="1.4" />
                     <circle cx="6" cy="6" r="2" fill="currentColor" />
-                </svg>Color Theme</div>
-            <div class="theme-grid">
+                </svg>
+                Color Theme
+            </div>
+            <div class="theme-grid" id="theme-grid">
                 <div class="theme-swatch active" data-theme="default" onclick="setTheme('default',this)">
                     <div class="swatch-preview">
                         <div class="swatch-dot" style="background:#38bdf8"></div>
@@ -1526,8 +1584,16 @@
                 </div>
             </div>
         </div>
+
+        <!-- FONTS -->
         <div class="settings-section">
-            <div class="settings-section-title">Font Family</div>
+            <div class="settings-section-title">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 10V2h8v8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                    <path d="M4 10V6h4v4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                </svg>
+                Font Family
+            </div>
             <div class="font-options">
                 <div class="font-option active" data-font="default" onclick="setFont('default',this)">
                     <div class="font-option-name">DM Sans</div>
@@ -1547,8 +1613,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- FONT SIZE -->
         <div class="settings-section">
-            <div class="settings-section-title">Font Size</div>
+            <div class="settings-section-title">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2 9l4-6 4 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M3.5 7h5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+                </svg>
+                Font Size
+            </div>
             <div class="size-options">
                 <button class="size-btn" data-size="sm" onclick="setSize('sm',this)">A−<br><span
                         style="font-size:0.65rem;font-weight:400;opacity:0.6">Small</span></button>
@@ -1560,44 +1635,65 @@
                         style="font-size:0.65rem;font-weight:400;opacity:0.6">XL</span></button>
             </div>
         </div>
+
+        <!-- DISPLAY TOGGLES -->
         <div class="settings-section">
-            <div class="settings-section-title">Display</div>
+            <div class="settings-section-title">
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <rect x="1" y="1" width="10" height="10" rx="2" stroke="currentColor" stroke-width="1.4" />
+                </svg>
+                Display
+            </div>
             <div class="toggle-row">
                 <div>
                     <div class="toggle-label">Focus Mode</div>
                     <div class="toggle-sub">Reduce background motion</div>
-                </div><label class="toggle-switch"><input type="checkbox" id="toggle-focus"
-                        onchange="toggleFocus(this)" /><span class="toggle-track"></span></label>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-focus" onchange="toggleFocus(this)" />
+                    <span class="toggle-track"></span>
+                </label>
             </div>
             <div class="toggle-row">
                 <div>
                     <div class="toggle-label">Reduce Motion</div>
                     <div class="toggle-sub">Disable animations</div>
-                </div><label class="toggle-switch"><input type="checkbox" id="toggle-motion"
-                        onchange="toggleMotion(this)" /><span class="toggle-track"></span></label>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-motion" onchange="toggleMotion(this)" />
+                    <span class="toggle-track"></span>
+                </label>
             </div>
             <div class="toggle-row">
                 <div>
                     <div class="toggle-label">High Contrast</div>
                     <div class="toggle-sub">Increased border visibility</div>
-                </div><label class="toggle-switch"><input type="checkbox" id="toggle-contrast"
-                        onchange="toggleContrast(this)" /><span class="toggle-track"></span></label>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="toggle-contrast" onchange="toggleContrast(this)" />
+                    <span class="toggle-track"></span>
+                </label>
             </div>
         </div>
+
         <button class="btn-reset" onclick="resetAll()">↺ Reset to Defaults</button>
     </aside>
 
-    <!-- MAIN SCENE -->
+    <!-- ── MAIN SCENE ── -->
     <main class="scene" role="main" id="main-scene">
 
-        <!-- LEFT PANEL -->
+        <!-- LEFT: NEURAL ANIMATION PANEL -->
         <div class="panel-left" aria-hidden="true">
             <canvas id="neural-canvas"></canvas>
+
+            <!-- Pulse rings behind brain -->
             <div class="pulse-rings">
                 <div class="pulse-ring"></div>
                 <div class="pulse-ring"></div>
                 <div class="pulse-ring"></div>
             </div>
+
+            <!-- Brain center icon -->
             <div class="brain-center" id="brain-center">
                 <svg width="34" height="34" viewBox="0 0 36 36" fill="none">
                     <path
@@ -1613,14 +1709,18 @@
                     <path d="M18 7 L18 10" stroke="white" stroke-width="1.4" />
                 </svg>
             </div>
+
+            <!-- EEG wave visualizer -->
             <canvas id="eeg-canvas"
                 style="position:absolute;bottom:155px;left:0;right:0;width:100%;height:60px;z-index:4;opacity:0.7;"></canvas>
+
             <div class="data-chips">
                 <div class="chip chip-1"><span class="dot" style="background:#38bdf8"></span>Neural Active</div>
                 <div class="chip chip-2"><span class="dot" style="background:#a78bfa"></span>WCAG 2.1 AA</div>
                 <div class="chip chip-3"><span class="dot" style="background:#34d399"></span>Dyslexia Safe</div>
                 <div class="chip chip-4"><span class="dot" style="background:#fbbf24"></span>500+ Books</div>
             </div>
+
             <div class="left-text">
                 <p class="left-tagline">Reading reimagined for <em>every mind.</em></p>
                 <p class="left-desc">NeuroRead adapts to how your brain works — not the other way around. Beautifully
@@ -1642,7 +1742,7 @@
             </div>
         </div>
 
-        <!-- RIGHT PANEL -->
+        <!-- RIGHT: FORM PANEL -->
         <section class="panel-right" aria-label="Authentication">
             <div>
                 <div class="logo glitch" data-text="NeuroRead" aria-label="NeuroRead">
@@ -1650,12 +1750,6 @@
                         class="logo-badge">Beta</span>
                 </div>
                 <p class="logo-sub">Your adaptive reading companion</p>
-            </div>
-
-            <!-- API status indicator -->
-            <div class="api-status">
-                <span class="api-dot" id="api-dot"></span>
-                <span id="api-status-text">Checking server…</span>
             </div>
 
             <div id="form-alert" role="alert" aria-live="polite" class="live-alert"></div>
@@ -1667,7 +1761,7 @@
                     onclick="switchTab('reg')">Register</button>
             </div>
 
-            <!-- ── LOGIN FORM ── -->
+            <!-- LOGIN -->
             <form class="auth-form active" id="form-login" novalidate>
                 <div class="field">
                     <label for="login-email">Email</label>
@@ -1683,7 +1777,7 @@
                             </svg></span>
                     </div>
                     <div class="field-err" id="login-email-e" role="alert"><svg width="13" height="13"
-                            viewBox="0 0 13 13" fill="none">
+                            viewBox="0 0 13 13" fill="none" aria-hidden="true">
                             <circle cx="6.5" cy="6.5" r="6" stroke="currentColor" stroke-width="1.4" />
                             <path d="M6.5 4v3M6.5 9h.01" stroke="currentColor" stroke-width="1.4"
                                 stroke-linecap="round" />
@@ -1696,14 +1790,14 @@
                             aria-required="true" aria-describedby="login-pw-e" placeholder="••••••••••" />
                         <button type="button" class="toggle-pw-btn" aria-label="Show password"
                             onclick="togglePw('login-pw',this)">
-                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                                 <ellipse cx="8" cy="8" rx="7" ry="4.5" stroke="currentColor" stroke-width="1.4" />
                                 <circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.4" />
                             </svg>
                         </button>
                     </div>
                     <div class="field-err" id="login-pw-e" role="alert"><svg width="13" height="13" viewBox="0 0 13 13"
-                            fill="none">
+                            fill="none" aria-hidden="true">
                             <circle cx="6.5" cy="6.5" r="6" stroke="currentColor" stroke-width="1.4" />
                             <path d="M6.5 4v3M6.5 9h.01" stroke="currentColor" stroke-width="1.4"
                                 stroke-linecap="round" />
@@ -1715,16 +1809,17 @@
                 <button type="submit" class="btn-submit" id="login-submit">
                     <div class="spinner" aria-hidden="true"></div>
                     <span class="btn-label">Sign In</span>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
                         <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
                 </button>
+
                 <div class="switch-row">No account? <a role="button" tabindex="0" onclick="switchTab('reg')"
                         onkeydown="if(event.key==='Enter')switchTab('reg')">Create one free →</a></div>
             </form>
 
-            <!-- ── REGISTER FORM ── -->
+            <!-- REGISTER -->
             <form class="auth-form" id="form-reg" novalidate>
                 <div class="field">
                     <label for="reg-name">Full Name</label>
@@ -1829,148 +1924,235 @@
     </main>
 
     <script>
-        /* ══════════════════════════════════════
-           API CONFIG  ← change base URL here
-        ══════════════════════════════════════ */
-        const API_BASE = "http://127.0.0.1:8000/api/auth";
-
-        /* ── Ping server on load to show status ── */
-        (async function pingServer() {
-            const dot = document.getElementById('api-dot');
-            const text = document.getElementById('api-status-text');
-            try {
-                const res = await fetch(`${API_BASE}/`, { method: 'HEAD', signal: AbortSignal.timeout(3000) });
-                dot.className = 'api-dot online';
-                text.textContent = 'Server connected';
-            } catch {
-                dot.className = 'api-dot offline';
-                text.textContent = 'Server offline';
-            }
-        })();
-
-        /* ══════════════════════════════════════
+        /* ══════════════════════════════════════════════
            NEURAL NETWORK ANIMATION
-        ══════════════════════════════════════ */
+        ══════════════════════════════════════════════ */
         (function () {
             const canvas = document.getElementById('neural-canvas');
             const ctx = canvas.getContext('2d');
             let W, H, nodes = [], t = 0;
             let animating = true;
 
+            // Neuron node
             class Node {
-                constructor() { this.reset(true); }
+                constructor() {
+                    this.reset(true);
+                }
                 reset(init) {
-                    this.x = Math.random() * W; this.y = Math.random() * H;
-                    this.r = Math.random() * 3 + 1.5; this.vx = (Math.random() - 0.5) * 0.3; this.vy = (Math.random() - 0.5) * 0.3;
-                    this.alpha = Math.random(); this.pulse = Math.random() * Math.PI * 2; this.pulseSpeed = 0.02 + Math.random() * 0.03;
-                    this.firing = false; this.fireTime = 0; this.type = Math.random() < 0.15 ? 'hub' : 'neuron';
+                    this.x = Math.random() * W;
+                    this.y = Math.random() * H;
+                    this.r = Math.random() * 3 + 1.5;
+                    this.vx = (Math.random() - 0.5) * 0.3;
+                    this.vy = (Math.random() - 0.5) * 0.3;
+                    this.alpha = Math.random();
+                    this.pulse = Math.random() * Math.PI * 2;
+                    this.pulseSpeed = 0.02 + Math.random() * 0.03;
+                    this.firing = false;
+                    this.fireTime = 0;
+                    this.type = Math.random() < 0.15 ? 'hub' : 'neuron'; // some hub nodes
                     if (this.type === 'hub') this.r = Math.random() * 5 + 4;
+                    // random fire
                     this.nextFire = Math.random() * 300;
                 }
                 update() {
-                    this.x += this.vx; this.y += this.vy; this.pulse += this.pulseSpeed;
-                    if (this.x < -20) this.x = W + 20; if (this.x > W + 20) this.x = -20;
-                    if (this.y < -20) this.y = H + 20; if (this.y > H + 20) this.y = -20;
+                    this.x += this.vx;
+                    this.y += this.vy;
+                    this.pulse += this.pulseSpeed;
+                    if (this.x < -20) this.x = W + 20;
+                    if (this.x > W + 20) this.x = -20;
+                    if (this.y < -20) this.y = H + 20;
+                    if (this.y > H + 20) this.y = -20;
+
+                    // random firing
                     this.nextFire--;
-                    if (this.nextFire <= 0) { this.firing = true; this.fireTime = 0; this.nextFire = 200 + Math.random() * 400; }
-                    if (this.firing) { this.fireTime++; if (this.fireTime > 40) this.firing = false; }
+                    if (this.nextFire <= 0) {
+                        this.firing = true;
+                        this.fireTime = 0;
+                        this.nextFire = 200 + Math.random() * 400;
+                    }
+                    if (this.firing) {
+                        this.fireTime++;
+                        if (this.fireTime > 40) this.firing = false;
+                    }
                 }
-                draw(ctx) {
+                draw(ctx, accent1, accent2) {
                     const pulse = 0.5 + 0.5 * Math.sin(this.pulse);
                     const alpha = 0.4 + pulse * 0.6;
                     const r = this.r + (this.firing ? (1 - this.fireTime / 40) * 4 : 0);
+
                     if (this.type === 'hub') {
+                        // glow ring
                         const grad = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, r * 4);
-                        grad.addColorStop(0, `rgba(56,189,248,${alpha * 0.3})`); grad.addColorStop(1, 'transparent');
-                        ctx.beginPath(); ctx.arc(this.x, this.y, r * 4, 0, Math.PI * 2); ctx.fillStyle = grad; ctx.fill();
+                        grad.addColorStop(0, `rgba(56,189,248,${alpha * 0.3})`);
+                        grad.addColorStop(1, 'transparent');
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, r * 4, 0, Math.PI * 2);
+                        ctx.fillStyle = grad;
+                        ctx.fill();
                     }
-                    ctx.beginPath(); ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
-                    if (this.firing) { const ft = 1 - this.fireTime / 40; ctx.fillStyle = `rgba(56,189,248,${ft})`; ctx.shadowColor = '#38bdf8'; ctx.shadowBlur = 15 * ft; }
-                    else { ctx.fillStyle = this.type === 'hub' ? `rgba(167,139,250,${alpha * 0.9})` : `rgba(56,189,248,${alpha * 0.7})`; ctx.shadowBlur = 0; }
-                    ctx.fill(); ctx.shadowBlur = 0;
+
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, r, 0, Math.PI * 2);
+                    if (this.firing) {
+                        const ft = 1 - this.fireTime / 40;
+                        ctx.fillStyle = `rgba(56,189,248,${ft})`;
+                        ctx.shadowColor = '#38bdf8';
+                        ctx.shadowBlur = 15 * ft;
+                    } else {
+                        ctx.fillStyle = this.type === 'hub'
+                            ? `rgba(167,139,250,${alpha * 0.9})`
+                            : `rgba(56,189,248,${alpha * 0.7})`;
+                        ctx.shadowBlur = 0;
+                    }
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
                 }
             }
 
+            // Signal pulse traveling along edge
             const signals = [];
             class Signal {
-                constructor(from, to) { this.from = from; this.to = to; this.p = 0; this.speed = 0.012 + Math.random() * 0.015; this.color = Math.random() < 0.5 ? '#38bdf8' : '#a78bfa'; }
+                constructor(from, to) {
+                    this.from = from; this.to = to;
+                    this.p = 0; this.speed = 0.012 + Math.random() * 0.015;
+                    this.color = Math.random() < 0.5 ? '#38bdf8' : '#a78bfa';
+                }
                 update() { this.p += this.speed; return this.p < 1; }
                 draw(ctx) {
                     const x = this.from.x + (this.to.x - this.from.x) * this.p;
                     const y = this.from.y + (this.to.y - this.from.y) * this.p;
                     const alpha = Math.sin(this.p * Math.PI);
-                    ctx.beginPath(); ctx.arc(x, y, 2.5, 0, Math.PI * 2);
+                    ctx.beginPath();
+                    ctx.arc(x, y, 2.5, 0, Math.PI * 2);
                     ctx.fillStyle = this.color.replace(')', `,${alpha})`).replace('rgb', 'rgba');
-                    ctx.shadowColor = this.color; ctx.shadowBlur = 8; ctx.fill(); ctx.shadowBlur = 0;
+                    ctx.shadowColor = this.color;
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
+                    ctx.shadowBlur = 0;
                 }
             }
 
-            function resize() { const el = canvas.parentElement; W = canvas.width = el.offsetWidth; H = canvas.height = el.offsetHeight; }
-            function init() { resize(); nodes = Array.from({ length: 55 }, () => new Node()); }
+            function resize() {
+                const el = canvas.parentElement;
+                W = canvas.width = el.offsetWidth;
+                H = canvas.height = el.offsetHeight;
+            }
+
+            function init() {
+                resize();
+                nodes = Array.from({ length: 55 }, () => new Node());
+            }
+
             let signalTimer = 0;
             function draw() {
                 if (!animating) return;
-                ctx.clearRect(0, 0, W, H); t++;
+                ctx.clearRect(0, 0, W, H);
+                t++;
+
+                // Draw edges between nearby nodes
                 for (let i = 0; i < nodes.length; i++) {
                     for (let j = i + 1; j < nodes.length; j++) {
                         const a = nodes[i], b = nodes[j];
-                        const dx = a.x - b.x, dy = a.y - b.y, dist = Math.sqrt(dx * dx + dy * dy);
+                        const dx = a.x - b.x, dy = a.y - b.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
                         const maxDist = a.type === 'hub' || b.type === 'hub' ? 160 : 110;
                         if (dist < maxDist) {
                             const alpha = (1 - dist / maxDist) * 0.35;
-                            ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y);
+                            ctx.beginPath();
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
                             const grad = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
-                            grad.addColorStop(0, `rgba(56,189,248,${alpha})`); grad.addColorStop(1, `rgba(167,139,250,${alpha})`);
-                            ctx.strokeStyle = grad; ctx.lineWidth = 0.8; ctx.stroke();
+                            grad.addColorStop(0, `rgba(56,189,248,${alpha})`);
+                            grad.addColorStop(1, `rgba(167,139,250,${alpha})`);
+                            ctx.strokeStyle = grad;
+                            ctx.lineWidth = 0.8;
+                            ctx.stroke();
                         }
                     }
                 }
-                nodes.forEach(n => { n.update(); n.draw(ctx); });
+
+                // Update and draw nodes
+                nodes.forEach(n => {
+                    n.update();
+                    n.draw(ctx);
+                });
+
+                // Signals
                 signalTimer++;
                 if (signalTimer > 30) {
                     signalTimer = 0;
+                    // pick random firing node, send signal to nearest
                     const firing = nodes.filter(n => n.firing);
                     if (firing.length > 0) {
                         const src = firing[Math.floor(Math.random() * firing.length)];
                         let best = null, bestD = 999;
-                        nodes.forEach(n => { if (n === src) return; const dx = n.x - src.x, dy = n.y - src.y, d = Math.sqrt(dx * dx + dy * dy); if (d < 130 && d < bestD) { bestD = d; best = n; } });
+                        nodes.forEach(n => {
+                            if (n === src) return;
+                            const dx = n.x - src.x, dy = n.y - src.y, d = Math.sqrt(dx * dx + dy * dy);
+                            if (d < 130 && d < bestD) { bestD = d; best = n; }
+                        });
                         if (best) signals.push(new Signal(src, best));
                     }
                 }
-                for (let i = signals.length - 1; i >= 0; i--) { if (!signals[i].update()) { signals.splice(i, 1); continue; } signals[i].draw(ctx); }
+
+                for (let i = signals.length - 1; i >= 0; i--) {
+                    if (!signals[i].update()) { signals.splice(i, 1); continue; }
+                    signals[i].draw(ctx);
+                }
+
                 requestAnimationFrame(draw);
             }
+
             window.addEventListener('resize', () => { resize(); });
             window.stopNeuralAnim = () => { animating = false; ctx.clearRect(0, 0, W, H); };
             window.startNeuralAnim = () => { if (!animating) { animating = true; draw(); } };
             init(); draw();
         })();
 
-        /* ══════════════════════════════════════
-           EEG CANVAS
-        ══════════════════════════════════════ */
+        /* ══════════════════════════════════════════════
+           EEG BRAINWAVE CANVAS
+        ══════════════════════════════════════════════ */
         (function () {
             const canvas = document.getElementById('eeg-canvas');
             if (!canvas) return;
             const ctx = canvas.getContext('2d');
             let t = 0, animating = true;
-            function resize() { canvas.width = canvas.offsetWidth * window.devicePixelRatio || 500; canvas.height = 60; }
-            resize(); window.addEventListener('resize', resize);
+            function resize() {
+                canvas.width = canvas.offsetWidth * window.devicePixelRatio || 500;
+                canvas.height = 60;
+            }
+            resize();
+            window.addEventListener('resize', resize);
+
             function draw() {
-                if (!animating) return;
+                if (!animating) { return; }
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
                 const W = canvas.width, H = canvas.height;
                 t += 0.05;
+
+                // Multi-frequency brainwave
                 ctx.beginPath();
                 for (let x = 0; x <= W; x++) {
                     const nx = x / W;
-                    const y = H / 2 + Math.sin(nx * 12 + t) * 8 + Math.sin(nx * 25 + t * 1.3) * 4 + Math.sin(nx * 50 + t * 2) * 2 + (Math.random() - 0.5) * 1.5;
+                    const y = H / 2
+                        + Math.sin(nx * 12 + t) * 8
+                        + Math.sin(nx * 25 + t * 1.3) * 4
+                        + Math.sin(nx * 50 + t * 2) * 2
+                        + (Math.random() - 0.5) * 1.5; // noise
                     if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
                 }
                 const grad = ctx.createLinearGradient(0, 0, W, 0);
-                grad.addColorStop(0, 'rgba(56,189,248,0)'); grad.addColorStop(0.2, 'rgba(56,189,248,0.8)');
-                grad.addColorStop(0.5, 'rgba(167,139,250,0.9)'); grad.addColorStop(0.8, 'rgba(52,211,153,0.8)'); grad.addColorStop(1, 'rgba(52,211,153,0)');
-                ctx.strokeStyle = grad; ctx.lineWidth = 1.5; ctx.shadowColor = '#38bdf8'; ctx.shadowBlur = 6; ctx.stroke(); ctx.shadowBlur = 0;
+                grad.addColorStop(0, 'rgba(56,189,248,0)');
+                grad.addColorStop(0.2, 'rgba(56,189,248,0.8)');
+                grad.addColorStop(0.5, 'rgba(167,139,250,0.9)');
+                grad.addColorStop(0.8, 'rgba(52,211,153,0.8)');
+                grad.addColorStop(1, 'rgba(52,211,153,0)');
+                ctx.strokeStyle = grad;
+                ctx.lineWidth = 1.5;
+                ctx.shadowColor = '#38bdf8';
+                ctx.shadowBlur = 6;
+                ctx.stroke();
+                ctx.shadowBlur = 0;
                 requestAnimationFrame(draw);
             }
             window.stopEEGAnim = () => { animating = false; };
@@ -1978,40 +2160,46 @@
             draw();
         })();
 
-        /* ══════════════════════════════════════
+        /* ══════════════════════════════════════════════
            3D TILT
-        ══════════════════════════════════════ */
+        ══════════════════════════════════════════════ */
         (function () {
             const scene = document.querySelector('.scene');
             let bounds;
             function refresh() { bounds = scene.getBoundingClientRect(); }
-            refresh(); window.addEventListener('resize', refresh);
+            refresh();
+            window.addEventListener('resize', refresh);
             document.addEventListener('mousemove', e => {
                 if (!bounds) return;
                 const x = e.clientX - bounds.left - bounds.width / 2;
                 const y = e.clientY - bounds.top - bounds.height / 2;
                 scene.style.transform = `perspective(1200px) rotateX(${(y / bounds.height) * -5}deg) rotateY(${(x / bounds.width) * 5}deg)`;
             });
-            document.addEventListener('mouseleave', () => { scene.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)'; });
+            document.addEventListener('mouseleave', () => {
+                scene.style.transform = 'perspective(1200px) rotateX(0) rotateY(0)';
+            });
         })();
 
-        /* ══════════════════════════════════════
+        /* ══════════════════════════════════════════════
            PARTICLE BURST
-        ══════════════════════════════════════ */
+        ══════════════════════════════════════════════ */
         function burst(btn) {
             const colors = ['#38bdf8', '#a78bfa', '#34d399', '#fbbf24'];
             for (let i = 0; i < 20; i++) {
                 const p = document.createElement('span');
-                const angle = (i / 20) * Math.PI * 2, dist = 60 + Math.random() * 50;
+                const angle = (i / 20) * Math.PI * 2;
+                const dist = 60 + Math.random() * 50;
                 const rect = btn.getBoundingClientRect();
                 p.style.cssText = `position:fixed;width:6px;height:6px;border-radius:50%;background:${colors[i % 4]};left:${rect.left + rect.width / 2}px;top:${rect.top + rect.height / 2}px;pointer-events:none;z-index:9999;--tx:${Math.cos(angle) * dist}px;--ty:${Math.sin(angle) * dist}px;animation:burstP 0.8s ${i * 0.03}s ease forwards;`;
-                document.body.appendChild(p); p.addEventListener('animationend', () => p.remove());
+                document.body.appendChild(p);
+                p.addEventListener('animationend', () => p.remove());
             }
         }
         const burstStyle = document.createElement('style');
         burstStyle.textContent = '@keyframes burstP{to{transform:translate(var(--tx),var(--ty)) scale(0);opacity:0;}}';
         document.head.appendChild(burstStyle);
 
+        /* Ripple */
         document.querySelectorAll('.btn-submit').forEach(btn => {
             btn.addEventListener('click', function (e) {
                 const r = document.createElement('span'); r.className = 'ripple';
@@ -2022,9 +2210,9 @@
             });
         });
 
-        /* ══════════════════════════════════════
+        /* ══════════════════════════════════════════════
            TABS
-        ══════════════════════════════════════ */
+        ══════════════════════════════════════════════ */
         function switchTab(t) {
             ['login', 'reg'].forEach(id => {
                 const sel = id === t;
@@ -2034,9 +2222,9 @@
             document.getElementById('form-alert').className = 'live-alert';
         }
 
-        /* ══════════════════════════════════════
+        /* ══════════════════════════════════════════════
            FORM HELPERS
-        ══════════════════════════════════════ */
+        ══════════════════════════════════════════════ */
         function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
         function setErr(el, errId, msg) { const d = document.getElementById(errId); d.querySelector('span').textContent = msg; d.classList.add('show'); el.setAttribute('aria-invalid', 'true'); }
         function clrErr(el, errId) { document.getElementById(errId).classList.remove('show'); el.setAttribute('aria-invalid', 'false'); }
@@ -2059,7 +2247,10 @@
             const cls = ['', 'lit-weak', 'lit-fair', 'lit-good', 'lit-strong'];
             const lbl = ['Enter a password', 'Weak', 'Fair', 'Good', 'Strong!'];
             const cols = ['', '#f87171', '#fbbf24', '#38bdf8', '#34d399'];
-            for (let i = 1; i <= 4; i++) { document.getElementById('bar' + i).className = 'pw-bar ' + (v && i <= s ? cls[s] : ''); }
+            for (let i = 1; i <= 4; i++) {
+                const bar = document.getElementById('bar' + i);
+                bar.className = 'pw-bar ' + (v && i <= s ? cls[s] : '');
+            }
             document.getElementById('pw-lbl').textContent = v ? lbl[s] : lbl[0];
             document.getElementById('pw-lbl').style.color = v ? cols[s] : '';
         }
@@ -2070,10 +2261,9 @@
             else if (cf.value) clrErr(cf, 'reg-confirm-e');
         }
         function forgotPw() { showAlert('success', '✓ If that email exists, a reset link is on its way.'); }
+        function ssoClick() { showAlert('success', 'Redirecting to Google sign-in…'); }
 
-        /* ══════════════════════════════════════
-           LOGIN — hits Django /api/auth/login/
-        ══════════════════════════════════════ */
+        /* LOGIN */
         document.getElementById('form-login').addEventListener('submit', async e => {
             e.preventDefault();
             const email = document.getElementById('login-email');
@@ -2085,39 +2275,13 @@
             if (!pw.value) { setErr(pw, 'login-pw-e', 'Password is required.'); ok = false; }
             else clrErr(pw, 'login-pw-e');
             if (!ok) return;
-
             const btn = document.getElementById('login-submit');
-            setLoad(btn, true);
-            try {
-                const res = await fetch(`${API_BASE}/login/`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email.value.trim(), password: pw.value })
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    // Persist JWT tokens exactly as Zsquad expects
-                    localStorage.setItem('access_token', data.tokens.access);
-                    localStorage.setItem('refresh_token', data.tokens.refresh);
-                    localStorage.setItem('user_name', data.user.full_name);
-                    burst(btn);
-                    showAlert('success', `✓ Welcome back, ${data.user.full_name}! Entering NeuroRead…`);
-                    e.target.reset();
-                    setTimeout(() => window.location.href = 'index.html', 10);
-                } else {
-                    const errors = Object.values(data).flat().join(' ');
-                    showAlert('error', '✗ ' + errors);
-                }
-            } catch (err) {
-                showAlert('error', '✗ Network error — is the Django server running?');
-            } finally {
-                setLoad(btn, false);
-            }
+            setLoad(btn, true); await wait(1800); burst(btn); setLoad(btn, false);
+            showAlert('success', '✓ Welcome back! Entering NeuroRead…');
+            e.target.reset();
         });
 
-        /* ══════════════════════════════════════
-           REGISTER — hits Django /api/auth/register/
-        ══════════════════════════════════════ */
+        /* REGISTER */
         document.getElementById('form-reg').addEventListener('submit', async e => {
             e.preventDefault();
             const name = document.getElementById('reg-name');
@@ -2125,7 +2289,7 @@
             const pw = document.getElementById('reg-pw');
             const confirm = document.getElementById('reg-confirm');
             let ok = true;
-            if (!name.value.trim() || name.value.trim().length < 2) { setErr(name, 'reg-name-e', 'Full name required (min 2 chars).'); ok = false; }
+            if (!name.value.trim() || name.value.trim().length < 2) { setErr(name, 'reg-name-e', 'Full name is required (min 2 chars).'); ok = false; }
             else clrErr(name, 'reg-name-e');
             if (!email.value.trim()) { setErr(email, 'reg-email-e', 'Email is required.'); ok = false; }
             else if (!validEmail(email.value)) { setErr(email, 'reg-email-e', 'Enter a valid email address.'); ok = false; }
@@ -2136,38 +2300,13 @@
             else if (confirm.value !== pw.value) { setErr(confirm, 'reg-confirm-e', 'Passwords do not match.'); ok = false; }
             else clrErr(confirm, 'reg-confirm-e');
             if (!ok) return;
-
             const btn = document.getElementById('reg-submit');
-            setLoad(btn, true);
-            try {
-                const res = await fetch(`${API_BASE}/register/`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        full_name: name.value.trim(),
-                        email: email.value.trim(),
-                        password: pw.value,
-                        password2: confirm.value   // Django typically expects this field name
-                    })
-                });
-                const data = await res.json();
-                if (res.ok) {
-                    burst(btn);
-                    showAlert('success', '✓ Account created! Welcome to NeuroRead!');
-                    e.target.reset(); pwStrength('');
-                    setTimeout(() => switchTab('login'), 2000);
-                } else {
-                    const errors = Object.values(data).flat().join(' ');
-                    showAlert('error', '✗ ' + errors);
-                }
-            } catch (err) {
-                showAlert('error', '✗ Network error — is the Django server running?');
-            } finally {
-                setLoad(btn, false);
-            }
+            setLoad(btn, true); await wait(2000); burst(btn); setLoad(btn, false);
+            showAlert('success', '✓ Account created! Welcome to NeuroRead!');
+            e.target.reset(); pwStrength('');
         });
 
-        /* Blur validation hooks */
+        /* Blur hooks */
         document.getElementById('login-email').addEventListener('blur', function () {
             if (!this.value) setErr(this, 'login-email-e', 'Email is required.');
             else if (!validEmail(this.value)) setErr(this, 'login-email-e', 'Enter a valid email.');
@@ -2178,50 +2317,85 @@
             else clrErr(this, 'login-pw-e');
         });
 
-        /* ══════════════════════════════════════
+        /* ══════════════════════════════════════════════
            SETTINGS PANEL
-        ══════════════════════════════════════ */
-        function openSettings() { document.getElementById('settings-panel').classList.add('open'); document.getElementById('settings-overlay').classList.add('open'); }
-        function closeSettings() { document.getElementById('settings-panel').classList.remove('open'); document.getElementById('settings-overlay').classList.remove('open'); }
+        ══════════════════════════════════════════════ */
+        function openSettings() {
+            document.getElementById('settings-panel').classList.add('open');
+            document.getElementById('settings-overlay').classList.add('open');
+        }
+        function closeSettings() {
+            document.getElementById('settings-panel').classList.remove('open');
+            document.getElementById('settings-overlay').classList.remove('open');
+        }
 
-        function setTheme(theme) {
-            const themes = ['emerald', 'rose', 'amber'];
+        function setTheme(theme, el) {
+            const themes = ['default', 'emerald', 'rose', 'amber'];
             document.body.classList.remove(...themes.map(t => 'theme-' + t));
             if (theme !== 'default') document.body.classList.add('theme-' + theme);
             document.querySelectorAll('.theme-swatch').forEach(s => s.classList.toggle('active', s.dataset.theme === theme));
         }
-        function setFont(font) {
+
+        function setFont(font, el) {
             const fonts = ['lexend', 'mono', 'dyslexia'];
             document.body.classList.remove(...fonts.map(f => 'font-' + f));
             if (font !== 'default') document.body.classList.add('font-' + font);
             document.querySelectorAll('.font-option').forEach(o => o.classList.toggle('active', o.dataset.font === font));
         }
-        function setSize(size) {
+
+        function setSize(size, el) {
             const sizeMap = { sm: '13px', md: '16px', lg: '19px', xl: '22px' };
             document.documentElement.style.fontSize = sizeMap[size] || '16px';
             document.querySelectorAll('.size-btn').forEach(b => b.classList.toggle('active', b.dataset.size === size));
         }
-        function toggleFocus(el) { document.body.classList.toggle('focus', el.checked); }
+
+        function toggleFocus(el) {
+            document.body.classList.toggle('focus', el.checked);
+        }
+
         function toggleMotion(el) {
-            if (el.checked) { window.stopNeuralAnim && window.stopNeuralAnim(); window.stopEEGAnim && window.stopEEGAnim(); document.body.style.setProperty('--t', '0s'); }
-            else { window.startNeuralAnim && window.startNeuralAnim(); window.startEEGAnim && window.startEEGAnim(); document.body.style.removeProperty('--t'); }
+            if (el.checked) {
+                window.stopNeuralAnim && window.stopNeuralAnim();
+                window.stopEEGAnim && window.stopEEGAnim();
+                document.body.style.setProperty('--t', '0s');
+            } else {
+                window.startNeuralAnim && window.startNeuralAnim();
+                window.startEEGAnim && window.startEEGAnim();
+                document.body.style.removeProperty('--t');
+            }
         }
+
         function toggleContrast(el) {
-            if (el.checked) { document.documentElement.style.setProperty('--border', 'rgba(100,180,255,0.4)'); document.documentElement.style.setProperty('--muted', '#a0b8d8'); }
-            else { document.documentElement.style.removeProperty('--border'); document.documentElement.style.removeProperty('--muted'); }
+            if (el.checked) {
+                document.documentElement.style.setProperty('--border', 'rgba(100,180,255,0.4)');
+                document.documentElement.style.setProperty('--muted', '#a0b8d8');
+            } else {
+                document.documentElement.style.removeProperty('--border');
+                document.documentElement.style.removeProperty('--muted');
+            }
         }
+
         function resetAll() {
-            ['emerald', 'rose', 'amber'].forEach(t => document.body.classList.remove('theme-' + t));
+            // Theme
+            const themes = ['emerald', 'rose', 'amber'];
+            document.body.classList.remove(...themes.map(t => 'theme-' + t));
             document.querySelectorAll('.theme-swatch').forEach(s => s.classList.toggle('active', s.dataset.theme === 'default'));
-            ['lexend', 'mono', 'dyslexia'].forEach(f => document.body.classList.remove('font-' + f));
+            // Font
+            const fonts = ['lexend', 'mono', 'dyslexia'];
+            document.body.classList.remove(...fonts.map(f => 'font-' + f));
             document.querySelectorAll('.font-option').forEach(o => o.classList.toggle('active', o.dataset.font === 'default'));
+            // Size
             document.documentElement.style.fontSize = '16px';
             document.querySelectorAll('.size-btn').forEach(b => b.classList.toggle('active', b.dataset.size === 'md'));
+            // Toggles
             ['toggle-focus', 'toggle-motion', 'toggle-contrast'].forEach(id => {
-                const el = document.getElementById(id); if (!el) return; el.checked = false;
-                if (id === 'toggle-focus') document.body.classList.remove('focus');
-                if (id === 'toggle-motion') { window.startNeuralAnim && window.startNeuralAnim(); window.startEEGAnim && window.startEEGAnim(); document.body.style.removeProperty('--t'); }
-                if (id === 'toggle-contrast') { document.documentElement.style.removeProperty('--border'); document.documentElement.style.removeProperty('--muted'); }
+                const el = document.getElementById(id);
+                if (el) {
+                    el.checked = false;
+                    if (id === 'toggle-focus') document.body.classList.remove('focus');
+                    if (id === 'toggle-motion') { window.startNeuralAnim && window.startNeuralAnim(); window.startEEGAnim && window.startEEGAnim(); document.body.style.removeProperty('--t'); }
+                    if (id === 'toggle-contrast') { document.documentElement.style.removeProperty('--border'); document.documentElement.style.removeProperty('--muted'); }
+                }
             });
             document.documentElement.style.removeProperty('--border');
             document.documentElement.style.removeProperty('--muted');
