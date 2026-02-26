@@ -3821,13 +3821,18 @@
 
         /* ── CUSTOMIZER ────────────────────────────────────────────── */
         const Customizer = {
-            init() {
+            async init() {
                 const p = Prefs.all();
                 this.applyTheme(p.theme); this.applyFont(p.font);
+
+                // Set baseline preferences
                 this.apply('--reading-font-size', p.fontSize + 'px');
                 this.apply('--reading-letter-spacing', p.letterSpacing + 'em');
                 this.apply('--reading-line-height', p.lineHeight);
                 this.apply('--reading-word-spacing', p.wordSpacing + 'em');
+
+                // Auto-fetch profile smart settings if logged in
+                await this.loadSmartSettings();
 
                 const sv = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
                 const st = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
@@ -3878,6 +3883,56 @@
                     document.querySelectorAll('.text-highlight').forEach(el => el.style.background = e.target.checked ? '' : 'transparent');
                 });
             },
+
+            async loadSmartSettings() {
+                const token = localStorage.getItem('access_token');
+                if (!token) return;
+
+                try {
+                    const res = await fetch("http://127.0.0.1:8000/api/preferences/settings/", {
+                        method: "GET",
+                        headers: { "Authorization": `Bearer ${token}` }
+                    });
+
+                    if (res.ok) {
+                        const data = await res.json();
+                        const s = data.settings;
+
+                        if (s) {
+                            for (const [key, val] of Object.entries(s)) {
+                                if (key.startsWith('--')) {
+                                    this.applySmart(key, val);
+                                }
+                            }
+
+                            // Specific flags
+                            if (s['--focus-mode-default'] === 'true' && !FocusMode.active) {
+                                FocusMode.toggle();
+                            }
+
+                            // Update sliders to reflect the smart settings visually 
+                            const sv = (id, v) => { const e = document.getElementById(id); if (e) e.value = v; };
+                            const st = (id, t) => { const e = document.getElementById(id); if (e) e.textContent = t; };
+
+                            if (s['--reading-font-size']) {
+                                const val = parseInt(s['--reading-font-size']);
+                                sv('font-size-slider', val); st('font-size-val', val + 'px');
+                            }
+                            if (s['--reading-line-height']) {
+                                const val = parseFloat(s['--reading-line-height']);
+                                sv('line-height-slider', val); st('line-height-val', val.toFixed(1));
+                            }
+                            if (s['--reading-letter-spacing']) {
+                                const val = parseFloat(s['--reading-letter-spacing']);
+                                sv('letter-spacing-slider', val); st('letter-spacing-val', val.toFixed(2) + 'em');
+                            }
+                        }
+                    }
+                } catch (e) {
+                    console.error("Failed to load smart settings", e);
+                }
+            },
+
             bind(sid, vid, applyFn, prefKey, parseFn) {
                 const el = document.getElementById(sid); if (!el) return;
                 el.addEventListener('input', e => {
@@ -3888,6 +3943,7 @@
                 });
             },
             apply(prop, val) { document.documentElement.style.setProperty(prop, val); return true; },
+            applySmart(prop, val) { document.documentElement.style.setProperty(prop, val, 'important'); return true; },
             applyTheme(t) { document.body.dataset.theme = t; },
             applyFont(f) { document.body.dataset.font = f; },
             reduceMotion(v) {

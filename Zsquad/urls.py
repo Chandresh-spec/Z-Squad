@@ -17,6 +17,9 @@ urlpatterns = [
 
     # Translation
     path("api/translator/", include("translator.urls")),
+
+    # User Preferences
+    path("api/preferences/", include("user_preferences.urls")),
 ]
 
 # Serve media files in development

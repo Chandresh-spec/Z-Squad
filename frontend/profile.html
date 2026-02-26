@@ -13,9 +13,9 @@
             --primary-light: #9d8dfa;
             --secondary: #2aaf74;
             --danger: #f14668;
-            --bg-grad: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --bg-grad: linear-gradient(135deg, #0a0a10, #161524, #100f1a);
             --card-bg: rgba(25, 25, 40, 0.45);
-            --border: rgba(255, 255, 255, 0.1);
+            --border: rgba(255, 255, 255, 0.08);
             --text: #ffffff;
             --text-muted: #a0a0b0;
             --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -25,62 +25,87 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
         }
 
         body {
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             background: var(--bg-grad);
-            background-size: 400% 400%;
-            animation: bgShift 15s ease infinite;
             color: var(--text);
-            position: relative;
-            overflow: hidden;
-            padding: 20px;
+            overflow-x: hidden;
+            overflow-y: auto;
+            display: flex;
+            justify-content: center;
         }
 
-        @keyframes bgShift {
-            0% {
-                background-position: 0% 50%;
+        /* Custom Professional Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(124, 106, 247, 0.5);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(124, 106, 247, 0.8);
+        }
+
+        .dashboard-wrapper {
+            width: 100%;
+            max-width: 900px;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            animation: fadeIn 0.6s forwards;
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
             }
 
-            50% {
-                background-position: 100% 50%;
-            }
-
-            100% {
-                background-position: 0% 50%;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
 
         /* Ambient Orbs */
         .orb {
-            position: absolute;
+            position: fixed;
             border-radius: 50%;
-            filter: blur(80px);
+            filter: blur(100px);
             z-index: 0;
-            opacity: 0.5;
-            animation: float 10s infinite alternate;
+            opacity: 0.3;
+            pointer-events: none;
         }
 
         .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: rgba(124, 106, 247, 0.4);
-            top: -50px;
-            left: -50px;
+            width: 400px;
+            height: 400px;
+            background: #7c6af7;
+            top: -100px;
+            left: -100px;
+            animation: float 10s infinite alternate;
         }
 
         .orb-2 {
-            width: 400px;
-            height: 400px;
-            background: rgba(42, 175, 116, 0.3);
-            bottom: -100px;
-            right: -100px;
-            animation-delay: -5s;
+            width: 500px;
+            height: 500px;
+            background: #2aaf74;
+            bottom: -150px;
+            right: -150px;
+            animation: float 14s infinite alternate-reverse;
         }
 
         @keyframes float {
@@ -89,80 +114,65 @@
             }
 
             100% {
-                transform: translate(30px, 30px);
+                transform: translate(40px, 40px);
             }
         }
 
-        .card-container {
-            z-index: 10;
-            width: 100%;
-            max-width: 480px;
-            animation: slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(40px);
-            perspective: 1000px;
-        }
-
-        @keyframes slideUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .card {
+        /* LinkedIn Style Profile Header */
+        .profile-header-card {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 40px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            position: relative;
+            border-radius: 20px;
             overflow: hidden;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
         }
 
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+        .cover-photo {
+            height: 160px;
+            width: 100%;
+            background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+            position: relative;
+            border-bottom: 1px solid var(--border);
         }
 
-        /* Glass highlight line */
-        .card::before {
+        .cover-photo::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            opacity: 0.5;
+            inset: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.05"><circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="2"/></svg>') repeat;
+            opacity: 0.3;
         }
 
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-
-        .header h2 {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            background: linear-gradient(to right, #fff, #b0b0d0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .avatar-container {
+        .header-content {
+            padding: 0 30px 30px;
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: -60px;
         }
 
-        .avatar {
+        .user-identity {
+            display: flex;
+            align-items: flex-end;
+            gap: 24px;
+        }
+
+        .avatar-ring {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            background: #100f1a;
+            padding: 6px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .avatar-circle {
             width: 100%;
             height: 100%;
             border-radius: 50%;
@@ -170,345 +180,406 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 600;
-            box-shadow: 0 10px 25px rgba(124, 106, 247, 0.5);
-            position: relative;
-            z-index: 2;
-            border: 3px solid rgba(255, 255, 255, 0.1);
-            transition: var(--transition);
-        }
-
-        .avatar-container:hover .avatar {
-            transform: scale(1.05) rotate(5deg);
-        }
-
-        .pulse {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border-radius: 50%;
-            background: var(--primary);
-            z-index: 1;
-            opacity: 0;
-            animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-        }
-
-        @keyframes ping {
-
-            75%,
-            100% {
-                transform: scale(1.5);
-                opacity: 0;
-            }
-        }
-
-        .info-grid {
-            display: grid;
-            gap: 16px;
-            margin-bottom: 30px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.6s 0.3s forwards;
-        }
-
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .info-item {
-            background: rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 16px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .info-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateX(5px);
-        }
-
-        .info-item-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: var(--primary-light);
-            transition: var(--transition);
-        }
-
-        .info-item:hover .info-item-icon {
-            background: var(--primary);
+            font-size: 3rem;
+            font-weight: 700;
             color: white;
-            box-shadow: 0 0 15px rgba(124, 106, 247, 0.4);
-        }
-
-        .info-content {
-            flex: 1;
-        }
-
-        .info-label {
-            font-size: 0.75rem;
+            box-shadow: inset 0 -4px 10px rgba(0, 0, 0, 0.3);
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            font-weight: 500;
         }
 
-        .info-val {
-            font-size: 1rem;
-            font-weight: 500;
+        .user-details {
+            padding-bottom: 10px;
+        }
+
+        .user-details h1 {
+            font-size: 2rem;
+            font-weight: 700;
             color: #fff;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            letter-spacing: -0.5px;
         }
 
-        .btn-row {
+        .user-details p {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .badge-row {
             display: flex;
-            gap: 15px;
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeUp 0.6s 0.4s forwards;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .badge i {
+            color: var(--primary-light);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            padding-bottom: 10px;
         }
 
         .btn {
-            flex: 1;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 14px;
-            font-size: 0.95rem;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
             transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 50%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transform: skewX(-20deg);
-            transition: 0.5s;
-        }
-
-        .btn:hover::after {
-            left: 150%;
-        }
-
-        .btn:active {
-            transform: scale(0.96);
+            border: none;
+            outline: none;
         }
 
         .btn-refresh {
-            background: linear-gradient(135deg, #1fa2ff, #12d8fa, #a6ffcb);
-            background-size: 200% auto;
-            color: #0b3d2b;
-            box-shadow: 0 10px 20px rgba(42, 175, 116, 0.3);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 15px rgba(124, 106, 247, 0.3);
         }
 
         .btn-refresh:hover {
-            background-position: right center;
-            box-shadow: 0 15px 25px rgba(42, 175, 116, 0.4);
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(124, 106, 247, 0.4);
         }
 
         .btn-logout {
             background: transparent;
-            color: var(--danger);
-            border: 1px solid var(--danger);
-            box-shadow: 0 10px 20px rgba(241, 70, 104, 0.1);
+            border: 1px solid var(--border);
+            color: var(--text-muted);
         }
 
         .btn-logout:hover {
-            background: var(--danger);
-            color: white;
-            box-shadow: 0 15px 25px rgba(241, 70, 104, 0.3);
+            border-color: var(--danger);
+            color: var(--danger);
+            background: rgba(241, 70, 104, 0.1);
         }
 
-        /* Skeleton Loading */
-        #loading {
+        /* Dashboard Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 6px;
             display: flex;
-            flex-direction: column;
-            gap: 16px;
+            align-items: center;
+            gap: 10px;
         }
 
-        .skeleton {
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.05) 75%);
-            background-size: 200% 100%;
-            animation: loading 1.5s infinite;
+        .card h3 i {
+            color: var(--primary);
+        }
+
+        .text-muted {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        /* Settings Chips */
+        .profile-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .profile-chip {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .profile-chip input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .profile-chip span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-muted);
+            padding: 16px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            height: 100%;
+        }
+
+        .profile-chip:hover span {
+            background: rgba(124, 106, 247, 0.1);
+            border-color: rgba(124, 106, 247, 0.3);
+            color: #fff;
+        }
+
+        .profile-chip input:checked+span {
+            background: rgba(124, 106, 247, 0.2);
+            border-color: var(--primary);
+            color: #fff;
+            box-shadow: 0 0 20px rgba(124, 106, 247, 0.15);
+            font-weight: 600;
+        }
+
+        /* Sidebar Stats */
+        .stat-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-row:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .stat-row span {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .stat-row strong {
+            color: #fff;
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 4px 10px;
             border-radius: 8px;
-        }
-
-        .skeleton-avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            margin: 0 auto 25px;
-        }
-
-        .skeleton-field {
-            height: 74px;
-            border-radius: 16px;
-        }
-
-        @keyframes loading {
-            0% {
-                background-position: 200% 0;
-            }
-
-            100% {
-                background-position: -200% 0;
-            }
+            font-size: 0.9rem;
         }
 
         #status {
-            margin-top: 20px;
-            padding: 12px 16px;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 12px 20px;
             border-radius: 12px;
-            font-size: 0.9rem;
-            display: none;
-            text-align: center;
+            font-size: 0.95rem;
             font-weight: 500;
-            animation: slideIn 0.3s ease;
+            z-index: 100;
+            display: none;
+            animation: slideInLeft 0.3s ease;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
         }
 
-        @keyframes slideIn {
+        @keyframes slideInLeft {
             from {
                 opacity: 0;
-                transform: translateY(-10px);
+                transform: translateX(20px);
             }
 
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateX(0);
             }
         }
 
         .success {
-            background: rgba(42, 175, 116, 0.15);
+            background: rgba(42, 175, 116, 0.2);
             border: 1px solid var(--secondary);
             color: #a6ffcb;
+            backdrop-filter: blur(10px);
         }
 
         .error {
-            background: rgba(241, 70, 104, 0.15);
+            background: rgba(241, 70, 104, 0.2);
             border: 1px solid var(--danger);
             color: #ffb3c1;
+            backdrop-filter: blur(10px);
+        }
+
+        /* Skeletons */
+        .skel-text {
+            height: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 4px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.5;
+            }
         }
 
         /* Responsive */
-        @media (max-width: 480px) {
-            .card {
-                padding: 30px 20px;
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
             }
 
-            .btn-row {
+            .header-content {
                 flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .user-identity {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .badge-row {
+                justify-content: center;
+            }
+
+            .action-buttons {
+                padding-top: 20px;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .profile-options {
+                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Ambient Background -->
     <div class="orb orb-1"></div>
     <div class="orb orb-2"></div>
 
-    <div class="card-container">
-        <div class="card">
-            <div class="header">
-                <h2>My Profile</h2>
-            </div>
-
-            <div id="loading">
-                <div class="skeleton skeleton-avatar"></div>
-                <div class="skeleton skeleton-field"></div>
-                <div class="skeleton skeleton-field"></div>
-                <div class="skeleton skeleton-field"></div>
-                <div class="skeleton skeleton-field"></div>
-            </div>
-
-            <div id="profileContent" style="display:none">
-                <div class="avatar-container">
-                    <div class="pulse"></div>
-                    <div class="avatar" id="avatarLetter">U</div>
-                </div>
-
-                <div class="info-grid">
-                    <div class="info-item">
-                        <div class="info-item-icon"><i class="fa-solid fa-user"></i></div>
-                        <div class="info-content">
-                            <div class="info-label">Full Name</div>
-                            <div class="info-val" id="uName">—</div>
-                        </div>
+    <div class="dashboard-wrapper">
+        <!-- Header Section -->
+        <div class="profile-header-card">
+            <div class="cover-photo"></div>
+            <div class="header-content">
+                <div class="user-identity">
+                    <div class="avatar-ring">
+                        <div class="avatar-circle" id="avatarLetter">?</div>
                     </div>
-
-                    <div class="info-item">
-                        <div class="info-item-icon"><i class="fa-solid fa-envelope"></i></div>
-                        <div class="info-content">
-                            <div class="info-label">Email Address</div>
-                            <div class="info-val" id="uEmail">—</div>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-item-icon"><i class="fa-solid fa-hashtag"></i></div>
-                        <div class="info-content">
-                            <div class="info-label">User ID</div>
-                            <div class="info-val" id="uId">—</div>
-                        </div>
-                    </div>
-
-                    <div class="info-item">
-                        <div class="info-item-icon"><i class="fa-solid fa-calendar-alt"></i></div>
-                        <div class="info-content">
-                            <div class="info-label">Joined Date</div>
-                            <div class="info-val" id="uJoined">—</div>
+                    <div class="user-details">
+                        <h1 id="uName">Loading...</h1>
+                        <p id="uEmail">—</p>
+                        <div class="badge-row">
+                            <span class="badge"><i class="fa-solid fa-hashtag"></i> <span id="uId">—</span></span>
+                            <span class="badge"><i class="fa-solid fa-calendar-alt"></i> Joined <span
+                                    id="uJoined">—</span></span>
                         </div>
                     </div>
                 </div>
-
-                <div class="btn-row">
-                    <button class="btn btn-refresh" id="refreshBtn" onclick="refreshToken()">
-                        <i class="fa-solid fa-rotate-right"></i> Refresh Token
-                    </button>
+                <div class="action-buttons">
                     <button class="btn btn-logout" id="logoutBtn" onclick="logout()">
                         <i class="fa-solid fa-right-from-bracket"></i> Logout
                     </button>
+                    <button class="btn btn-refresh" id="refreshBtn" onclick="refreshToken()">
+                        <i class="fa-solid fa-rotate-right"></i> Refresh Token
+                    </button>
                 </div>
             </div>
-            <div id="status"></div>
+        </div>
+
+        <!-- Dashboard Body Content -->
+        <div class="dashboard-grid">
+
+            <!-- Left / Main Settings Column -->
+            <div class="main-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-brain"></i> Reading Profile</h3>
+                    <p class="text-muted">Select a smart preset. This automatically fine-tunes the reader's typography,
+                        colors, and layouts across the app to reduce visual stress and improve focus.</p>
+
+                    <div class="profile-options" id="uProfileNeed">
+                        <label class="profile-chip">
+                            <input type="radio" name="reading_need" value="general"
+                                onchange="saveProfileNeed(this.value)">
+                            <span>General / Default</span>
+                        </label>
+                        <label class="profile-chip">
+                            <input type="radio" name="reading_need" value="dyslexia"
+                                onchange="saveProfileNeed(this.value)">
+                            <span>Dyslexia</span>
+                        </label>
+                        <label class="profile-chip">
+                            <input type="radio" name="reading_need" value="adhd" onchange="saveProfileNeed(this.value)">
+                            <span>ADHD / Focus</span>
+                        </label>
+                        <label class="profile-chip">
+                            <input type="radio" name="reading_need" value="visual"
+                                onchange="saveProfileNeed(this.value)">
+                            <span>ForeSight</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right / Analytics Column -->
+            <div class="sidebar-column">
+                <div class="card">
+                    <h3><i class="fa-solid fa-chart-simple"></i> Activity</h3>
+                    <p class="text-muted">Your NeuroRead summary.</p>
+
+                    <div class="stat-row">
+                        <span>Documents Uploaded</span>
+                        <strong>0</strong>
+                    </div>
+                    <div class="stat-row">
+                        <span>Total Reading Time</span>
+                        <strong>0 hrs</strong>
+                    </div>
+                    <div class="stat-row">
+                        <span>AI Summaries Used</span>
+                        <strong>0</strong>
+                    </div>
+                    <div class="stat-row">
+                        <span>Status</span>
+                        <strong style="color: var(--secondary); background: rgba(42, 175, 116, 0.1);">Active</strong>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
+    <div id="status"></div>
+
     <script>
-        // Use relative URL if frontend and backend are hosted together, or specific URL for dev
         const API_BASE = "http://127.0.0.1:8000/api/auth";
 
         function showStatus(msg, type) {
@@ -518,30 +589,47 @@
                 ? `<i class="fa-solid fa-check-circle"></i> ${msg}`
                 : `<i class="fa-solid fa-circle-exclamation"></i> ${msg}`;
             el.style.display = "block";
+            setTimeout(() => { el.style.display = "none"; }, 3000);
+        }
 
-            // Auto hide after 3 seconds
-            setTimeout(() => {
-                el.style.display = "none";
-            }, 3000);
+        async function loadSmartSettings(token) {
+            try {
+                const res = await fetch("http://127.0.0.1:8000/api/preferences/settings/", {
+                    method: "GET",
+                    headers: { "Authorization": `Bearer ${token}` }
+                });
+
+                if (res.ok) {
+                    const data = await res.json();
+                    const s = data.settings;
+                    if (s) {
+                        for (const [key, val] of Object.entries(s)) {
+                            if (key.startsWith('--bg-primary')) {
+                                document.documentElement.style.setProperty('--bg-grad', val, 'important');
+                            } else if (key.startsWith('--bg-card')) {
+                                document.documentElement.style.setProperty('--card-bg', val, 'important');
+                            } else if (key.startsWith('--text-primary')) {
+                                document.documentElement.style.setProperty('--text', val, 'important');
+                            } else if (key.startsWith('--font-body') || key.startsWith('--font-reading')) {
+                                document.documentElement.style.setProperty('font-family', val, 'important');
+                                document.body.style.setProperty('font-family', val, 'important');
+                            }
+                        }
+                    }
+                }
+            } catch (e) {
+                console.error("Failed to load smart settings", e);
+            }
         }
 
         async function loadProfile() {
             const token = localStorage.getItem("access_token");
-            if (!token) {
-                window.location.href = "login.html";
-                return;
-            }
+            if (!token) { window.location.href = "login.html"; return; }
 
             try {
-                // Simulate slight network delay to show off the skeleton loading animation
-                await new Promise(r => setTimeout(r, 600));
-
                 const res = await fetch(`${API_BASE}/profile/`, {
                     method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}`,
-                    },
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
                 });
 
                 if (res.status === 401) {
@@ -553,22 +641,10 @@
                 const data = await res.json();
                 const user = data.user;
 
-                // Hide loader, show content
-                document.getElementById("loading").style.display = "none";
-                const profileContent = document.getElementById("profileContent");
-                profileContent.style.display = "block";
-
-                // Add staggered animation to child elements
-                const items = profileContent.querySelectorAll('.info-item');
-                items.forEach((item, index) => {
-                    item.style.animationDelay = `${0.3 + (index * 0.1)}s`;
-                });
-
                 document.getElementById("uName").textContent = user.full_name;
                 document.getElementById("uEmail").textContent = user.email;
                 document.getElementById("uId").textContent = user.id;
 
-                // Format date nicely
                 const date = new Date(user.date_joined);
                 document.getElementById("uJoined").textContent = date.toLocaleDateString('en-US', {
                     year: 'numeric', month: 'short', day: 'numeric'
@@ -576,12 +652,50 @@
 
                 document.getElementById("avatarLetter").textContent = user.full_name[0].toUpperCase();
 
+                // Load User Preferences
+                const prefRes = await fetch("http://127.0.0.1:8000/api/preferences/", {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json", "Authorization": `Bearer ${token}` }
+                });
+
+                if (prefRes.ok) {
+                    const prefData = await prefRes.json();
+                    if (prefData.reading_need) {
+                        const rb = document.querySelector(`input[name="reading_need"][value="${prefData.reading_need}"]`);
+                        if (rb) rb.checked = true;
+                    }
+                }
+
+                // Apply initial settings
+                await loadSmartSettings(token);
             } catch (err) {
-                document.getElementById("loading").innerHTML = `
-                    <div style="text-align:center; padding: 20px; color: var(--danger);">
-                        <i class="fa-solid fa-triangle-exclamation" style="font-size: 2rem; margin-bottom: 10px;"></i>
-                        <div>Could not load profile data.</div>
-                    </div>`;
+                document.getElementById("uName").textContent = "Error loading";
+            }
+        }
+
+        async function saveProfileNeed(selectedValue) {
+            const token = localStorage.getItem("access_token");
+            if (!token) return;
+
+            try {
+                const res = await fetch("http://127.0.0.1:8000/api/preferences/", {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${token}`
+                    },
+                    body: JSON.stringify({ reading_need: selectedValue })
+                });
+
+                if (res.ok) {
+                    showStatus("Reading profile updated automatically.", "success");
+                    // Instantly apply the new preview settings!
+                    await loadSmartSettings(token);
+                } else {
+                    showStatus("Error updating profile.", "error");
+                }
+            } catch (err) {
+                showStatus("Network error updating profile.", "error");
             }
         }
 
@@ -592,8 +706,7 @@
 
             if (!refresh) { showStatus("No refresh token found.", "error"); return; }
 
-            // Add loading state to button
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Refreshing...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
             btn.style.pointerEvents = "none";
 
             try {
@@ -625,7 +738,7 @@
             const refresh = localStorage.getItem("refresh_token");
             const btn = document.getElementById("logoutBtn");
 
-            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Logging out...`;
+            btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i>`;
 
             try {
                 await fetch(`${API_BASE}/logout/`, {
@@ -639,16 +752,10 @@
             } catch (_) { }
 
             localStorage.clear();
-
-            // Add slide out animation before redirecting
-            document.querySelector('.card-container').style.animation = "slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) reverse forwards";
-
-            setTimeout(() => {
-                window.location.href = "login.html";
-            }, 500);
+            document.querySelector('.dashboard-wrapper').style.opacity = '0';
+            setTimeout(() => { window.location.href = "login.html"; }, 300);
         }
 
-        // Kick off profile load on page ready
         document.addEventListener('DOMContentLoaded', loadProfile);
     </script>
 </body>
